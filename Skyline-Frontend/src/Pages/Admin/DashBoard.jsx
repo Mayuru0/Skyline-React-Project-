@@ -1,0 +1,65 @@
+import React from 'react'
+import { BsFillPeopleFill } from "react-icons/bs";
+import { MdAttachMoney } from "react-icons/md";
+import { MdOutlineFlight } from "react-icons/md";
+import { TfiEmail } from "react-icons/tfi";
+import Charts from "./Charts/lineCharts";
+
+
+const DashBoard = () => {
+  return (
+    <div className='pt-[25px] px-[25px] bg-[#F8F9FC] mt-2 '>
+      <div className='flex items-center justify-between'>
+        <h1 className='text-[#5a5c69] text-[28px] leading-[34px] font-normal cursor-pointer mb-5'>Dashboard</h1>
+        <button className='bg-blue-500 h-[32px] rounded-full mb-5 text-white flex items-center justify-center px-[30px] hover:bg-blue-700 cursor-pointer'>Generate Report</button>
+
+       </div>
+   
+
+       <div className='grid grid-cols-4 gap-[30px] mt-[25px] pb-[15px]'>
+        <div className='h-[150px] rounded-[8px] bg-cyan-300 border-l-[4px] border-blue-500 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+          <div>
+            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>150</h1>
+            <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Total Passengers</h2>
+          </div>
+          <BsFillPeopleFill className='w-10 h-10'/>
+        </div>
+
+        <div className='h-[150px] rounded-[8px] bg-green-500 border-l-[4px] border-green-700 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+          <div>
+            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>Rs.500000</h1>
+            <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Total Amount</h2>
+          </div>
+          <MdAttachMoney className='w-10 h-10'/>
+        </div>
+
+        <div className='h-[150px] rounded-[8px] bg-red-400 border-l-[4px] border-red-600 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+          <div>
+            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>40</h1>
+            <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Flights</h2>
+          </div>
+          <MdOutlineFlight className='w-10 h-10'/>
+        </div>
+
+        <div className='h-[150px] rounded-[8px] bg-yellow-400 border-l-[4px] border-yellow-600 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out'>
+          <div>
+            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>25</h1>
+            <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Total Massages</h2>
+          </div>
+          <TfiEmail className='w-10 h-10'/>
+        </div>
+        
+       </div>
+
+       <Charts/>
+        
+
+
+
+
+    
+    </div>
+  )
+}
+
+export default DashBoard
