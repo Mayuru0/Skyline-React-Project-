@@ -1,4 +1,4 @@
-// src/components/TourCard.js
+
 import React from 'react';
 
 const BookingCard = ({ image, title, price, rating }) => {
