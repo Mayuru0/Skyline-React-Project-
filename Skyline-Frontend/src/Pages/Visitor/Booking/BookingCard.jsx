@@ -7,7 +7,7 @@ const BookingCard = ({ image, title, price, rating }) => {
       <img className="w-full" src={image} alt={title} />
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{title}</div>
-        <p className="text-gray-700 text-base">${price} /per person</p>
+        <p className="text-gray-800 text-base">${price} /per person</p>
         <p className="text-green-500">{rating ? `${rating} ⭐` : 'Not rated'}</p>
       </div>
       <div className="px-6 pt-4 pb-2">
