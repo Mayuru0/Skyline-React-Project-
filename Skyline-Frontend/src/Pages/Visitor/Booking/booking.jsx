@@ -5,7 +5,7 @@ import Galle  from'../Booking/BookingCardImg/tour-img06.jpg';
 import Bgbooking from './bg';
 import CoverVideo from '../../../Components/Common/CoverVideo';
 
-
+import { FaCalendarAlt } from 'react-icons/fa';
 
 
 const Booking = () => {
@@ -16,7 +16,9 @@ const Booking = () => {
   ];
 
 
- 
+  const [tripType, setTripType] = useState('roundTrip');
+  const [departureDate, setDepartureDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
 
 
   return (
@@ -50,6 +52,7 @@ const Booking = () => {
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
+      {/* 
       <div className="flex flex-col">
         <label htmlFor="departing" className="text-gray-700 mb-1">Departing</label>
         <input
@@ -57,7 +60,66 @@ const Booking = () => {
           id="departing"
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         />
+      </div>*/}
+
+      <div >
+        
+      <div className='max-w-lg mx-auto  '>
+      <div className="flex items-center ">
+        <label className="flex items-center mr-4 ">
+          <input
+            type="radio"
+            name="tripType"
+            value="roundTrip"
+            checked={tripType === 'roundTrip'}
+            onChange={() => setTripType('roundTrip')}
+            className="form-radio text-blue-600"
+          />
+          <span className="ml-2 text-gray-700">Round Trip</span>
+        </label>
+        <label className="flex items-center">
+          <input
+            type="radio"
+            name="tripType"
+            value="oneWay"
+            checked={tripType === 'oneWay'}
+            onChange={() => setTripType('oneWay')}
+            className="form-radio text-blue-600"
+          />
+          <span className="ml-2 text-gray-700">One Way</span>
+        </label>
       </div>
+      <div className="flex justify-between items-center border border-gray-300 rounded-md p-2 ">
+        <div className="flex items-center">
+          <FaCalendarAlt className="text-gray-500" />
+          <div className="ml-2">
+            <div className="text-xs text-gray-500">Departure</div>
+            <input
+              type="date"
+              value={departureDate}
+              onChange={(e) => setDepartureDate(e.target.value)}
+              className="text-black text-lg font-medium"
+            />
+          </div>
+        </div>
+        <div className="mx-4">↔</div>
+        <div className="flex items-center">
+          <FaCalendarAlt className="text-gray-500" />
+          <div className="ml-2">
+            <div className="text-xs text-gray-500">Return</div>
+            <input
+              type="date"
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
+              className="text-black text-lg font-medium"
+              disabled={tripType === 'oneWay'}
+            />
+          </div>
+        </div>
+      </div>
+     
+</div></div>
+      
       <div className="flex flex-col">
         <label htmlFor="passengers" className="text-gray-700 mb-1">Passengers</label>
         <select

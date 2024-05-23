@@ -13,7 +13,7 @@ const ManageAirports = () => {
   const [Airports, setAirports] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 7;
+  const itemsPerPage = 3;
 
   //for editing
 
