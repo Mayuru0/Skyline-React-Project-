@@ -41,6 +41,13 @@ import RePassengers from "../Pages/Admin/RePassengers";
 import AdminRegistration from "../Pages/Admin/AdminRegistration";
 import ManageAirplane from "../Pages/Admin/ManageAriplanes/ManageAirplane";
 import AddTour from "../Pages/Admin/TourManagement/addTour";
+import AllTours from "../Pages/Admin/TourManagement/allTours";
+import EconomyTours from "../Pages/Admin/TourManagement/economyTours";
+import BusinessTours from "../Pages/Admin/TourManagement/businessTours";
+
+
+
+
 
 
 
@@ -98,6 +105,11 @@ const Routers = () => {
         <Route path="/admin/registration" element={<AdminRegistration/>} />
         <Route path="/admin/manageairplane" element={<ManageAirplane/>} />
         <Route path="/admin/addTour" element={<AddTour/>} />
+        <Route path="/admin/allTours" element={<AllTours/>} />
+        <Route path="/admin/economyTours" element={<EconomyTours/>} />
+        <Route path="/admin/businesTours" element={<BusinessTours/>} />
+   
+        
 
                     
           

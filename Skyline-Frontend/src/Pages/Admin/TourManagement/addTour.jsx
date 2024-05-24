@@ -1,14 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from "react";
 import { FaCalendarAlt } from 'react-icons/fa';
 import { TbTournament } from "react-icons/tb";
+import TourNavigationBar from'./TournavigationBar';
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AddTour = () => {
   const [tripType, setTripType] = useState('roundTrip');
   const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
+  const [fileName, setFileName] = useState('No file chosen');
+  const [dragActive, setDragActive] = useState(false);
+
+
+
+
+  //Darg & Drop
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setFileName(e.dataTransfer.files[0].name);
+    }
+  };
+
+  const handleChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFileName(e.target.files[0].name);
+    }
+  };
+
+
+
+  //getfrom
+  const [Countriesfrom, setCountryfrom] = useState([]);
+  const [selectedCountryfrom, setSelectedCountryfrom] = useState("");
+  
+  //getCountry
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/airport/")
+      .then((response) => {
+        setCountryfrom(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Country:", error);
+      });
+  }, []);
+
+
+
+  const [Countriesto, setCountryto] = useState([]);
+  const [selectedCountryto, setSelectedCountryto] = useState("");
+
+//getTo
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/airport/")
+      .then((response) => {
+        setCountryto(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Country:", error);
+      });
+  }, []);
+
+
+
+  const [flights, setFlights] = useState([]);
+  const [selectedFlight, setSelectedFlight] = useState("");
+
+  //get flightlist
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/flightlist/")
+      .then((response) => {
+        setFlights(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching flights:", error);
+      });
+  }, []);
 
   return (
+    <>      <div>
+
+       {/*TourNav*/}
+       <TourNavigationBar />
+
+
+{/*Form*/}
     <div className="max-w-screen-2xl shadow-2xl rounded-3xl mx-auto p-4">
-       <div  className="py-[10px] px-[10px] bg-[#1F3541] border rounded-3xl   flex items-center  justify-center mb-10" >
+       <div  className="py-[7px] px-[7px] bg-[#1F3541] border rounded-3xl   flex items-center  justify-center mb-10" >
       <h2 className="text-white text-[28px] leading-[40px] cursor-pointer font-semibold  text-center flex ">
         Add New Booking
         <TbTournament className="ml-4 w-10 h-10" />
@@ -17,30 +111,73 @@ const AddTour = () => {
         <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm  font-semibold text-gray-700 ">From </label>
-          <input
+          <select
             type="text"
             name="title"
            
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             placeholder="Enter Tour Title"
-          />
+            value={selectedCountryfrom}
+                onChange={(e) => {
+                  setSelectedCountryfrom(e.target.value);
+                 
+                }}
+          >
+            <option value="">Select</option>
+                {Countriesfrom.map((country) => (
+                  <option key={country._id} value={country.airportName}>
+                    {country.airportName}
+                  </option>
+                ))}
+              </select>
         </div>
+
         <div>
           <label className="block text-sm font-semibold text-gray-700">To </label>
-          <input
+          <select
             type="text"
             name="title"
            
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             placeholder="Enter Tour Title"
-          />
+            value={selectedCountryto}
+            onChange={(e) => {
+              setSelectedCountryto(e.target.value);
+             
+            }}
+          >
+            <option value="">Select</option>
+            {Countriesto.map((country) => (
+              <option key={country._id} value={country.airportName}>
+                {country.airportName}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-700">Select a flight </label>
+          <select
+            type="text"
+            name="title"
+           
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            placeholder="Select a flight"
+            value={selectedFlight}
+            onChange={(e) => {
+              setSelectedFlight(e.target.value);
+              
+            }}
+          >
+            <option value="">Choose a flight</option>
+            {flights.map((flight) => (
+              <option key={flight._id} value={flight.flightNumber}>
+                {flight.flightNumber}
+              </option>
+            ))}
+            </select>
         </div>
-
-
-
-        <div className="  grid grid-cols-2 gap-4">
-      <div className="max-w-lg  p-4 flex  -m-4">
+        <div className="max-w-lg  p-4 flex  -m-4">
      
         
       <div className="flex justify-between items-center border border-gray-300 rounded-md p-2">
@@ -97,6 +234,12 @@ const AddTour = () => {
         </label>
       </div>
     </div>
+        </div>
+
+
+
+        <div className="  grid grid-cols-2 gap-4">
+      
 
 
 
@@ -151,26 +294,45 @@ const AddTour = () => {
           <label className="block text-sm font-semibold text-gray-700">Description</label>
           <textarea
             name="description"
-            rows={10}
+            rows={3}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-4"
             placeholder="Description of the tour"
           ></textarea>
         </div>
          
         
-     
+        {/*Upload image*/}
+        <div className="w-full bg-white rounded-lg p-6 -mt-20">
+      <h2 className="text-lg font-medium text-gray-900">Upload Photo</h2>
+      <div
+        className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center ${dragActive ? 'border-blue-500' : 'border-gray-300'}`}
+        onDragEnter={handleDrag}
+        onDragOver={handleDrag}
+        onDragLeave={handleDrag}
+        onDrop={handleDrop}
+      >
+        <p className="mb-4 text-gray-500">Drop files here</p>
+        <input
+          type="file"
+          id="file-upload"
+          className="hidden"
+          onChange={handleChange}
+        />
+        <label htmlFor="file-upload" className="cursor-pointer bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600">
+          Choose File
+        </label>
+        <p className="mt-2 text-gray-500">{fileName}</p>
+      </div>
+    </div>
 
-        <div className=" w-full bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-lg font-medium text-gray-900 ">Upload Photo</h2>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center">
-          <p className="mb-4 text-gray-500">Drop files here</p>
-          <input type="file" id="file-upload" className="hidden" />
-          <label htmlFor="file-upload" className="cursor-pointer bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-600">
-            Choose File
-          </label>
-          <p className="mt-2 text-gray-500">No file chosen</p>
-        </div>
-      </div></div>
+
+
+
+
+
+       </div>
+
+
         <button
           type="submit"
           className="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -179,6 +341,7 @@ const AddTour = () => {
         </button>
       </form>
     </div>
+    </div>           </>
   );
 };
 

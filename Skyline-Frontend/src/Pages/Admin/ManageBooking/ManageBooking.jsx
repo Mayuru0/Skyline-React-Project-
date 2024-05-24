@@ -401,7 +401,7 @@ const [booking, setbooking] = useState([]);
 
       {/*from*/}
       <div className="mx-auto shadow-md rounded-md p-6 mt-8 bg-slate-100 ">
-        <div className="py-[10px] px-[10px] bg-[#1F3541] border rounded-3xl flex items-center justify-center mb-10">
+        <div className="py-[17px] px-[10px] bg-[#1F3541] border rounded-3xl flex items-center justify-center mb-10">
           <h1 className="text-white text-[28px] leading-[40px] cursor-pointer font-semibold text-center flex ">
             <FaRegCalendarAlt className="mr-2 w-8 h-8" />
             Manage Booking

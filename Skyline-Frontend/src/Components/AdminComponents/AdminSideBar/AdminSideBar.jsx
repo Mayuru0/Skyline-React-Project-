@@ -68,7 +68,7 @@ const AdminSideBar = () => {
           <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
             <div className='flex items-center gap-[10px] mb-1'>
                < TbTournament color='white'className='h-6 w-8'/>
-               <a href='addTour'>
+               <a href='allTours'>
                <p className='text-[14px] leading-[20px] font-normal text-white'>Manage Tour</p></a>
             </div>
             
