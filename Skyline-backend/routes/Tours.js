@@ -9,12 +9,13 @@ router.post('/add', async (req, res) => {
         const {
             from,
             to,
+            flight,
             departureDate,
             returnDate,
             tripType,
             passengers,
-            chooseClass,
-            price,
+            economyPrice,
+            businessPrice,
             description,
             photo
             
@@ -23,12 +24,13 @@ router.post('/add', async (req, res) => {
         const newTours = new Tours({ 
             from,
             to,
+            flight,
             departureDate,
             returnDate,
             tripType,
             passengers,
-            chooseClass,
-            price,
+            economyPrice,
+            businessPrice,
             description,
             photo
         });

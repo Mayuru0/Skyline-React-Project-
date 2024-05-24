@@ -11,6 +11,10 @@ const TourSchema = new Schema({
         type: String,
         required: true,
     },
+    flight: {
+        type: String, 
+        required: true
+    },
     departureDate: {
         type: Date,
         required: true,
@@ -27,11 +31,11 @@ const TourSchema = new Schema({
        type: String,
        required: true
    },
-   chooseClass:{
-       type: String,
+   economyPrice:{
+       type: Number,
        required: true
    },
-    price: {
+   businessPrice: {
         type: Number,
         required: true,
     },
