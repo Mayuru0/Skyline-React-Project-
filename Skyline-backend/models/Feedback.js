@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const FeedbackSchema = new Schema({
     email: {
         type: String,
-        unique: true,
+       
         required: true,
     },
     name: {
