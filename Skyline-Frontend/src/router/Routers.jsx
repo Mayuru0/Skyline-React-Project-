@@ -40,6 +40,7 @@ import ManageCountries from "../Pages/Admin/ManageCountries";
 import RePassengers from "../Pages/Admin/RePassengers";
 import AdminRegistration from "../Pages/Admin/AdminRegistration";
 import ManageAirplane from "../Pages/Admin/ManageAriplanes/ManageAirplane";
+import AddTour from "../Pages/Admin/TourManagement/addTour";
 
 
 
@@ -96,6 +97,8 @@ const Routers = () => {
         <Route path="/admin/repassenger" element={<RePassengers/>} />
         <Route path="/admin/registration" element={<AdminRegistration/>} />
         <Route path="/admin/manageairplane" element={<ManageAirplane/>} />
+        <Route path="/admin/addTour" element={<AddTour/>} />
+
                     
           
         </Route>

@@ -7,6 +7,7 @@ import { IoMdBookmarks,IoIosPeople  } from "react-icons/io";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { GiCommercialAirplane } from "react-icons/gi";
 import { PiAirplaneInFlightFill } from "react-icons/pi";
+import { TbTournament } from "react-icons/tb";
 const AdminSideBar = () => {
   return (
     
@@ -63,6 +64,17 @@ const AdminSideBar = () => {
             
                <FaChevronRight color='white'/>
           </div>
+
+          <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
+            <div className='flex items-center gap-[10px] mb-1'>
+               < TbTournament color='white'className='h-6 w-8'/>
+               <a href='addTour'>
+               <p className='text-[14px] leading-[20px] font-normal text-white'>Manage Tour</p></a>
+            </div>
+            
+               <FaChevronRight color='white'/>
+          </div>
+
           <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
             <div className='flex items-center gap-[10px] mb-1'>
                <FaRegCalendarAlt color='white'className='h-6 w-8'/>
