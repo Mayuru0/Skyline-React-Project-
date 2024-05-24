@@ -82,7 +82,7 @@ router.route("/update/:id").put(async (req, res) => {
          res.status(200).send({status:" Feedback Updated" })
      }).catch(err => {
       console.error(err);
-      res.status(500).send({status:" Error with Feedback Flight",error: err.message});
+      res.status(500).send({status:" Error with Feedback",error: err.message});
      })
   
  

@@ -21,7 +21,7 @@ const TourSchema = new Schema({
     },
     returnDate: {
         type: Date,
-        required: true,
+        
     },
     tripType:{
         type: String,
