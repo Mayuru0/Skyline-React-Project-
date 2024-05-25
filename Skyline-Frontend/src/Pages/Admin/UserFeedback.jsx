@@ -56,7 +56,7 @@ const RePassengers = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
+//delete
   const deleteFeedback = (id, email) => {
     if (window.confirm(`Are you sure you want to delete feedback from ${email}`)) {
       axios
@@ -125,6 +125,8 @@ const RePassengers = () => {
                   />
                 </div>
               </div>
+
+              {/*table*/}
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
                   <tr>

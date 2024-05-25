@@ -1,97 +1,464 @@
-import React from 'react'
-import TourNavigationBar from './TournavigationBar'
+import React, { useState, useEffect } from "react";
+import TourNavigationBar from "./TournavigationBar";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { MdDelete } from "react-icons/md";
+import { GrView } from "react-icons/gr";
+import { FaEdit } from "react-icons/fa";
+import { TbTournament } from "react-icons/tb";
+const AllTours = () => {
+  const [tours, setTours] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const toursPerPage = 10;
+  const [editData, setEditData] = useState(null);
+  const [viewData, setViewData] = useState(null);
 
+  //get Tours
+  useEffect(() => {
+    function getTours() {
+      axios
+        .get("http://localhost:5000/tour/")
+        .then((res) => {
+          setTours(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(<div>😡 Error loading User Tours</div>);
+        });
+    }
 
-const allTours = () => {
+    getTours();
+  }, []);
+
+  //delete
+  const deleteTour = (id, from) => {
+    if (window.confirm(`Are you sure you want to delete Tour ${from}`)) {
+      axios
+        .delete(`http://localhost:5000/tour/delete/${id}`)
+        .then(() => {
+          toast.success(<div> 😊 Tour deleted successfully!</div>);
+          setTours(tours.filter((p) => p._id !== id));
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(<div> 😡 Error deleting Tour</div>);
+        });
+    }
+  };
+
+  // Edit Airplane
+  const handleEdit = (tour) => {
+    setEditData(tour);
+  };
+
+  const handleUpdate = () => {
+    // Axios update request
+    axios
+      .put(`http://localhost:5000/tour/update/${editData._id}`, editData)
+      .then(() => {
+        toast.success("😊 Tour updated successfully", {
+          // position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setEditData(null);
+
+        axios.get("http://localhost:5000/tour/").then((res) => {
+          setTours(res.data);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(<div>😡 Error updating Tour</div>);
+      });
+  };
+
+  const [Countriesfrom, setCountryfrom] = useState([]);
+  const [selectedCountryfrom, setSelectedCountryfrom] = useState("");
+
+  //getCountry
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/countries/")
+      .then((response) => {
+        setCountryfrom(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Country:", error);
+      });
+  }, []);
+
+  const [Countriesto, setCountryto] = useState([]);
+  const [selectedCountryto, setSelectedCountryto] = useState("");
+
+  //getCountry
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/countries/")
+      .then((response) => {
+        setCountryto(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Country:", error);
+      });
+  }, []);
+
+  const [flights, setFlights] = useState([]);
+  const [selectedFlight, setSelectedFlight] = useState("");
+
+  //get flightlist
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/flightlist/")
+      .then((response) => {
+        setFlights(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching flights:", error);
+      });
+  }, []);
+
+  //Handle view action
+  const handleView = (tour) => {
+    setViewData(tour);
+  };
+  //pagination
+  const indexOfLastTour = currentPage * toursPerPage;
+  const indexOfFirstTour = indexOfLastTour - toursPerPage;
+  const currentTours = tours.slice(indexOfFirstTour, indexOfLastTour);
+  const totalPages = Math.ceil(tours.length / toursPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <div>
+      {/* TourNav */}
+      <TourNavigationBar />
 
-       {/*TourNav*/}
-       <TourNavigationBar />
+      {/* Modal form for editing */}
+      {editData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 ">
+          <div className="bg-gray-200 p-6 rounded-md shadow-md">
+            <h2 className="text-lg font-semibold mb-4 bg-[#1F3541] text-white text-center rounded-lg flex items-center justify-center">
+              {" "}
+              <TbTournament className="w-6 h-6  mr-2  " />
+              Edit Airplane
+            </h2>
 
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+              From
+            </label>
+            <select
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              vavalue={editData.from}
+              onChange={(e) => {
+                setEditData({ ...editData, from: e.target.value });
+                setSelectedCountryfrom(e.target.value);
+              }}
+            >
+              <option value="">Select</option>
+              {Countriesfrom.map((country) => (
+                <option key={country._id} value={country.Country}>
+                  {country.Country}
+                </option>
+              ))}
+            </select>
 
-       {/*Table*/}
-        <div>
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+              Airplane Registration No.
+            </label>
+            <select
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.to}
+              onChange={(e) => {
+                setEditData({ ...editData, to: e.target.value });
+                setSelectedCountryto(e.target.value);
+              }}
+            >
+              <option value="">Select</option>
+              {Countriesto.map((country) => (
+                <option key={country._id} value={country.Country}>
+                  {country.Country}
+                </option>
+              ))}
+            </select>
 
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="country"
+            >
+              Flight
+            </label>
+            <select
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.flight}
+              onChange={(e) => {
+                setEditData({ ...editData, flight: e.target.value });
+                setSelectedFlight(e.target.value);
+              }}
+            >
+              <option value="">Choose a flight</option>
+              {flights.map((flight) => (
+                <option key={flight._id} value={flight.flightNumber}>
+                  {flight.flightNumber}
+                </option>
+              ))}
+            </select>
 
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+              Departure Date
+            </label>
+            <input
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.departureDate}
+              onChange={(e) =>
+                setEditData({ ...editData, departureDate: e.target.value })
+              }
+            />
 
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Return Date
+            </label>
+            <input
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.returnDate}
+              onChange={(e) =>
+                setEditData({ ...editData, returnDate: e.target.value })
+              }
+            />
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Trip Type
+            </label>
+            <select
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.tripType}
+              onChange={(e) =>
+                setEditData({ ...editData, tripType: e.target.value })
+              }
+            >
+                  <option>Round Trip</option>
+                  <option>One Way</option>
+               </select>
 
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Passengers
+            </label>
+            <input
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.passengers}
+              onChange={(e) =>
+                setEditData({ ...editData, passengers: e.target.value })
+              }
+            />
 
-        <div class="relative overflow-x-auto">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Product name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Color
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Economy class Price
+            </label>
+            <input
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.economyPrice}
+              onChange={(e) =>
+                setEditData({ ...editData, economyPrice: e.target.value })
+              }
+            />
 
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Business class Price
+            </label>
+            <input
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.businessPrice}
+              onChange={(e) =>
+                setEditData({ ...editData, businessPrice: e.target.value })
+              }
+            />
+            <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Description
+            </label>
+            <textarea
+              type="text"
+              rows={4}
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.description}
+              onChange={(e) =>
+                setEditData({ ...editData, description: e.target.value })
+              }
+            />
+             <label className="block text-gray-700 font-semibold mb-2 text-sm">
+            Photo
+            </label>
+            <input
+              type="text"
+              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
+              value={editData.photo}
+              onChange={(e) =>
+                setEditData({ ...editData, photo: e.target.value })
+              }
+            />
 
-
-
-
+            <button
+              className="mr-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              onClick={handleUpdate}
+            >
+              Update
+            </button>
+            <button
+              className="bg-gray-500 text-white px-4 py-2 rounded-md  hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700"
+              onClick={() => setEditData(null)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
+      )}
 
+      {/* Modal for viewing description */}
+      {viewData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-gray-200 p-6 rounded-md shadow-md max-w-md">
+            <h2 className="text-lg font-semibold mb-4 bg-[#1F3541] text-white text-center rounded-lg flex items-center justify-center">
+              <GrView className="w-6 h-6 mr-2" /> View Tour Description
+            </h2>
+           
+            <div className="mb-4">
+              <strong>Description:</strong> {viewData.description}
+            </div>
+            
+            <button
+              className="bg-gray-500 text-white px-4 py-2 rounded-md  hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700"
+              onClick={() => setViewData(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
+      {/* Table */}
+      <div className="relative overflow-x-auto mt-10">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-center"></th>
+              <th scope="col" className="px-6 py-3 text-center">
+                From
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                To
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Flight
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Departure Date
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Return Date
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Type
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Passengers
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Economy Class Price $
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Business Class Price $
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Option
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentTours.map((tour, index) => (
+              <tr
+                key={index}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              >
+                <td className="px-6 py-4 text-center">{index + 1}</td>
+                <td className="px-6 py-4 text-center">{tour.from}</td>
+                <td className="px-6 py-4 text-center">{tour.to}</td>
+                <td className="px-6 py-4 text-center">{tour.flight}</td>
+                <td className="px-6 py-4 text-center">{tour.departureDate}</td>
+                <td className="px-6 py-4 text-center">{tour.returnDate}</td>
+                <td className="px-6 py-4 text-center">{tour.tripType}</td>
+                <td className="px-6 py-4 text-center">{tour.passengers}</td>
+                <td className="px-6 py-4 text-center">{tour.economyPrice}</td>
+                <td className="px-6 py-4 text-center">{tour.businessPrice}</td>
+                <td className="flex gap-6">
+                  <GrView className="w-7 h-7 cursor-pointer text-blue-700 mt-3 hover:text-blue-500 "
+                  onClick={() => handleView(tour)}
+                  />
+                  <FaEdit
+                    className="w-7 h-7 cursor-pointer text-yellow-700 mt-3 hover:text-yellow-500 -mr-2"
+                    onClick={() => handleEdit(tour)}
+                  />
 
+                  <MdDelete
+                    className="w-7 h-7 cursor-pointer text-red-700 mt-3 hover:text-red-500 mr-3"
+                    onClick={() => deleteTour(tour._id, tour.from)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {/* Pagination Buttons */}
+      <div className="flex justify-between mt-4">
+        <button
+          className={`px-4 py-2 bg-blue-500 text-white rounded ${
+            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          onClick={prevPage}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="text-gray-700">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className={`px-4 py-2 bg-blue-500 text-white rounded ${
+            currentPage === Math.ceil(tours.length / toursPerPage)
+              ? "opacity-50 cursor-not-allowed"
+              : ""
+          }`}
+          onClick={nextPage}
+          disabled={currentPage === Math.ceil(tours.length / toursPerPage)}
+        >
+          Next
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default allTours
+export default AllTours;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // Import useState from React
 
 
-const AdminHeader = () => {
+const UserProfile = () => {
   // State to manage the visibility of the dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -84,4 +84,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default UserProfile;
