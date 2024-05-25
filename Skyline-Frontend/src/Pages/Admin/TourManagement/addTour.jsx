@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //const multer = require('multer');
 const AddTour = () => {
-  const [tripType, setTripType] = useState("roundTrip");
+  const [tripType, setTripType] = useState("Round-Trip");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   //const [fileName, setFileName] = useState('No file chosen');
@@ -229,6 +229,8 @@ const encodeImageFileAsURL = (file) => {
   //getfrom
   const [Countriesfrom, setCountryfrom] = useState([]);
   const [selectedCountryfrom, setSelectedCountryfrom] = useState("");
+  const [Countriesto, setCountryto] = useState([]);
+  const [selectedCountryto, setSelectedCountryto] = useState("");
 
   //getCountry
   useEffect(() => {
@@ -236,26 +238,15 @@ const encodeImageFileAsURL = (file) => {
       .get("http://localhost:5000/airport/")
       .then((response) => {
         setCountryfrom(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching Country:", error);
-      });
-  }, []);
-
-  const [Countriesto, setCountryto] = useState([]);
-  const [selectedCountryto, setSelectedCountryto] = useState("");
-
-  //getTo
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/airport/")
-      .then((response) => {
         setCountryto(response.data);
       })
       .catch((error) => {
         console.error("Error fetching Country:", error);
       });
   }, []);
+
+  
+
 
   const [flights, setFlights] = useState([]);
   const [selectedFlight, setSelectedFlight] = useState("");
@@ -388,7 +379,7 @@ const encodeImageFileAsURL = (file) => {
                           setReturnDate(e.target.value);
                         }}
                         className="text-black text-lg font-medium"
-                        disabled={tripType === "oneWay"}
+                        disabled={tripType === "One-Way"}
                       />
                     </div>
                   </div>
@@ -398,9 +389,9 @@ const encodeImageFileAsURL = (file) => {
                     <input
                       type="radio"
                       name="tripType"
-                      value="roundTrip"
-                      checked={tripType === "roundTrip"}
-                      onChange={() => setTripType("roundTrip")}
+                      value="Round-Trip"
+                      checked={tripType === "Round-Trip"}
+                      onChange={() => setTripType("Round-Trip")}
                       className="form-radio text-blue-600"
                     />
                     <span className="ml-2 text-gray-700 ">Round Trip</span>
@@ -409,9 +400,9 @@ const encodeImageFileAsURL = (file) => {
                     <input
                       type="radio"
                       name="tripType"
-                      value="oneWay"
-                      checked={tripType === "oneWay"}
-                      onChange={() => setTripType("oneWay")}
+                      value="One-Way"
+                      checked={tripType === "One-Way"}
+                      onChange={() => setTripType("One-Way")}
                       className="form-radio text-blue-600"
                     />
                     <span className="ml-2 text-gray-700">One Way</span>
