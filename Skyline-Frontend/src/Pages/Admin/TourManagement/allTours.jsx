@@ -13,6 +13,51 @@ const AllTours = () => {
   const toursPerPage = 10;
   const [editData, setEditData] = useState(null);
   const [viewData, setViewData] = useState(null);
+  const [fileName, setFileName] = useState('No file chosen');
+  const [dragActive, setDragActive] = useState(false);
+  const [photo, setPhoto] = useState('');
+
+// Drag & Drop
+const handleDrag = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if (e.type === "dragenter" || e.type === "dragover") {
+    setDragActive(true);
+  } else if (e.type === "dragleave") {
+    setDragActive(false);
+  }
+};
+
+const handleDrop = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  setDragActive(false);
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    const file = e.dataTransfer.files[0];
+    setFileName(file.name);
+    encodeImageFileAsURL(file);
+  }
+};
+
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setFileName(file.name);
+    encodeImageFileAsURL(file);
+  }
+};
+
+const encodeImageFileAsURL = (file) => {
+  const fileReader = new FileReader();
+  fileReader.onload = function (fileLoadedEvent) {
+    const srcData = fileLoadedEvent.target.result;
+    setPhoto(srcData);
+    if (editData) {
+      setEditData({ ...editData, photo: srcData });
+    }
+  };
+  fileReader.readAsDataURL(file);
+};
 
   //get Tours
   useEffect(() => {
@@ -48,8 +93,8 @@ const AllTours = () => {
   };
 
   // Edit Airplane
-  const handleEdit = (tour) => {
-    setEditData(tour);
+  const handleEdit = (Tour) => {
+    setEditData(Tour);
   };
 
   const handleUpdate = () => {
@@ -152,14 +197,16 @@ const AllTours = () => {
 
       {/* Modal form for editing */}
       {editData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 ">
-          <div className="bg-gray-200 p-6 rounded-md shadow-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60 ">
+          <div className="bg-gray-50 p-6 rounded-md shadow-md">
             <h2 className="text-lg font-semibold mb-4 bg-[#1F3541] text-white text-center rounded-lg flex items-center justify-center">
               {" "}
               <TbTournament className="w-6 h-6  mr-2  " />
-              Edit Airplane
+              Edit Tour
             </h2>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
               From
             </label>
@@ -179,9 +226,10 @@ const AllTours = () => {
                 </option>
               ))}
             </select>
-
+          </div>
+          <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
-              Airplane Registration No.
+              To
             </label>
             <select
               type="text"
@@ -199,7 +247,8 @@ const AllTours = () => {
                 </option>
               ))}
             </select>
-
+            </div>
+            <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="country"
@@ -222,30 +271,34 @@ const AllTours = () => {
                 </option>
               ))}
             </select>
-
+              </div>
+              <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
               Departure Date
             </label>
             <input
-              type="text"
+              type="date"
               className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
               value={editData.departureDate}
               onChange={(e) =>
                 setEditData({ ...editData, departureDate: e.target.value })
               }
             />
-
+         </div>
+         <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
             Return Date
             </label>
             <input
-              type="text"
+              type="date"
               className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
               value={editData.returnDate}
               onChange={(e) =>
                 setEditData({ ...editData, returnDate: e.target.value })
               }
             />
+            </div>
+            <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
             Trip Type
             </label>
@@ -261,6 +314,9 @@ const AllTours = () => {
                   <option>One Way</option>
                </select>
 
+               </div>
+               <div>
+
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
             Passengers
             </label>
@@ -272,55 +328,80 @@ const AllTours = () => {
                 setEditData({ ...editData, passengers: e.target.value })
               }
             />
-
+            </div>
+            <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
             Economy class Price
             </label>
             <input
-              type="text"
+              type="number"
               className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
               value={editData.economyPrice}
               onChange={(e) =>
                 setEditData({ ...editData, economyPrice: e.target.value })
               }
             />
+            </div>
+            <div>
 
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
             Business class Price
             </label>
             <input
-              type="text"
+              type="number"
               className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
               value={editData.businessPrice}
               onChange={(e) =>
                 setEditData({ ...editData, businessPrice: e.target.value })
               }
             />
+
+            </div>
+            <div>
             <label className="block text-gray-700 font-semibold mb-2 text-sm">
             Description
             </label>
             <textarea
               type="text"
-              rows={4}
+              rows={2}
               className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
               value={editData.description}
               onChange={(e) =>
                 setEditData({ ...editData, description: e.target.value })
               }
             />
-             <label className="block text-gray-700 font-semibold mb-2 text-sm">
-            Photo
-            </label>
-            <input
-              type="text"
-              className="p-2 mb-2 w-full  shadow appearance-none border rounded-md leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-600"
-              value={editData.photo}
-              onChange={(e) =>
-                setEditData({ ...editData, photo: e.target.value })
-              }
-            />
+            </div>
+           
+            {/*Upload image*/}
+            <div className="mb-2 col-span-2 -mt-5">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Photos
+              </label>
+              <div
+                className="border-2 border-gray-300 border-dashed rounded-md p-4 flex justify-center items-center"
+                onDragEnter={handleDrag}
+                onDragOver={handleDrag}
+                onDrop={handleDrop}
+              >
+                <label className="cursor-pointer">
+                  <span className="px-2 py-1 bg-blue-500 text-white rounded-md">
+                    Upload a file
+                  </span>
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                </label>
+                <span className="ml-2">{fileName}</span>
+              </div>
+            </div>
+          
 
-            <button
+            
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4" >
+          <button
               className="mr-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
               onClick={handleUpdate}
             >
@@ -332,16 +413,17 @@ const AllTours = () => {
             >
               Cancel
             </button>
-          </div>
+            </div>
+        </div>
         </div>
       )}
 
       {/* Modal for viewing description */}
       {viewData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60 ">
           <div className="bg-gray-200 p-6 rounded-md shadow-md max-w-md">
-            <h2 className="text-lg font-semibold mb-4 bg-[#1F3541] text-white text-center rounded-lg flex items-center justify-center">
-              <GrView className="w-6 h-6 mr-2" /> View Tour Description
+            <h2 className="text-lg font-semibold mb-4 bg-[#1F3541] text-white text-center rounded-lg flex items-center justify-center w-[400px] h-[90px]">
+              <GrView className="w-6 h-6 mr-2 " /> View Tour Description
             </h2>
            
             <div className="mb-4">

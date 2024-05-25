@@ -45,7 +45,7 @@ const Home = () => {
           }}>
         <div class=" w-3/4 mx-auto justify-center relative rounded-full mt-14 ">
           <div class=" w-11/12 mx-auto flex justify-center" >  
-            <video src="./src/assets/plane/sky_3.mp4" autoPlay muted loop class="rounded-full" > <div class="relative "><h1>fposdjfosdgjs</h1></div>   </video>
+            <video src="./src/assets/plane/HOME1~2.mp4" autoPlay muted loop class="rounded-full" > <div class="relative "><h1>fposdjfosdgjs</h1></div>   </video>
           </div>
           
           <img src="./src/assets/plane/airplane-png-27957.png" class="absolute w-full -top-5" alt="Airplane" data-aos="fade-up" data-aos-duration='1600' ></img> 

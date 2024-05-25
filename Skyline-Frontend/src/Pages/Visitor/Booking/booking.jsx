@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
-import BookingCard from './BookingCard';
-import kandy  from'../Booking/BookingCardImg/tour-img01.jpg';
-import Galle  from'../Booking/BookingCardImg/tour-img06.jpg';
+import React, { useState, useEffect } from "react";
+
+import axios from "axios";
+import { toast } from "react-toastify";
 import Bgbooking from './bg';
 import CoverVideo from '../../../Components/Common/CoverVideo';
 
 import { FaCalendarAlt } from 'react-icons/fa';
+import TourCard from "./TourCard";
 
 
 const Booking = () => {
-  const tours = [
-    { image: kandy, title: 'Kandy Day Tour', price: 20, rating: null },
-    { image: Galle, title: 'Galle Day Tour', price: 35, rating: 5.0 },
-   
-  ];
+  const [tours, setTours] = useState([]);
+
+  // Get Tours
+  useEffect(() => {
+    function getTours() {
+      axios
+        .get("http://localhost:5000/tour/")
+        .then((res) => {
+          setTours(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(<div>😡 Error loading User Tours</div>);
+        });
+    }
+
+    getTours();
+  }, []);
 
 
   const [tripType, setTripType] = useState('roundTrip');
@@ -160,8 +174,15 @@ const Booking = () => {
   <div className="container mx-auto px-4 relative z-10">
     <h1 className="text-4xl font-bold my-8">Featured Destinations</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {tours.map((tour, index) => (
-        <BookingCard key={index} {...tour} />
+    {tours.map((tour) => (
+        <div key={tour.id} className="p-4">
+          <TourCard
+            image={tour.photo}
+            title={tour.from}
+            price={tour.economyPrice}
+            rating={tour.flight}
+          />
+        </div>
       ))}
     </div>
   </div>
