@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { CgMenuGridO } from "react-icons/cg";
 import { FaXmark } from "react-icons/fa6";
-import UserProfile from"../UserProfile/UserProfile";
+import  UserProfile from"../UserProfile/UserProfile";
 import { FaUser } from "react-icons/fa";
 const VHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,13 +15,8 @@ const VHeader = () => {
 
 
 
-  // State to manage the visibility of the dropdown
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Function to toggle the dropdown
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  }
+  
 
 
 const [noBg,addBg]= useState('nvh')
@@ -82,76 +77,13 @@ window.addEventListener('scroll',addBgcolor)
           >
             Sign in
           </NavLink>
-        </div>                 
+        </div>   
+        
+                      
 
       {/* User Profile */}
-    <div  >
     
-    <div className='flex items-center justify-end -mr-44 '> 
-        
-        <button
-          type="button"
-          className="flex text-sm bg-blue-100 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-          id="user-menu-button"
-          aria-expanded={isDropdownOpen ? "true" : "false"}
-          aria-controls="user-dropdown"
-          onClick={toggleDropdown}
-        >
-          <span className="sr-only">Open user menu</span>
-
-          
-          <img
-            //className="w-14 h-14 rounded-full"
-           // src="../src/assets/logo/userpro.webp"
-          //  alt="user photo"
-          />
-          <div  ><FaUser className="w-14 h-14 rounded-full" /></div>
-          
-        </button>
-
-        {isDropdownOpen && (
-          <div
-            className="absolute right-0 z-50 mt-[230px] mr-[130px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-blue-950 dark:divide-gray-60 "
-            id="user-dropdown"
-          >
-            <div className="px-4 py-3">
-              <span className="block text-sm text-gray-900 dark:text-white">
-                Mayuru
-              </span>
-              <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                Mayuru@gmail.com
-              </span>
-            </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <a
-                  href="userProfile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Settings
-                </a>
-              </li>
-          
-              <li>
-                <a
-                  href="/login"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Sign out
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
+       <UserProfile/>
     
     
     
@@ -161,7 +93,6 @@ window.addEventListener('scroll',addBgcolor)
     
     
     
-     </div>
          
      
 

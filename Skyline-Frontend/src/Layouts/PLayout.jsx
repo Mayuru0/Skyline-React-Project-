@@ -1,8 +1,8 @@
 import React from 'react'
 import {Outlet} from 'react-router';
 
-import VHeader from '../Components/PassengerComponennts/Header/Header';
-import VFooter from '../Components/PassengerComponennts/Footer/Footer';
+import Header from '../Components/PassengerComponennts/Header/Header';
+import Footer from '../Components/PassengerComponennts/Footer/Footer';
 import Dialogflow from '../Pages/Passenger/Chatbot/Dialogflow';
 
 
@@ -11,10 +11,10 @@ import Dialogflow from '../Pages/Passenger/Chatbot/Dialogflow';
 const VLayout = () => {
   return (
     <div>
-       <VHeader/>
+       <Header/>
       <Outlet/>
       <Dialogflow />
-      <VFooter/>
+      <Footer/>
      
 
   
