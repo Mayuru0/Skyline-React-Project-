@@ -1,9 +1,9 @@
 import React from 'react'
 import {Outlet} from 'react-router';
 
-import VHeader from '../Components/VisitorComponennts/vHeader/Header';
-import VFooter from '../Components/VisitorComponennts/vFooter/Footer';
-import Dialogflow from '../Pages/Visitor/Chatbot/Dialogflow';
+import VHeader from '../Components/PassengerComponennts/Header/Header';
+import VFooter from '../Components/PassengerComponennts/Footer/Footer';
+import Dialogflow from '../Pages/Passenger/Chatbot/Dialogflow';
 
 
 

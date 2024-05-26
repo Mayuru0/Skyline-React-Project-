@@ -2,13 +2,11 @@ import React from 'react'
 
 const Bgbooking = () => {
   return (
-    <div className=' bg-[url(./src/assets/bg/4k.jpg)] bg-cover bg-no-repeat'>
-      <section className='h-screen '>
-        <div className='mt-[130px] mx-4 relative' ></div>
-
-      </section>
-      
-    </div>
+   <>
+    <video autoPlay muted loop className='absolute top-0 left-0 w-full h-full object-cover '>
+ <source src="./src/assets/bg/plane.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video></>
   )
 }
 

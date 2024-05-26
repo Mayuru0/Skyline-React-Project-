@@ -2,28 +2,22 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 
-//visitor routes
-import VLayout from "../Layouts/VLayout";
-import Home from "../Pages/Visitor/Home";
-
-import Expreience from "../Pages/Visitor/Expreience";
-import Help from "../Pages/Visitor/Help";
-import About from "../Pages/Visitor/About";
-import Login from "../Pages/Visitor/Login";
-import Registration from "../Pages/Visitor/Registration";
-import FlightList from "../Pages/Visitor/FlightList";
-import Booking from "../Pages/Visitor/Booking/booking";
-
-
 //Passenger routes
-import PLayouts from "../Layouts/PLayouts";
-import PHome from "../Pages/Passenger/PHome";
-import PBook from "../Pages/Passenger/Booking/PBook";
-import PFlightList from "../Pages/Passenger/PFlightList";
-import PExpreience from "../Pages/Passenger/PExpreience";
-import PHelp from "../Pages/Passenger/PHelp";
-import UserProfile from "../Pages/Passenger/UserProfile";
-import PAbout from "../Pages/Passenger/PAbout";
+import PLayout from "../Layouts/PLayout";
+import Home from "../Pages/Passenger/Home";
+
+import Expreience from "../Pages/Passenger/Expreience";
+import Help from "../Pages/Passenger/Help";
+import About from "../Pages/Passenger/About";
+import Login from "../Pages/Passenger/Login";
+import Registration from "../Pages/Passenger/Registration";
+import FlightList from "../Pages/Passenger/FlightList";
+import Booking from "../Pages/Passenger/Booking/booking";
+
+
+
+
+
 
 
 //admin routes
@@ -44,6 +38,7 @@ import AddTour from "../Pages/Admin/TourManagement/addTour";
 import AllTours from "../Pages/Admin/TourManagement/allTours";
 import EconomyTours from "../Pages/Admin/TourManagement/economyTours";
 import BusinessTours from "../Pages/Admin/TourManagement/businessTours";
+import UserProfile from "../Pages/Passenger/UserProfile";
 
 
 
@@ -61,7 +56,7 @@ const Routers = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<VLayout/>}>
+        <Route path="/" element={<PLayout/>}>
           <Route path="/" element={<Navigate to="home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/book" element={<Booking/>} />
@@ -71,24 +66,13 @@ const Routers = () => {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/userProfile" element={<UserProfile />} />
           
           
       
         </Route>
 
-          <Route path="/Passenger" element={<PLayouts/>}>
-          <Route path="/Passenger" element={<Navigate to="phome" />} />
-          <Route path="/Passenger/phome" element={<PHome />} />
-          <Route path="/Passenger/Pbook" element={<PBook />} />
-          <Route path="/Passenger/Pflightlist" element={<PFlightList />} />
-          <Route path="/Passenger/Pexpreience" element={<PExpreience />} />
-          <Route path="/Passenger/Phelp" element={<PHelp/>} />
-          <Route path="/Passenger/UserProfile" element={<UserProfile/>} />
-          <Route path="/Passenger/Pabout" element={<PAbout/>} />
-          
-
-
-        </Route>
+        
        
   
         <Route path="/admin" element={<ALayout/>} >  
