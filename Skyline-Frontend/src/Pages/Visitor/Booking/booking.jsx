@@ -217,26 +217,32 @@ const Booking = () => {
           <Bgbooking />
 
           {/* Card */}
-          <div className="container mx-auto px-4 relative z-10 "  data-aos="fade-right" data-aos-duration='1600'>
+          <div className="container mx-auto px-4 relative z-10" data-aos="fade-right" data-aos-duration='1600'>
             <h1 className="text-4xl font-bold my-8">Featured Destinations</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 " data-aos="zoom-in" data-aos-duration='1600'>
-              {filteredTours.map((tour) => (
-                <div key={tour.id} className="p-4">
-                  <TourCard
-                    from={tour.from}
-                    to={tour.to}
-                    flight={tour.flight}
-                    departureDate={tour.departureDate}
-                    returnDate={tour.returnDate}
-                    tripType={tour.tripType}
-                    passengers={tour.passengers}
-                    economyPrice={tour.economyPrice}
-                    businessPrice={tour.businessPrice}
-                    photo={tour.photo}
-                  />
-                </div>
-              ))}
-            </div>
+            {filteredTours.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" >
+                {filteredTours.map((tour) => (
+                  <div key={tour.id} className="p-4" data-aos="zoom-in" data-aos-duration='1600'>
+                    <TourCard
+                      from={tour.from}
+                      to={tour.to}
+                      flight={tour.flight}
+                      departureDate={tour.departureDate}
+                      returnDate={tour.returnDate}
+                      tripType={tour.tripType}
+                      passengers={tour.passengers}
+                      economyPrice={tour.economyPrice}
+                      businessPrice={tour.businessPrice}
+                      photo={tour.photo}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500 mt-8 text-2xl   " >
+                No tours available 
+              </div>
+            )}
           </div>
         </div>
       </div>
