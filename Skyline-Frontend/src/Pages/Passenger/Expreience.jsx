@@ -85,19 +85,6 @@ const Experience = () => {
         {renderImages()}
       </div>
 
-      {/* Button to toggle details/photos display */}
-      <div className="mt-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={toggleDetails}>
-          {showDetails ? 'Hide Details' : 'Show Details'}
-        </button>
-      </div>
-
-      {/* Display details/photos if toggled */}
-      {showDetails && (
-        <div className="mt-4">
-          {/* Add details/photos here */}
-        </div>
-      )}
     </div>
     </>
   );
