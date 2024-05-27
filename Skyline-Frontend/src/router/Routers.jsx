@@ -6,7 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import PLayout from "../Layouts/PLayout";
 import Home from "../Pages/Passenger/Home";
 
-import Expreience from "../Pages/Passenger/Expreience";
+import Expreience from "../Pages/Passenger/Expreience/Expreience";
 import Help from "../Pages/Passenger/Help";
 import About from "../Pages/Passenger/About";
 import Login from "../Pages/Passenger/Login";
