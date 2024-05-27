@@ -35,7 +35,7 @@ const Booking = () => {
   const [tripType, setTripType] = useState('Round-Trip');
   const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
-  const [passengers, setPassengers] = useState(1);
+  const [passengers, setPassengers] = useState(0);
   //const [travelClass, setTravelClass] = useState('Economy Class');
 
   // Get airports
@@ -53,7 +53,73 @@ const Booking = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const filtered = tours.filter((tour) => {
+    
+
+      if (!selectedCountryfrom) {
+    
+        toast.error(" Please select a departure location.", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        return;
+      }
+  
+      if (!selectedCountryto) {
+        
+        toast.error(" Please select a destination.", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        return;
+      }
+  
+      if (!departureDate) {
+        toast.error(" Please select a departure date.", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        return;
+      }
+  
+      if (tripType === "Round-Trip" && !returnDate) {
+        toast.error(" Please select a return date for a round trip.", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        return;
+        
+      }    if (passengers <= 0) {
+        toast.error("Please select the number of passengers.", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        return;
+      }const filtered = tours.filter((tour) => {
       return (
         (selectedCountryfrom === "" || tour.from === selectedCountryfrom) &&
         (selectedCountryto === "" || tour.to === selectedCountryto) &&
@@ -61,7 +127,7 @@ const Booking = () => {
         (departureDate === "" || tour.departureDate === departureDate) &&
         (returnDate === "" || tour.returnDate === returnDate) &&
       //  (travelClass === "" || travelClass === "Economy Class" ? tour.economyPrice : tour.businessPrice) &&
-        (passengers === 1 || tour.passengers >= passengers)
+        (passengers === 0 || tour.passengers >= passengers)
       );
     });
 
@@ -180,7 +246,7 @@ const Booking = () => {
                   className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                   value={passengers}
                   onChange={(e) => setPassengers(e.target.value)}
-                >
+                ><option value={0}>Select</option>
                   <option value={1}>1 Passenger</option>
                   <option value={2}>2 Passengers</option>
                   <option value={3}>3 Passengers</option>

@@ -1,77 +1,266 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { RiAccountPinCircleLine } from "react-icons/ri";
-import { RxCalendar } from "react-icons/rx";
-import { TbSearch } from "react-icons/tb";
-
+import TourCard from "./Booking/TourCard";
 
 const Search = () => {
-  return (
-    <div className='mt-12'>
+  const [departureDate, setDeparture] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [tripType, setTripType] = useState("One-Way");
 
-<section class="section__container booking__container">
-      <div class="booking__nav">
+  const [Countriesfrom, setCountryfrom] = useState([]);
+  const [selectedCountryfrom, setSelectedCountryfrom] = useState("");
+  const [Countriesto, setCountryto] = useState([]);
+  const [selectedCountryto, setSelectedCountryto] = useState("");
 
-        <span className='text-base text-white md:dark:hover:text-blue-50  dark:hover:text-blue-700 md:dark:hover:bg-[#3D5CB8] dark:border-gray-700  py-1md:h-full   '> Economy Class</span>
-        <span className='text-base text-white first:text-blue-600 md:dark:hover:text-blue-50  dark:hover:text-blue-700 md:dark:hover:bg-[#3D5CB8] dark:border-gray-700  py-1'>Business Class</span>
-        {/*<span className='text-base text-white first:text-blue-600 md:dark:hover:text-blue-50  dark:hover:text-blue-700 md:dark:hover:bg-[#3D5CB8] dark:border-gray-700  py-1'>First Class</span> */}
-      </div>
+  const [tours, setTours] = useState([]);
+  const [filteredTours, setFilteredTours] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false); // New state variable
+
+  // Get airports
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/airport/")
+      .then((response) => {
+        setCountryfrom(response.data);
+        setCountryto(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching airports:", error);
+      });
+  }, []);
+
+  // Get Tours
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/tour/")
+      .then((res) => {
+        setTours(res.data);
+        setFilteredTours(res.data); // Set filteredTours initially
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(<div>😡 Error loading User Tours</div>);
+      });
+  }, []);
 
 
 
+  const handleSearch = (e) => {
+    e.preventDefault();
 
-      <form className='form1'>
-        <div class="form__group" >
-          <span><i class="ri-map-pin-line"></i></span>
-         
-          <div class="input__content"> 
-            
-            <div class="input__group">
-              <input type="text" />
-              <label> <HiOutlineLocationMarker className='icon' />Location</label>
-            </div>
-            <p>Where are you goung?</p>
-          </div>
-        </div>
-        <div class="form__group">
-          <span><i class="ri-user-3-line"></i></span>
-          <div class="input__content">
-            <div class="input__group">
-              <input type="number" />
-              <label>  <RiAccountPinCircleLine  className='icon' />Travellers</label>
-            </div>
-            <p>Add guests</p>
-          </div>
-        </div>
-        <div class="form__group">
-          <span><i class="ri-calendar-line"></i></span>
-          <div class="input__content">
-            <div class="input__group">
-              <input type="text" /> {/*}
-              <input type="date" name="date" required className='outline-none p-2 w-full'/>*/}
-              <label>  <RxCalendar  className='icon' />Departure</label>
-            </div>
-            <p>Add date</p>
-          </div>
-        </div>
-        <div class="form__group">
-          <span><i class="ri-calendar-line"></i></span>
-          <div class="input__content">
-            <div class="input__group">
-              <input type="text" />
-              <label>  <RxCalendar  className='icon' />Return</label>
-            </div>
-            <p>Add date</p>
-          </div>
-        </div>
-        <button class="btn"><TbSearch /><i class="ri-search-line"></i></button>
-      </form>
-    </section>
+    if (!selectedCountryfrom) {
+    
+      toast.error(" Please select a departure location.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+      return;
+    }
 
+    if (!selectedCountryto) {
+      
+      toast.error(" Please select a destination.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+      return;
+    }
+
+    if (!departureDate) {
+      toast.error(" Please select a departure date.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+      return;
+    }
+
+    if (tripType === "Round-Trip" && !returnDate) {
+      toast.error(" Please select a return date for a round trip.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+      return;
+    }
     
 
-    </div>
-  )
-}
+    const filtered = tours.filter((tour) => {
+      return (
+        (selectedCountryfrom === "" || tour.from === selectedCountryfrom) &&
+        (selectedCountryto === "" || tour.to === selectedCountryto) &&
+        (tripType === "" || tour.tripType === tripType) &&
+        (departureDate === "" || tour.departureDate === departureDate) &&
+        (returnDate === "" || tour.returnDate === returnDate)
+      );
+    });
 
-export default Search
+    setFilteredTours(filtered);
+    setHasSearched(true);
+  };
+
+  return (
+    <div className="max-w-[1000px] mx-auto p-4">
+      <div className="flex justify-center mb-4">
+        <button
+          className={`px-4 py-2 ${
+            tripType === "One-Way"
+              ? "bg-blue-500 text-white"
+              : "bg-white text-blue-500 border"
+          }`}
+          onClick={() => setTripType("One-Way")}
+        >
+          One Way
+        </button>
+        <button
+          className={`px-4 py-2 ml-2 ${
+            tripType === "Round-Trip"
+              ? "bg-blue-500 text-white"
+              : "bg-white text-blue-500 border"
+          }`}
+          onClick={() => setTripType("Round-Trip")}
+        >
+          Round Trip
+        </button>
+      </div>
+      <div className="bg-white shadow-md rounded-lg p-6 flex flex-col space-y-4">
+        <div className="flex space-x-4">
+          <div className="flex flex-col w-1/2">
+            <label htmlFor="from" className="mb-1 text-sm font-medium">
+              From
+            </label>
+            <div className="flex items-center border rounded-lg px-3 py-2">
+              <HiOutlineLocationMarker className="mr-2" />
+              <select
+                id="from"
+                className="border-none outline-none flex-1"
+                value={selectedCountryfrom}
+                onChange={(e) => setSelectedCountryfrom(e.target.value)}
+                required
+              >
+                <option value="">Select</option>
+                {Countriesfrom.map((country) => (
+                  <option key={country._id} value={country.airportName}>
+                    {country.airportName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="flex flex-col w-1/2">
+            <label htmlFor="to" className="mb-1 text-sm font-medium">
+              To
+            </label>
+            <div className="flex items-center border rounded-lg px-3 py-2">
+              <HiOutlineLocationMarker className="mr-2" />
+              <select
+                id="to"
+                className="border-none outline-none flex-1"
+                value={selectedCountryto}
+                onChange={(e) => setSelectedCountryto(e.target.value)}
+                required
+              >
+                <option value="">Select</option>
+                {Countriesto.map((country) => (
+                  <option key={country._id} value={country.airportName}>
+                    {country.airportName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        
+
+        
+          <div className="flex flex-col w-1/2">
+            <label htmlFor="departure" className="mb-1 text-sm font-medium">
+              Departure
+            </label>
+            <input
+              type="date"
+              id="departure"
+              value={departureDate}
+              onChange={(e) => setDeparture(e.target.value)}
+              className="border rounded-lg px-3 py-2"
+            />
+          </div>
+          <div className="flex flex-col w-1/2">
+            <label htmlFor="return" className="mb-1 text-sm font-medium">
+              Return
+            </label>
+            <input
+              type="date"
+              id="return"
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
+              className="border rounded-lg px-3 py-2"
+              disabled={tripType === "One-Way"}
+            />
+          </div>
+        </div>
+
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 self-center"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
+      </div>
+
+      {/* Card */}
+      {hasSearched && (
+  <div className="container mx-auto px-4 relative z-10" data-aos="fade-right" data-aos-duration="1600">
+    <h1 className="text-4xl font-bold my-8"> Destinations</h1>
+    {filteredTours.length > 0 ? (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredTours.map((tour) => (
+          <div key={tour.id} className="p-4" data-aos="zoom-in" data-aos-duration="1600">
+            <TourCard
+              from={tour.from}
+              to={tour.to}
+              flight={tour.flight}
+              departureDate={tour.departureDate}
+              returnDate={tour.returnDate}
+              tripType={tour.tripType}
+              passengers={tour.passengers}
+              economyPrice={tour.economyPrice}
+              businessPrice={tour.businessPrice}
+              photo={tour.photo}
+            />
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div className="text-center text-gray-500 mt-8 text-2xl">
+        No tours available
+      </div>
+    )}
+  </div>
+)}
+
+    </div>
+  );
+};
+
+export default Search;
