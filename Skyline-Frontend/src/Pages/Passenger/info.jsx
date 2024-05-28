@@ -56,49 +56,21 @@ const Info = () => {
           <h2 class="section__header"data-aos="fade-left" duration="1500">
             Travel to make memories all around the world
           </h2>
-          {/*<button class="view__all">View All</button>*/}
+         
+      {/*slider*/}
         </div>
-        <div class="memories__grid">
-          <div class="memories__card" data-aos="zoom-in" data-aos-duration='3000'>
-            <span><FaRegCalendarAlt /></span>
-            <h4>Book & relax</h4>
-            <p>
-              With "Book and Relax," you can sit back, unwind, and enjoy the
-              journey while we take care of everything else.
-            </p>
-          </div>
-          <div class="memories__card" data-aos="zoom-in" data-aos-duration='3000'>
-            <span><GoShieldCheck /></span>
-            <h4>Smart Checklist</h4>
-            <p>
-              Introducing Smart Checklist with us, the innovative solution
-              revolutionizing the way you travel with our airline.
-            </p>
-          </div>
-          <div class="memories__card" data-aos="zoom-in" data-aos-duration='3000'>
-            <span><CiBookmarkMinus /></span>
-            <h4>Save More</h4>
-            <p>
-              From discounted ticket prices to exclusive promotions and deals,
-              we prioritize affordability without compromising on quality.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-      {/*slider
-
-      <div className="App">
-      <header className="bg-blue-600 text-white p-4 text-center">
-        <h1 className="text-2xl">Value Added Services</h1>
-      </header>
-      <main className="p-4">
+        <div className="App">
+     
+      <main className="p-4"  data-aos="fade-up"
+     data-aos-duration="3000">
         <Slider />
       </main>
     </div>
 
-*/}
+    
+      </div>
+    </section>
+
 
 
 

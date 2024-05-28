@@ -1,22 +1,28 @@
-// src/Slider.js
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import business from'./SliderImg/extra_legroom_seat.jpg';
-import  bagg from './SliderImg/prepaid_excess_baggage.jpg';
-import duty from'./SliderImg/duty_free.jpg';
-import seat from'./SliderImg/advance_seat_reservation.jpg';
-
+import best from './SliderImg/w7.jpg';
+import bagg from './SliderImg/prepaid_excess_baggage.jpg';
+import duty from './SliderImg/duty_free.jpg';
+import seat from './SliderImg/advance_seat_reservation.jpg';
+import meal from './SliderImg/pre-order_meals.jpg';
+import business from './SliderImg/13.jpeg';
+import Legroom from './SliderImg/extra_legroom_seat.jpg';
 
 const services = [
   {
     title: "Bid For Business Class",
     description: "Bid for your Business Class upgrade online",
-    image:business ,
+    image: business,
   },
   {
-    title: "Pre-Order Your Duty-Free",
-    description: "You can easily pre-order your favorite duty-free item",
-    image: duty,
+    title: "Advance Seat Reservation",
+    description: "Window or Aisle seat? Reserve your seat in advance",
+    image: seat,
+  },
+  {
+    title: "window seat on a flight ",
+    description: "enhances a  travel experience",
+    image: best,
   },
   {
     title: "Prepaid Excess Baggage",
@@ -24,11 +30,20 @@ const services = [
     image: bagg,
   },
   {
-    title: "Advance Seat Reservation",
-    description: "Window or Aisle seat? Reserve your seat in advance",
-    image:seat,
+    title: "Pre-Order Your Meal",
+    description: "Enjoy Your preferred meal above the clouds",
+    image: meal,
   },
-  
+  {
+    title: "Pre-Order Your Duty-Free",
+    description: "You can easily pre-order your favorite duty-free item",
+    image: duty,
+  },
+  {
+    title: "Extra Legroom Seat ",
+    description: "Pre-book an extra legroom seat in Economy Class",
+    image: Legroom,
+  },
 ];
 
 const Slider = () => {
@@ -54,19 +69,18 @@ const Slider = () => {
   }, [currentIndex]);
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto">
+    <div className="relative w-full max-w-full mx-auto">
       <div className="overflow-hidden">
         <div
           className="flex transition-transform duration-500"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          style={{ transform: `translateX(-${currentIndex * 70}%)`, width: `${services.length * 5}%` }}
         >
           {services.map((service, index) => (
             <div key={index} className="flex-shrink-0 w-full">
-              <div className="p-4">
-                <img src={service.image} alt={service.title} className="w-72 h-72 object-cover rounded" />
+              <div className="p-4 flex flex-col items-center">
+                <img src={service.image} alt={service.title} className="w-full h-72 object-cover rounded" />
                 <h3 className="mt-4 text-xl font-bold">{service.title}</h3>
-                <p className="mt-2 text-gray-600">{service.description}</p>
-                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Find out more</button>
+                <p className="mt-2 text-gray-600 text-center">{service.description}</p>
               </div>
             </div>
           ))}
