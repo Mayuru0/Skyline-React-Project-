@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const ErrorResponse = require("../utils/errorResponse");
 
 const nodemailer = require('nodemailer');
 const {roles}=require('../utils/constants');
@@ -11,7 +12,7 @@ let register = require('../models/register');
 
 require('dotenv').config();
 
-
+/*
 //middleware for authenticating role
 const authenticateRole = (role) => (req, res, next) => {
   // Check if user is authenticated and has the required role
@@ -32,39 +33,57 @@ const authenticateRole = (role) => (req, res, next) => {
 
     next();
   });
-};
+};*/
 
 
 
 // Route for registering a new user
+
 router.post('/add', async (req, res) => {
   try {
-    let role = roles.passenger; // Default role is 'passenger'
-    if (req.body.email === 'admin@gmail.com') {
-      role = roles.admin; // If email is admin, set role to 'admin'
+    const { firstName, lastName, dateOfBirth, gender, country, address, passportNo, phone,email,password ,confirmPassword} =
+      req.body;
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedConfirmedPassword = await bcrypt.hash(confirmPassword, 10);
+
+    let role = roles.passenger; 
+    if (email === "admin@gmail.com") {
+      role = roles.admin;
     }
-    const newUser = new register({ ...req.body, role });
+
+    const newUser = new register({
+      firstName,
+      lastName,
+      dateOfBirth,
+      gender,
+      country,
+      address,
+      passportNo,
+      phone,
+      email,
+      password: hashedPassword,
+      confirmPassword:hashedConfirmedPassword,
+      role,
+    });
+
     await newUser.save();
-    res.status(200).send('User added successfully');
-  } catch (err) {
-    console.error('Error adding user:', err);
-    res.status(500).send('Error registering user: ' + err.message);
+    await sendApprovalEmail(email);
+
+    res.status(200).json({
+      success: true,
+      message: "Passenger successfully registered",
+    });
+  } catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to register Passenger. Please try again later.",
+      error: error.message,
+    });
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -234,54 +253,63 @@ router.route("/get/:id").get(async (req, res) =>{
 
 
 // Route to login a Passenger 
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     // Find user by email
-    const passenger = await register.findOne({ email: email });
+    const passenger = await register.findOne({ email });
+
     if (!passenger) {
-      return res.status(400).json({ message: 'passenger is not registered' });
+      return res.status(404).json({
+        success: false,
+        message: "Passenger not found",
+      });
     }
 
-    // Compare password
-    if (password !== passenger.password) {
-      return res.status(400).json({ message: 'Invalid password' });
+    // Check if password is correct
+    const checkCorrectPassword = await bcrypt.compare(password, passenger.password);
+
+    if (!checkCorrectPassword) {
+      return res.status(401).json({
+        success: false,
+        message: "Incorrect email or password",
+      });
     }
 
-    // Determine user role
-    let role = roles.passenger;
-    if (req.body.email === 'admin@gmail.com') {
-      role = roles.admin;
-    }
+    // Create JWT token
+    const token = jwt.sign(
+      {
+        id: passenger._id,
+        role: passenger.role, // Assuming role is stored in the user document
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "15d" }
+    );
 
-    // Generate JWT token with role information
-    const token = jwt.sign({ email: passenger.email, role: role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Set token in the browser cookie
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      secure: true, // Enable for HTTPS
+      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // 15 days
+    });
 
-    // Set token as a cookie
-    res.cookie('token', token, { httpOnly: true, maxAge: 360000 });
-
-    return res.json({ status: true, message: "Login successfully", role: role });
-   
+    res.status(200).json({
+      token: token,
+      success: true,
+      message: "Successfully logged in",
+      data: { user: { ...passenger._doc, password: undefined }, role: passenger.role }, // Exclude password from response
+    });
   } catch (error) {
-    console.error('Error during login:', error);
-    return res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error logging in:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to login. Please try again later.",
+      error: error.message,
+    });
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

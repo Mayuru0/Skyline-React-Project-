@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios'; 
 import {
   FaFacebookF,
@@ -10,20 +10,14 @@ import { MdLockOutline, MdFlight } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { AuthContext} from"../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState(""); // State for email
   const [password, setPassword] = useState(""); // State for password
   const [remember, setRemember] = useState(false); // State for remember checkbox
-  //const navigate = useNavigate();
-
-
-
-
-
-
-
+  const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
 
 
 
@@ -31,92 +25,35 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Validate email and password
-    
-      if (email === "") {
-        toast.error("Email is required", {
-         // position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-        
-      } else if (!email.includes("@")) {
-        toast.error("Email is invalid", {
-          // position: "top-center",
-           autoClose: 1000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined
-         });
-
-      } else if (password === "") {
-        toast.error("Password is required", {
-          // position: "top-center",
-           autoClose: 1000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined
-         });
-
-
-      } else if (password.length < 6) {
-        toast.error("Password must be at least 6 characters", {
-          // position: "top-center",
-           autoClose: 1000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined
-         });
-
-      } else if (!remember) {
-        toast.error("Remember me checkbox is required", {
-          // position: "top-center",
-           autoClose: 1000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined
-         });
+      if (!email || !password) {
+        toast.error("Email and password are required.");
+        return;
       }
-      
+
       const response = await axios.post('http://localhost:5000/register/login', { email, password });
-      const data = response.data;
-      
-  
-      if (data.status) {
-        toast.success(<div> 😊  Login Successful </div>);
-      
-  
-        if (data.role === 'passenger') {
-          window.location.href = '/home'; // Redirect to passenger dashboard
-        } else if (data.role === 'admin') {
-          window.location.href = '/admin/dashboard'; // Redirect to admin dashboard
+
+      const { data } = response;
+
+      if (data.success) {
+        toast.success(data.message);
+
+        if (data.data.role === "passenger") {
+          navigate("/home");
+        } else if (data.data.role === "admin") {
+          navigate("/admin/dashboard");
         }
-        toast.success(<div> 😊  Login Successful </div>);
+
+        dispatch({ type: "LOGIN_SUCCESS", payload: data.data.user });
         setEmail("");
         setPassword("");
-       
       } else {
-        toast.error(data.message || <div> 😡 Login failed</div>);
-      
+        toast.error(data.message || "Login failed");
       }
     } catch (error) {
-      console.error('Error during login:', error);
-      toast.error('An error occurred during login.');
+      console.error("Error during login:", error);
+      toast.error("An error occurred during login.");
     }
   };
-
   /*
     // Email and password validation
     if (email === "") {
