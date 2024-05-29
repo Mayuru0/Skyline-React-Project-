@@ -46,7 +46,8 @@ const Login = () => {
         if (data.data.role === "passenger") {
           navigate("/home");
         } else if (data.data.role === "admin") {
-          navigate("/admin/dashboard");
+          
+          navigate("/home");
         }
 
         dispatch({ type: "LOGIN_SUCCESS", payload: data.data.passenger });

@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaRegUser } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { IoIosSwitch } from "react-icons/io";
 const UserProfile = ( ) => {
   // State to manage the visibility of the dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -62,16 +63,25 @@ const UserProfile = ( ) => {
  
          {isDropdownOpen && (
            <div
-             className="absolute right-0 z-50 mt-[230px] mr-[320px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-blue-950 dark:divide-gray-60 "
+             className="absolute right-0 z-50 mt-[273px] mr-[270px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-blue-950 dark:divide-gray-60 w-[200px] "
              id="user-dropdown"
            >
              <div className="px-4 py-3">
-               <span className="block text-sm text-gray-900 dark:text-white">
+               <span className="block text-lg text-gray-900 dark:text-white ">
                {passenger.firstName}
                </span>
-               <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+               <span className="block text-sm text-gray-500 truncate dark:text-gray-400 mb-2">
                {passenger.email}
                </span>
+                {/* swich Admin Panel */}
+                {passenger.role === "admin" && (
+              <div className="mb-2 flex items-center">
+                <IoIosSwitch className=" text-white w-5 h-5" />
+                <a href="/admin/dashboard" className="flex items-center justify-center text-[15px] truncate text-white bg-blue-700 rounded-xl w-[110px] h-[25px] hover:bg-blue-500">
+                    Admin Panel
+                  </a>
+            </div>
+                )}
              </div>
              <ul className="py-2" aria-labelledby="user-menu-button">
                <li>
