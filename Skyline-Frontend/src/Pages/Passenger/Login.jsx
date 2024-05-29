@@ -7,15 +7,15 @@ import {
   FaRegEnvelope,
 } from "react-icons/fa";
 import { MdLockOutline, MdFlight } from "react-icons/md";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthContext} from"../context/AuthContext";
+import { AuthContext} from"../../Components/context/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState(""); // State for email
-  const [password, setPassword] = useState(""); // State for password
-  const [remember, setRemember] = useState(false); // State for remember checkbox
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [remember, setRemember] = useState(false); 
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -29,6 +29,12 @@ const Login = () => {
         toast.error("Email and password are required.");
         return;
       }
+      
+      if (!remember) {
+        toast.error("Remember me option is required.");
+        return;
+      }
+      
 
       const response = await axios.post('http://localhost:5000/register/login', { email, password });
 
@@ -43,9 +49,10 @@ const Login = () => {
           navigate("/admin/dashboard");
         }
 
-        dispatch({ type: "LOGIN_SUCCESS", payload: data.data.user });
+        dispatch({ type: "LOGIN_SUCCESS", payload: data.data.passenger });
         setEmail("");
         setPassword("");
+        setRemember("");
       } else {
         toast.error(data.message || "Login failed");
       }

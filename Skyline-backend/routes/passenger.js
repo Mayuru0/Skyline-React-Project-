@@ -239,7 +239,7 @@ router.route("/delete/:id").delete(async (req, res) => {
 
 
 // get one passenger
-
+/*
 router.route("/get/:id").get(async (req, res) =>{
     let passengerId = req.params.id;
   const passenger=  await register.findById(passengerId)
@@ -249,7 +249,39 @@ router.route("/get/:id").get(async (req, res) =>{
         console.log(err.message);
         res.status(500).send({status:" Error with fetching passenger",error: err.message});
     });
-})
+})*/
+
+
+
+// Get Single User by ID
+router.route("/get/:id").get(async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const passenger = await register.findById(id);
+    if (!passenger) {
+      return res.status(404).json({
+        success: false,
+        message: "passenger not found",
+      });
+    }
+
+    console.log("Fetched passenger:", passenger);
+
+    res.status(200).json({
+      success: true,
+      message: "User found",
+      data: passenger,
+    });
+  } catch (error) {
+    console.error("Error fetching passenger:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch user",
+    });
+  }
+});
+
 
 
 // Route to login a Passenger 
@@ -299,7 +331,7 @@ router.post('/login', async (req, res) => {
       token: token,
       success: true,
       message: "Successfully logged in",
-      data: { user: { ...passenger._doc, password: undefined }, role: passenger.role }, // Exclude password from response
+      data: { passenger: { ...passenger._doc, password: undefined }, role: passenger.role }, // Exclude password from response
     });
   } catch (error) {
     console.error("Error logging in:", error);

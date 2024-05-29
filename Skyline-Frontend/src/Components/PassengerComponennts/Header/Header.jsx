@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { CgMenuGridO } from "react-icons/cg";
 import { FaXmark } from "react-icons/fa6";
 import  UserProfile from"../UserProfile/UserProfile";
 import { FaUser } from "react-icons/fa";
+import { AuthContext} from"../../context/AuthContext";
+import { toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 const VHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { passenger, dispatch } = useContext(AuthContext);
 
   const handleMenuToggler = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-
-
-
-
-  
 
 
 const [noBg,addBg]= useState('nvh')
@@ -30,7 +28,22 @@ const addBgcolor =() => {
 }
 }
 
+const handleLogout = () => {
+  dispatch({ type: "LOGOUT" });
+  window.location.href = "/home";
+};
 
+useEffect(() => {
+  // Check if the toast message has been displayed
+  const toastDisplayed = localStorage.getItem("toastDisplayed");
+
+  if (passenger && !toastDisplayed) {
+    // Display welcome message when user logs in
+    toast.success(`Welcome ${passenger.firstName}`);
+    // Set flag to indicate that the toast message has been displayed
+    localStorage.setItem("toastDisplayed", true);
+  }
+}, [passenger]);
 
 window.addEventListener('scroll',addBgcolor)
 
@@ -66,7 +79,21 @@ window.addEventListener('scroll',addBgcolor)
           ))}
         </ul>
 
+
+
         {/* Signup and login */}
+        {passenger ? (
+            <div className="flex items-center space-x-4">
+              <span className="text-white">Welcome, {passenger.firstName}</span>
+              <button
+                onClick={handleLogout}
+                className="py-2 px-5 border rounded bg-blue-500 text-white  hover:bg-blue-700 dark:hover:text-white"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+
         <div className="text base text-primary font-medium space-x-5 hidden lg:block">
           <NavLink to="/login" className="py-2 px-5 bg-gray-300 border rounded  font-bold  dark:hover:text-white">
             Log in
@@ -79,13 +106,17 @@ window.addEventListener('scroll',addBgcolor)
           </NavLink>
         </div>   
         
-                      
 
-      {/* User Profile */}
+      )}
+
+
+
+
+      {/* User Profile 
     
        <UserProfile/>
     
-    
+    */}
     
     
     
