@@ -28,10 +28,10 @@ const addBgcolor =() => {
 }
 }
 
-const handleLogout = () => {
+/*const handleLogout = () => {
   dispatch({ type: "LOGOUT" });
   window.location.href = "/home";
-};
+};*/
 
 useEffect(() => {
   // Check if the toast message has been displayed
@@ -70,7 +70,7 @@ window.addEventListener('scroll',addBgcolor)
           {navItems.map(({ path, title }) => (
             <li
               key={path}
-              className="md:dark:hover:text-blue-500 dark:text-black dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 font-bold"
+              className="md:dark:hover:text-blue-500 dark:text-black dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 font-bold "
             >
               <NavLink to={path} activeClassName="active">
                 {title}
@@ -84,17 +84,20 @@ window.addEventListener('scroll',addBgcolor)
         {/* Signup and login */}
         {passenger ? (
             <div className="flex items-center space-x-4">
-              <span className="text-white">Welcome, {passenger.firstName}</span>
-              <button
+              <span className="text-blue-700 hover:to-blue-600 cursor-pointer font-semibold  -ml-16 ">Welcome, {passenger.firstName}</span>
+             {/* <button
                 onClick={handleLogout}
                 className="py-2 px-5 border rounded bg-blue-500 text-white  hover:bg-blue-700 dark:hover:text-white"
               >
                 Logout
-              </button>
+        </button>*/}
+               {/* User Profile */}
+    
+       <UserProfile/>
             </div>
           ) : (
 
-        <div className="text base text-primary font-medium space-x-5 hidden lg:block">
+        <div className="text base text-primary font-medium space-x-5 hidden lg:block -ml-16">
           <NavLink to="/login" className="py-2 px-5 bg-gray-300 border rounded  font-bold  dark:hover:text-white">
             Log in
           </NavLink>
@@ -112,11 +115,9 @@ window.addEventListener('scroll',addBgcolor)
 
 
 
-      {/* User Profile 
+     
     
-       <UserProfile/>
     
-    */}
     
     
     

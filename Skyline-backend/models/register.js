@@ -52,7 +52,7 @@ const passengerSchema = new Schema({
          role: {
             type: String,
             enum: ["admin", "passenger"],
-            default: roles.visitor,
+            default: roles.passenger,
             required: true
         }
     

@@ -30,9 +30,9 @@ const TourCard = ({ photo, from, to,flight,departureDate,returnDate,tripType,pas
           <p className="text-gray-500 text-sm flex justify-end">Flight - {flight}</p>
         </div>
         <div className="mt-4 ">
-          <button className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded ">
+          <a  href="bookingform"  className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
             Book now
-          </button>
+          </a>
         </div>
       </div>
     </div>

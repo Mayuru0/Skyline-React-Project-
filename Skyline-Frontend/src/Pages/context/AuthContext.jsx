@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useReducer } from "react";
 
 const initial_state = {
-  user: (() => {
+  passenger: (() => {
     const storedUser = localStorage.getItem("passenger");
     if (storedUser && storedUser !== "undefined") {
       return JSON.parse(storedUser);
