@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { CgMenuGridO } from "react-icons/cg";
 import { FaXmark } from "react-icons/fa6";
 import UserProfile from "../UserProfile/UserProfile";
-import { FaUser } from "react-icons/fa";
+//import { FaUser } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

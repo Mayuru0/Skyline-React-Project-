@@ -7,6 +7,8 @@ import {motion,spring} from 'framer-motion'
 
 
 const Home = () => {
+
+  
   return (
     <div className="mt-48  ">
   

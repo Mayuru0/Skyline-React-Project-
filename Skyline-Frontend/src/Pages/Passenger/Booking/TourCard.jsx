@@ -1,6 +1,50 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 
+import { AuthContext} from"../../context/AuthContext";
+import { toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom"; 
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 const TourCard = ({ photo, from, to,flight,departureDate,returnDate,tripType,passengers,economyPrice,businessPrice,description, }) => {
+
+  const { passenger } = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    
+    const toastDisplayed = localStorage.getItem("toastDisplayed");
+  
+    if (passenger && !toastDisplayed) {
+      
+     
+
+      localStorage.setItem("toastDisplayed", true);
+    }
+  }, [passenger]);
+
+
+
+
+const handleBooking = () => {
+    if (passenger) {
+      navigate("/bookingform");
+    } else {
+      confirmAlert({
+        title: 'Log In Required',
+        message: 'You need to log in to book this tour. Do you want to log in now?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => navigate("/login")
+          },
+          {
+            label: 'No'
+          }
+        ]
+      });
+    }
+  };
+
   return (
     <>
 
@@ -30,9 +74,9 @@ const TourCard = ({ photo, from, to,flight,departureDate,returnDate,tripType,pas
           <p className="text-gray-500 text-sm flex justify-end">Flight - {flight}</p>
         </div>
         <div className="mt-4 ">
-          <a  href="bookingform"  className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
+          <button   onClick={handleBooking}   className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
             Book now
-          </a>
+          </button>
         </div>
       </div>
     </div>
