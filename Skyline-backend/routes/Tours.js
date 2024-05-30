@@ -43,7 +43,7 @@ router.post('/add', async (req, res) => {
     }
 });
 
-//Get all Feedback 
+//Get all tour 
 
 router.route("/").get((req, res) => {
 
@@ -122,6 +122,42 @@ router.route("/update/:id").put(async (req, res) => {
  
  
  })
+
+
+
+// Get Single Tour by ID
+
+ router.route("/get/:id").get(async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const Tour = await Tours.findById(id);
+      if (!Tour) {
+        return res.status(404).json({
+          success: false,
+          message: "Tours not found",
+        });
+      }
+  
+      console.log("Fetched Tour:", Tour);
+  
+      res.status(200).json({
+        success: true,
+        message: "Tour found",
+        data: Tour,
+      });
+    } catch (error) {
+      console.error("Error fetching Tours:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch Tour",
+      });
+    }
+  });
+
+
+
+
 
 
 
