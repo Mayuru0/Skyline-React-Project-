@@ -48,9 +48,15 @@ const handleBooking = () => {
     }
   };*/
 
+  
+
   const handleViewDetails = () => {
     navigate(`/tour/get/${_id}`);
   };
+
+
+  
+
 
   return (
     <>

@@ -237,6 +237,7 @@ const Search = () => {
         {filteredTours.map((tour) => (
           <div key={tour.id} className="p-4" data-aos="zoom-in" data-aos-duration="1600">
             <TourCard
+            _id={tour._id}
               from={tour.from}
               to={tour.to}
               flight={tour.flight}

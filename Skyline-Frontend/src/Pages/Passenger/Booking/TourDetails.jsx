@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from "../../context/AuthContext";
+//import { AuthContext } from "../../context/AuthContext";
 import useFetch from '../../../Components/hooks/useFetch';
 import { BASE_URL } from '../../../Components/Utils/config';
 import { useParams } from 'react-router-dom';
-
+import BookingForm from './BookingForm';
+import CoverVideo from '../../../Components/Common/CoverVideo';
 const TourDetails = () => {
-  const { passenger } = useContext(AuthContext);
+  //const { passenger } = useContext(AuthContext);
   const { id } = useParams();
   const { data: tour, loading, error } = useFetch(`${BASE_URL}tour/get/${id}`);
-  console.log(tour);
+ console.log(tour);
 
   // Handle cases where tour data might not be loaded yet
   if (loading) return <div>Loading...</div>;
@@ -19,8 +20,10 @@ const TourDetails = () => {
   const { _id, photo, from, to, flight, departureDate, returnDate, tripType, passengers, economyPrice, businessPrice, description } = tour;
 
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-between p-4 lg:p-8 -mt-[20px]">
-      <div className="lg:w-[400px]">
+
+    <> 
+    <div className="flex flex-col lg:flex-row lg:justify-between p-4 lg:p-8 mt-[100px]">
+      <div className="lg:w-[400px] mt-[100px]">
         <img
           src={photo}
           alt="Tour Image"
@@ -34,7 +37,15 @@ const TourDetails = () => {
           <p className="mt-4">{description}</p>
         </div>
       </div>
+
+
+    {/*booking Form*/}
+    <BookingForm 
+    economyPrice={tour.economyPrice}
+    businessPrice={tour.businessPrice}
+    />
     </div>
+    </>
   );
 }
 

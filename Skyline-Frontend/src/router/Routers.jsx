@@ -16,6 +16,7 @@ import Booking from "../Pages/Passenger/Booking/booking";
 import BookingForm from "../Pages/Passenger/Booking/BookingForm";
 import UserProfile from "../Pages/Passenger/UserProfile";
 import TourDetails from "../Pages/Passenger/Booking/TourDetails";
+import ThankYou from "../Pages/Passenger/Booking/ThankYou";
 
 
 
@@ -71,6 +72,7 @@ const Routers = () => {
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/bookingform" element={<BookingForm />} />
           <Route path="/tour/get/:id" element={<TourDetails />} />
+          <Route path="/thankyou" element={<ThankYou />} />
           
           
       
