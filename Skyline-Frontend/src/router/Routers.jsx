@@ -70,7 +70,7 @@ const Routers = () => {
           <Route path="/registration" element={<Registration />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/bookingform" element={<BookingForm />} />
-          <Route path="/tour/:id" element={<TourDetails />} />
+          <Route path="/tour/get/:id" element={<TourDetails />} />
           
           
       

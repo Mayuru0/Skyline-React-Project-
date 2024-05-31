@@ -5,9 +5,9 @@ import { BASE_URL } from '../../../Components/Utils/config';
 import { useParams } from 'react-router-dom';
 
 const TourDetails = () => {
-  //const { passenger } = useContext(AuthContext);
+  const { passenger } = useContext(AuthContext);
   const { id } = useParams();
-  const { data: tour, loading, error } = useFetch(`${BASE_URL}get/tour/${id}`);
+  const { data: tour, loading, error } = useFetch(`${BASE_URL}tour/get/${id}`);
   console.log(tour);
 
   // Handle cases where tour data might not be loaded yet
@@ -16,7 +16,7 @@ const TourDetails = () => {
   if (!tour) return <div>No tour data found</div>;
 
   // Destructure tour data
-  const { photo, from, to, tripType, passengers, economyPrice,  description } = tour;
+  const { _id, photo, from, to, flight, departureDate, returnDate, tripType, passengers, economyPrice, businessPrice, description } = tour;
 
   return (
     <div className="flex flex-col lg:flex-row lg:justify-between p-4 lg:p-8 -mt-[20px]">

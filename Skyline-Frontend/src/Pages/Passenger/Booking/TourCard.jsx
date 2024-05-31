@@ -9,7 +9,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 const TourCard = (tour ) => {
 
 
-  const { id,photo, from, to,flight,departureDate,returnDate,tripType,passengers,economyPrice,businessPrice,description }=tour
+  const { _id,photo, from, to,flight,departureDate,returnDate,tripType,passengers,economyPrice,businessPrice,description }=tour
 
   const { passenger } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const handleBooking = () => {
   };*/
 
   const handleViewDetails = () => {
-    navigate(`/tour/${id}`);
+    navigate(`/tour/get/${_id}`);
   };
 
   return (
