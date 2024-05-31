@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React,{useState, useContext} from 'react'
 import { FaInfoCircle } from 'react-icons/fa';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import CoverVideo from '../../../Components/Common/CoverVideo';
-
+import { AuthContext} from"../../context/AuthContext";
+//import TourDetails from './TourDetails';
 const BookingForm = () => {
   const [count, setCount] = useState(1); // Initialize count to 1
+  const { passenger, } = useContext(AuthContext);
 
   const increment = () => {
     if (count < 5) {
@@ -18,39 +20,31 @@ const BookingForm = () => {
     }
   };
 
+
+
+
   return (
     <>
       <div className='mt-[130px]'>
         <CoverVideo />
       </div>
-
+      
+      {/* tour Card8 */}
+      <div>
       <div className="flex items-center">
-        <img
-          src="./src/assets/bg/book.gif"
-          alt="book"
-          className="rounded-lg w-[300px] h-[200px]"
-        />
-        <div className="w-full">
-          <h1 className='font-sans font-extrabold text-[50px]'>Booking Details</h1>
-        </div>
-      </div>
-
-      <div className="flex flex-col lg:flex-row lg:justify-between p-4 lg:p-8 -mt-[20px]">
-        <div className="lg:w-[400px]">
-          <img
-            src="./src/assets/info/traveller-2.jpg"
-            alt="Galle Day Tour"
-            className="rounded-lg mb-4"
-          />
-          <div className="mb-4">
-            <h2 className="text-3xl font-bold mb-2"> Tour</h2>
-            <p className="text-gray-500">0 Nights • 1 Day</p>
-            <p className="text-xl mt-2">$20 /per Person</p>
-            <p className="text-gray-500 mt-1">$150 k/m • 15 People</p>
-            <p className="mt-4">This is the description</p>
-          </div>
-        </div>
-
+    <img
+      src="./src/assets/bg/book.gif"
+      alt="book"
+      className="rounded-lg w-[300px] h-[200px]"
+    />
+    <div className="w-full">
+      <h1 className='font-sans font-extrabold text-[50px]'>Booking Details</h1>
+    </div>
+  </div>
+  <div className="flex flex-col lg:flex-row lg:justify-between p-4 lg:p-8 -mt-[20px]">
+{/*
+      <TourDetails />
+booking Form*/}
         <div className="lg:w-[1400px]">
           
 
@@ -307,6 +301,7 @@ const BookingForm = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

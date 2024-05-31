@@ -21,7 +21,7 @@ const Booking = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error loading User Tours</div>);
+          toast.error(<div>😡 Error loading  Tours</div>);
         });
     }
 
@@ -53,80 +53,78 @@ const Booking = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
 
-      if (!selectedCountryfrom) {
-    
-        toast.error(" Please select a departure location.", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-        return;
-      }
-  
-      if (!selectedCountryto) {
-        
-        toast.error(" Please select a destination.", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-        return;
-      }
-  
-      if (!departureDate) {
-        toast.error(" Please select a departure date.", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-        return;
-      }
-  
-      if (tripType === "Round-Trip" && !returnDate) {
-        toast.error(" Please select a return date for a round trip.", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-        return;
-        
-      }    if (passengers <= 0) {
-        toast.error("Please select the number of passengers.", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
-        });
-        return;
-      }const filtered = tours.filter((tour) => {
+    if (!selectedCountryfrom) {
+      toast.error(" Please select a departure location.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    if (!selectedCountryto) {
+      toast.error(" Please select a destination.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    if (!departureDate) {
+      toast.error(" Please select a departure date.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    if (tripType === "Round-Trip" && !returnDate) {
+      toast.error(" Please select a return date for a round trip.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    if (passengers <= 0) {
+      toast.error("Please select the number of passengers.", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    const filtered = tours.filter((tour) => {
       return (
         (selectedCountryfrom === "" || tour.from === selectedCountryfrom) &&
         (selectedCountryto === "" || tour.to === selectedCountryto) &&
         (tripType === "" || tour.tripType === tripType) &&
         (departureDate === "" || tour.departureDate === departureDate) &&
         (returnDate === "" || tour.returnDate === returnDate) &&
-      //  (travelClass === "" || travelClass === "Economy Class" ? tour.economyPrice : tour.businessPrice) &&
+        //  (travelClass === "" || travelClass === "Economy Class" ? tour.economyPrice : tour.businessPrice) &&
         (passengers === 0 || tour.passengers >= passengers)
       );
     });
@@ -290,6 +288,7 @@ const Booking = () => {
                 {filteredTours.map((tour) => (
                   <div key={tour.id} className="p-4" data-aos="zoom-in" data-aos-duration='1600'>
                     <TourCard
+                      id={tour.id}
                       from={tour.from}
                       to={tour.to}
                       flight={tour.flight}

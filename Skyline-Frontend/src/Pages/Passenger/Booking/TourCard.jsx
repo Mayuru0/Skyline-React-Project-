@@ -6,7 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom"; 
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css';
-const TourCard = ({ photo, from, to,flight,departureDate,returnDate,tripType,passengers,economyPrice,businessPrice,description, }) => {
+const TourCard = (tour ) => {
+
+
+  const { id,photo, from, to,flight,departureDate,returnDate,tripType,passengers,economyPrice,businessPrice,description }=tour
 
   const { passenger } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ const TourCard = ({ photo, from, to,flight,departureDate,returnDate,tripType,pas
 
 
 
-
+/*
 const handleBooking = () => {
     if (passenger) {
       navigate("/bookingform");
@@ -43,6 +46,10 @@ const handleBooking = () => {
         ]
       });
     }
+  };*/
+
+  const handleViewDetails = () => {
+    navigate(`/tour/${id}`);
   };
 
   return (
@@ -63,6 +70,7 @@ const handleBooking = () => {
       </div>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{from} to {to} </div>
+       
         <p className="text-gray-700 text-base">{departureDate} - {returnDate}</p>
         <div className="mt-4"><div>
           <span className="text-[15px] font-bold text-blue-500 flex justify-end">Economy Class ${economyPrice}</span> 
@@ -74,7 +82,7 @@ const handleBooking = () => {
           <p className="text-gray-500 text-sm flex justify-end">Flight - {flight}</p>
         </div>
         <div className="mt-4 ">
-          <button   onClick={handleBooking}   className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
+          <button   onClick={handleViewDetails}   className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
             Book now
           </button>
         </div>

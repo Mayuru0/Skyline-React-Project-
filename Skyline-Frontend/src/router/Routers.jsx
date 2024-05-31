@@ -14,7 +14,8 @@ import Registration from "../Pages/Passenger/Registration";
 import FlightList from "../Pages/Passenger/FlightList";
 import Booking from "../Pages/Passenger/Booking/booking";
 import BookingForm from "../Pages/Passenger/Booking/BookingForm";
-
+import UserProfile from "../Pages/Passenger/UserProfile";
+import TourDetails from "../Pages/Passenger/Booking/TourDetails";
 
 
 
@@ -39,7 +40,7 @@ import AddTour from "../Pages/Admin/TourManagement/addTour";
 import AllTours from "../Pages/Admin/TourManagement/allTours";
 import EconomyTours from "../Pages/Admin/TourManagement/economyTours";
 import BusinessTours from "../Pages/Admin/TourManagement/businessTours";
-import UserProfile from "../Pages/Passenger/UserProfile";
+
 
 
 
@@ -69,6 +70,7 @@ const Routers = () => {
           <Route path="/registration" element={<Registration />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/bookingform" element={<BookingForm />} />
+          <Route path="/tour/:id" element={<TourDetails />} />
           
           
       
