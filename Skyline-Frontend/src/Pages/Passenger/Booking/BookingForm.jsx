@@ -93,7 +93,7 @@ const handleClick = async (e) => {
       className="rounded-lg w-[300px] h-[200px]"
   />*/}
           <div className="w-full">
-            <h1 className="font-sans font-extrabold text-[51px] text-lg  mb-5 bg-[#172554] text-white text-center rounded-lg flex items-center justify-center h-[72px] -">
+            <h1 className="font-sans font-extrabold text-[46px] text-lg  mb-5 bg-[#172554] text-white text-center rounded-lg flex items-center justify-center h-[72px] -">
               Booking Details
             </h1>
           </div>

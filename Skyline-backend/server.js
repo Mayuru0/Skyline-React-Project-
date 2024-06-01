@@ -44,8 +44,8 @@ const flightlistRoutes =require('./routes/Flights.js');
 app.use('/flightlist',flightlistRoutes);
 
 //Access Books routes
-const booklistRoutes = require('./routes/Books.js');
-app.use('/booklist', booklistRoutes);
+const booklistRoutes = require('./routes/TourBooks.js');
+app.use('/tourbooks', booklistRoutes);
 
 //access Countries routes
 const countriesRoutes = require('./routes/Countries.js');
