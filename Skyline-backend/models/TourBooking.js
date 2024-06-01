@@ -65,6 +65,14 @@ const TourBookingSchema = new Schema({
         type: Number,
         required: true,
       },
+      departureDate: {
+        type: String,
+        required: true,
+      },
+      returnDate: {
+        type: String,
+        required: true,
+      },
       classtype: {
         type: String,
         required: true,
