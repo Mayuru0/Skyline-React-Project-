@@ -9,6 +9,20 @@ import TourCard from "./TourCard";
 const Booking = () => {
   const [tours, setTours] = useState([]);
   const [filteredTours, setFilteredTours] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Simulate fetching data
+    setTimeout(() => {
+      // Simulate setting error or loading completion
+      setLoading(false);
+      // setError("Failed to load tours");
+    }, 2000);
+  }, []);
 
   // Get Tours
   useEffect(() => {
@@ -130,7 +144,16 @@ const Booking = () => {
     });
 
     setFilteredTours(filtered);
+    setCurrentPage(1); 
   };
+
+// Calculate current tours to display based on pagination
+const indexOfLastTour = currentPage * itemsPerPage;
+const indexOfFirstTour = indexOfLastTour - itemsPerPage;
+const currentTours = filteredTours.slice(indexOfFirstTour, indexOfLastTour);
+
+// Handle page change
+const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <> 
@@ -281,12 +304,17 @@ const Booking = () => {
           <Bgbooking />
 
           {/* Card */}
-          <div className="container mx-auto px-4 relative z-10" data-aos="fade-right" data-aos-duration='1600'>
-            <h1 className="text-4xl font-bold my-8">Featured Destinations</h1>
-            {filteredTours.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" >
-                {filteredTours.map((tour) => (
-                  <div key={tour.id} className="p-4" data-aos="zoom-in" data-aos-duration='1600'>
+          <div className="container mx-auto px-4 relative z-10" data-aos="fade-right" data-aos-duration="1600">
+      {loading && <h4 className="text-center pt-5 text-2xl font-bold">Loading.......</h4>}
+      {error && <h4 className="text-center pt-5 text-2xl font-bold">{error}</h4>}
+      {!loading && !error && (
+        <>
+          <h1 className="text-4xl font-bold my-8">Featured Destinations</h1>
+          {filteredTours.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {currentTours.map((tour) => (
+                  <div key={tour.id} className="p-4" data-aos="zoom-in" data-aos-duration="1600">
                     <TourCard
                       _id={tour._id}
                       from={tour.from}
@@ -303,12 +331,27 @@ const Booking = () => {
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="text-center text-gray-500 mt-8 text-2xl   " >
-                No tours available 
+              <div className="flex justify-center mt-8">
+                <ul className="flex space-x-2">
+                  {Array.from({ length: Math.ceil(filteredTours.length / itemsPerPage) }, (_, i) => (
+                    <li key={i + 1}>
+                      <button
+                        onClick={() => paginate(i + 1)}
+                        className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                      >
+                        {i + 1}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
-          </div>
+            </>
+          ) : (
+            <div className="text-center text-gray-500 mt-8 text-2xl">No tours available</div>
+          )}
+        </>
+      )}
+    </div>
         </div>
       </div>
     </>
