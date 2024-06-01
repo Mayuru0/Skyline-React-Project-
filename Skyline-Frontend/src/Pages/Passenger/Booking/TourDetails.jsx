@@ -32,7 +32,8 @@ const TourDetails = () => {
         <div className="mb-4">
           <h2 className="text-3xl font-bold mb-2">{from} to {to} Tour</h2>
           <p className="text-gray-500">{tripType}</p>
-          <p className="text-xl mt-2">${economyPrice} /per Person</p>
+          <p className="text-lg mt-2"> Economy Class ${economyPrice} /per Person</p>
+          <p className="text-lg mt-2"> Business Class${businessPrice} /per Person</p>
           <p className="text-gray-500 mt-1">{passengers} People</p>
           <p className="mt-4">{description}</p>
         </div>

@@ -139,7 +139,7 @@ router.route("/update/:id").put(async (req, res) => {
         });
       }
   
-      console.log("Fetched Tour:", Tour);
+     // console.log("Fetched Tour:", Tour);
   
       res.status(200).json({
         success: true,
