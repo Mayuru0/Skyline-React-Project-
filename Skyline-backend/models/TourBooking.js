@@ -61,7 +61,7 @@ const TourBookingSchema = new Schema({
     required: true,
   },
   dateOfBirth: {
-    type: Date,
+    type: String,
     required: true,
   },
   country: {
@@ -93,11 +93,11 @@ const TourBookingSchema = new Schema({
     required: true,
   },
   departureDate: {
-    type: Date,
+    type: String,
     //required: true,
   },
   returnDate: {
-    type: Date,
+    type: String,
     //required: true,
   },
   classtype: {

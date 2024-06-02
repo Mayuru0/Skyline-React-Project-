@@ -109,70 +109,38 @@ router.route("/delete/:id").delete(async (req, res) => {
 
 
 
-//update Country
+// Get Single Booking by ID
 
-
-router.route("/update/:id").put(async (req, res) => {
-    let TourBookId = req.params.id;
-    const{
-        userId,
-        tourId,
-        from,
-        to,
-        tripType,
-        flight,
-        title,
-        firstName,
-        lastName,
-        dateOfBirth,
-        country,
-        address,
-        passportNo,
-        email,
-        phone,
-        passengers,
-        classtype,
-        totalPrice,
-        status,
-        payment_status,
-       
- 
-    } = req.body;
- 
-    const updateBook = {
-             userId,
-            tourId,
-            from,
-            to,
-            tripType,
-            flight,
-            title,
-            firstName,
-            lastName,
-            dateOfBirth,
-            country,
-            address,
-            passportNo,
-            email,
-            phone,
-            passengers,
-            classtype,
-            totalPrice,
-            status,
-            payment_status,
-       
-    }
-    const update = await TourBook.findByIdAndUpdate(TourBookId,updateBook)
-     .then(() => {
-         res.status(200).send({status:" Book Updated" })
-     }).catch(err => {
-      console.error(err);
-      res.status(500).send({status:" Error Add Book ",error: err.message});
-     })
+router.route("/get/:id").get(async (req, res) => {
+    const id = req.params.id;
   
- 
- 
- })
+    try {
+      const book = await TourBook.findById(id);
+      if (!book) {
+        return res.status(404).json({
+          success: false,
+          message: "book not found",
+        });
+      }
+  
+     // console.log("Fetched Tour:", Tour);
+  
+      res.status(200).json({
+        success: true,
+        message: "Book found",
+        data: book,
+      });
+    } catch (error) {
+      console.error("Error fetching Book:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch Book",
+      });
+    }
+  });
+
+
+
 
 
 
