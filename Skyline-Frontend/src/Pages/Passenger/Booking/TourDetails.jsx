@@ -42,8 +42,16 @@ const TourDetails = () => {
 
     {/*booking Form*/}
     <BookingForm 
+     id={tour.id}
     economyPrice={tour.economyPrice}
     businessPrice={tour.businessPrice}
+    from={tour.from}
+    to={tour.to}
+    flight={tour.flight}
+    departureDate={tour.departureDate}
+    returnDate={tour.returnDate}
+    tripType={tour.tripType}
+    
     />
     </div>
     </>

@@ -26,7 +26,7 @@ const TourBookingSchema = new Schema({
         required: true,
       },
       title:{
-        type: Number,
+        type: String,
         required: true,
       },
       firstName: {
@@ -61,9 +61,9 @@ const TourBookingSchema = new Schema({
         type: Number,
         required: true,
       },
-      passenger: {
+      passengers: {
         type: Number,
-        required: true,
+       // required: true,
       },
       departureDate: {
         type: String,

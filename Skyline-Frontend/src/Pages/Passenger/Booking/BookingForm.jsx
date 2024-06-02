@@ -1,17 +1,37 @@
-import React,{useState, useContext} from 'react'
+import React,{useState, useContext,useMemo} from 'react'
 import { FaInfoCircle } from 'react-icons/fa';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { AuthContext} from"../../context/AuthContext";
 import { confirmAlert } from 'react-confirm-alert'; 
 import { useNavigate } from "react-router-dom"; 
+import countryList from "react-select-country-list";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import Select from "react-select";
 const BookingForm = (tour) => {
-
-  const{economyPrice,businessPrice}=tour
+  const{id,economyPrice,businessPrice,from,to,flight,departureDate,returnDate,tripType}=tour
   const [selectedClass, setSelectedClass] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  //const [gender, setGender] = useState("");
+  const [address, setAddress] = useState("");
+  const [passportNo, setPassportNo] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  //const [passengers, setpassengers] = useState("");
+  const [title, setTitle] = useState("");
+
   const [count, setCount] = useState(1);
   const { passenger } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const options = useMemo(() => countryList().getData(), []);
+  const changeHandler = selectedOption => {
+    setSelectedOption(selectedOption);
+  };
   
 //pasenger page addition
   const increment = () => {
@@ -78,7 +98,101 @@ const handleClick = async (e) => {
   }
 };
 
-  
+  //add booking
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+   // Validation logic
+   if (title === "") {
+    toast.error("Title Name is required", { autoClose: 1000 });
+  } else if (firstName === "") {
+    toast.error("First Name is required", { autoClose: 1000 });
+  }else if (lastName === "") {
+    toast.error("Last Name is required", { autoClose: 1000 });
+  } else if (dateOfBirth === "") {
+    toast.error("Date of Birth is required", { autoClose: 1000 });
+  }  else if (selectedOption === null) {
+    toast.error("Country is required", { autoClose: 1000 });
+  } else if (address === "") {
+    toast.error("Address is required", { autoClose: 1000 });
+  } else if (passportNo === "") {
+    toast.error("Passport Number is required", { autoClose: 1000 });
+  } else if (!/^[A-Z0-9]{6,10}$/i.test(passportNo)) {
+    toast.error("Passport Number is invalid. Please enter a valid number", { autoClose: 1000 });
+  } else if (phone === "") {
+    toast.error("Phone is required", { autoClose: 1000 });
+  } else if (!/^\d{10}$/.test(phone)) {
+    toast.error("Phone Number is invalid. Please enter a 10-digit number.", { autoClose: 1000 });
+  } else if (email === "") {
+    toast.error("Email is required", { autoClose: 1000 });
+  } else if (!email.includes("@")) {
+    toast.error("Email is invalid", { autoClose: 1000 });
+  } else if (selectedClass === "") {
+    toast.error("classtype Name is required", { autoClose: 1000 });
+  }else {
+    toast.success("😊 All fields are valid!", { autoClose: 1000 });
+    sendData();
+  }
+};
+
+
+  const sendData = () => {
+    const newPassenger = {
+      userId:passenger && passenger._id,
+      tourId:tour && tour.id,
+      from:tour && tour.from,
+      to:tour && tour.to,
+      tripType:tour && tour.tripType,
+      flight:tour && tour.flight,
+      title,
+      firstName,
+      lastName,
+      dateOfBirth,
+      country: selectedOption ? selectedOption.label : "",
+      address,
+      passportNo,
+      email:passenger && passenger.email,
+      phone,
+      //passengers,
+      departureDate:tour && tour.departureDate,
+      returnDate:tour && tour.returnDate,
+      classtype:selectedClass,
+      totalPrice: getTotalPrice(),
+      status: 'Pending',
+      payment_status: 'Unpaid'
+    
+    };
+
+    //Axios
+    axios
+      .post("http://localhost:5000/tourbooks/add", newPassenger)
+      .then(() => {
+        toast.success(<div> 😊 Booking Successful!</div>);
+        navigate("/thankyou");
+        // Optionally reset form fields after successful registration
+        setTitle("");
+        setFirstName("");
+        setLastName("");
+        setDateOfBirth("");
+        setSelectedOption(null);
+        setAddress("");
+        setPassportNo("");
+        setPhone("");
+        setEmail("");
+       // setpassengers("");
+        setSelectedClass("");
+        setCount(1);
+        
+      
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(<div> 😡 Error registering user</div>);
+      });
+
+     
+
+  };
 
 
 
@@ -102,11 +216,13 @@ const handleClick = async (e) => {
           {/*
       <TourDetails />
 booking Form*/}
+              <form onSubmit={handleSubmit}>
           <div className="lg:w-[1400px]">
             <div className="bg-white p-4 rounded-lg shadow-md mb-4">
               <div className="text-xl font-semibold mb-2">
                 Passenger Details
               </div>
+             
               <div>
                 <label className="block text-sm font-semibold text-gray-700">
                   Title
@@ -114,7 +230,10 @@ booking Form*/}
                 <select
                   name="title"
                   className="mt-1 block w-40 border border-gray-300 rounded-md shadow-sm p-2"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 >
+                  <option value="">Select</option>
                   <option value="Mr">Mr</option>
                   <option value="Mrs">Mrs</option>
                   <option value="Miss">Miss</option>
@@ -135,6 +254,8 @@ booking Form*/}
                     name="firstName"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="First Name"
+                    value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
 
@@ -147,6 +268,8 @@ booking Form*/}
                     name="lastName"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="Last Name"
+                    value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
 
@@ -158,18 +281,27 @@ booking Form*/}
                     type="date"
                     name="dob"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(e.target.value)}
                   />
                 </div>
 
                 <div>
+                 
                   <label className="block text-sm font-semibold text-gray-700">
                     Country
-                  </label>
-                  <input
+                  </label> 
+                  {/* <input
                     type="text"
                     name="country"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="Country"
+                    />*/}
+
+                  <Select
+                    options={options}
+                    value={selectedOption}
+                    onChange={changeHandler}
                   />
                 </div>
 
@@ -182,6 +314,8 @@ booking Form*/}
                     name="address"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="Address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
                 </div>
 
@@ -194,6 +328,8 @@ booking Form*/}
                     name="passportNumber"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="Passport Number"
+                    value={passportNo}
+                    onChange={(e) => setPassportNo(e.target.value)}
                   />
                 </div>
 
@@ -206,6 +342,8 @@ booking Form*/}
                     name="email"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -218,6 +356,8 @@ booking Form*/}
                     name="phoneNumber"
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     placeholder="Phone Number"
+                    value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
               </div>
@@ -307,7 +447,6 @@ booking Form*/}
                 ))}
             </div>
 
-
             <div className="bg-white p-4 rounded-lg shadow-md">
               <div className="mb-4">
                 <label className="text-xl font-semibold mb-2">Passenger</label>
@@ -319,49 +458,56 @@ booking Form*/}
                     <select
                       name="class"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                      onChange={handleClassChange} // Add onChange event handler
+                      value={selectedClass}
+                      onChange={handleClassChange} 
+                  
                     >
                       <option value="">Select Class</option>
                       <option value="economy">Economy Class</option>
                       <option value="business">Business Class</option>
                     </select>
                   </div>
-
                 </div>
 
                 <div className="flex justify-between items-center mb-4">
-                    <label className="block text-lg font-semibold text-gray-700">
-                      Price
-                    </label>
-                    <span className='text-lg font-semibold' >${getPrice()}</span>
-                   
-                  </div>
+                  <label className="block text-lg font-semibold text-gray-700">
+                    Price
+                  </label>
+                  <span className="text-lg font-semibold">${getPrice()}</span>
+                </div>
 
                 <div className="flex justify-between items-center mb-4">
-                  <span  className='text-lg font-semibold'>
+                  <span className="text-lg font-semibold">
                     ${economyPrice} x {count} Passenger{count > 1 ? "s" : ""}
                   </span>
-                  <span className='text-lg font-semibold'>${getPrice() * count}</span>
+                  <span className="text-lg font-semibold">
+                    ${getPrice() * count}
+                  </span>
                 </div>
 
                 <div className="flex justify-between items-center mb-4">
-                  <span  className='text-lg font-semibold'>Service Charge</span>
-                  <span className='text-lg font-semibold'>$10</span>
+                  <span className="text-lg font-semibold">Service Charge</span>
+                  <span className="text-lg font-semibold">$10</span>
                 </div>
 
                 <div className="flex justify-between items-center font-semibold mb-4">
-                  <span  className='text-2xl font-semibold'>Total</span>
-                  <span className='text-2xl font-semibold'>${getTotalPrice()}</span>
+                  <span className="text-2xl font-semibold">Total</span>
+                  <span className="text-2xl font-semibold">
+                    ${getTotalPrice()}
+                  </span>
                 </div>
 
-                <button className="bg-blue-700 text-white hover:bg-blue-500 w-full py-2 px-4 rounded"
-                onClick={handleClick}
+                <button
+                  className="bg-blue-700 text-white hover:bg-blue-500 w-full py-2 px-4 rounded"
+                  
                 >
                   Book Now
                 </button>
               </div>
             </div>
-          </div>
+           
+          </div> 
+          </form>
         </div>
       </div>
     </>
