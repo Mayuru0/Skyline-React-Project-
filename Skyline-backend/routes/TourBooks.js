@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 let TourBook = require('../models/TourBooking');
-
+const nodemailer = require('nodemailer');
 
 
 router.post('/add', async (req, res) => {
@@ -22,6 +22,7 @@ router.post('/add', async (req, res) => {
             passportNo,
             email,
             phone,
+            Additionalpassengers,
             passengers,
             departureDate,
             returnDate,
@@ -48,6 +49,7 @@ router.post('/add', async (req, res) => {
             passportNo,
             email,
             phone,
+            Additionalpassengers,
             passengers,
             departureDate,
             returnDate,
@@ -56,8 +58,9 @@ router.post('/add', async (req, res) => {
             status,
             payment_status,
         });
-
+       
         await newbook.save();
+        await sendApprovalEmail(email,firstName,departureDate,to,from);
         res.json({ message: "Booking  Successful" }); 
     } catch (err) {
         console.error(err);
@@ -172,6 +175,45 @@ router.route("/update/:id").put(async (req, res) => {
  })
 
 
+
+ // Function to send approval email
+ async function sendApprovalEmail(email,firstName,departureDate,to,from) {
+    try {
+      // Create a transporter object using SMTP transport
+      let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // false for other ports
+        auth: {
+          user: 'skylinecompany42@gmail.com', // your email
+          pass: 'krbz qlpb ctfr eukn ' // your password
+        }
+      });
+  
+      // send mail with defined transport object and capture the result
+      let info = await transporter.sendMail({
+        from: 'skylinecompany42@gmail.com', // sender address
+        to: email, // list of receivers
+        subject: ' Skyline Tour Booking Successful!', // Subject line
+        text: `Dear ${firstName},
+
+        Thank you for booking the Skyline Tour  From ${from}  to ${to} on the ${departureDate}. 
+        Your reservation has been successfully received and is now being processed.
+        
+        We will send you a confirmation email shortly. If you have any questions, please contact us.
+        
+
+        Best regards,
+        Skyline`
+        
+        
+      });
+  
+      console.log('Message sent: %s', info.messageId);
+    } catch (error) {
+      console.error('Error sending approval email:', error);
+    }
+  }
 
 
 module.exports = router;
