@@ -30,11 +30,15 @@ const TourDetails = () => {
           className="rounded-lg mb-4"
         />
         <div className="mb-4">
-          <h2 className="text-3xl font-bold mb-2">{from} to {to} Tour</h2>
-          <p className="text-gray-500">{tripType}</p>
+          <h2 className="text-3xl font-bold -mb-6">{from} to {to} Tour</h2>
+          <h2 className="text-lg font-bold mb-4">{departureDate} - {returnDate} </h2>
+          <p className="text-gray-500 ">{tripType}</p>
+          <p className="text-gray-500 ">{passengers}</p>
+          <p className="text-gray-500 "> Flight - {flight}</p>
           <p className="text-lg mt-2"> Economy Class ${economyPrice} /per Person</p>
-          <p className="text-lg mt-2"> Business Class${businessPrice} /per Person</p>
-          <p className="text-gray-500 mt-1">{passengers} People</p>
+          <p className="text-lg "> Business Class${businessPrice} /per Person</p>
+       
+
           <p className="mt-4">{description}</p>
         </div>
       </div>

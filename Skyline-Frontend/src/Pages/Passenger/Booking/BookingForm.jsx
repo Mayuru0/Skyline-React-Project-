@@ -183,7 +183,7 @@ const BookingForm = (tour) => {
       classtype: selectedClass,
       totalPrice: getTotalPrice(),
       status: "Pending",
-      payment_status: "Unpaid",
+      payment_status: "Not Paid",
     };
 
     //Axios

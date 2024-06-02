@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 let TourBook = require('../models/TourBooking');
 const nodemailer = require('nodemailer');
-
+const bodyParser = require('body-parser');
 
 router.post('/add', async (req, res) => {
     try {
@@ -141,10 +141,294 @@ router.route("/get/:id").get(async (req, res) => {
 
 
 
+// Nodemailer configuration
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'skylinecompany42@gmail.com',
+    pass: 'krbz qlpb ctfr eukn'
+  }
+});
+
+// Function to send email
+const sendApprovalEmails = (email, status,firstName,departureDate,from,to,returnDate,flight,totalPrice) => {
+  if (!email) {
+    throw new Error('No recipient email defined');
+  }
+
+  let subject;
+  let text;
+
+  // Set subject and text based on status
+  switch (status) {
+    case 'Confirmed':
+      subject = 'Booking Confirmation';
+      text = `Your Skyline Tour booking is ${status}!
+      
+      Dear ${firstName},
+
+      We are pleased to confirm your reservation for the Skyline Tour on ${departureDate}. Your payment has been successfully processed.
+      
+      
+      Booking Details:
+
+      From: ${from}
+      To: ${to}
+      Departure Date: ${departureDate}
+      Return Date: ${returnDate}
+      Flight : ${flight}
+
+      Payment details:
+
+      Amount Paid: $ ${totalPrice}
+      Payment Method: Visa, MasterCard, American Express
+
+      Make the payment as soon as possible. Contact us if you have any questions or need further assistance.
+
+      Thanks so much for joining us!
+
+      Best regards,
+         Skyline
+      
+      `;
+      break;
+    case 'Cancelled':
+      subject = 'Booking Cancellation';
+      text = ` Cancellation Confirmation: Booking Skyline Tours
+
+          Dear ${firstName},
+      
+      We regret to inform you that your reservation for the Skyline Tour on ${departureDate} has been cancelled.
+      
+      We apologize for any inconvenience this may cause. If you have any further questions or need assistance, please do not hesitate to contact us.
+      
+      Thank you for considering our services.
+      
+      best regards,
+      
+      Skyline
+     ';`
+
+
+      break;
+    case 'Finished':
+      subject = 'Booking Completion';
+      text = `Your reservation has been successfully completed
+
+      Dear ${firstName},
+      
+      As your payment has been received, we are pleased to confirm that you have successfully booked the Skyline tour from ${from} to ${to} on ${departureDate}.
+      
+      
+      Thank you for choosing to embark on this adventure with us! If you have any questions or need further assistance, feel free to contact us at any time.
+      
+      best regards,
+        Skyline
+      
+     `
+      break;
+    default:
+      throw new Error('Invalid status');
+  }
+
+  const mailOptions = {
+    from: 'skylinecompany42@gmail.com',
+    to: email,
+    subject: subject,
+    text: text
+  };
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve(info);
+    });
+  });
+};
 
 
 
- // Function to send approval email
+
+// Update booking endpoint
+router.route("/update/:id").put(async (req, res) => {
+  let BookingId = req.params.id;
+  const {
+    userId,
+            tourId,
+            from,
+            to,
+            tripType,
+            flight,
+            title,
+            firstName,
+            lastName,
+            dateOfBirth,
+            country,
+            address,
+            passportNo,
+            
+            phone,
+            Additionalpassengers,
+            passengers,
+            departureDate,
+            returnDate,
+            classtype,
+            totalPrice,
+    email,
+    status,
+    payment_status,
+  } = req.body;
+
+  const updateBooking = {
+    userId,
+            tourId,
+            from,
+            to,
+            tripType,
+            flight,
+            title,
+            firstName,
+            lastName,
+            dateOfBirth,
+            country,
+            address,
+            passportNo,
+            
+            phone,
+            Additionalpassengers,
+            passengers,
+            departureDate,
+            returnDate,
+            classtype,
+            totalPrice,
+    email,
+    status,
+    payment_status,
+  };
+
+  try {
+    await TourBook.findByIdAndUpdate(BookingId, updateBooking);
+    await sendApprovalEmails(email, status,firstName,departureDate,from,to,returnDate,flight,totalPrice);
+    res.status(200).send({ status: "Booking Status Updated and Email Sent" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ status: "Error with updating status", error: err.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+
+//update Status
+router.route("/update/:id").put(async (req, res) => {
+   let BookingId = req.params.id;
+   const{
+    email,
+    status,
+    payment_status,
+
+   } = req.body;
+
+   const updateBooking = {
+  
+    email,
+            status,
+            payment_status,
+   }
+  // await sendApprovalEmails(email,status);
+
+   const update = await TourBook.findByIdAndUpdate(BookingId,updateBooking)
+    .then(() => {
+        res.status(200).send({status:" Booking Status" })
+    }).catch(err => {
+     console.error(err);
+     res.status(500).send({status:" Error with updating Status",error: err.message});
+    })
+ 
+
+
+})*/
+
+/*
+ // Function to send approval Booking
+ async function sendApprovalEmails(email, status) {
+  try {
+    // Create a transporter object using SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // false for other ports
+      auth: {
+        user: 'skylinecompany42@gmail.com', // your email
+        pass: 'krbz qlpb ctfr eukn ' // your password
+      }
+    });
+
+    // send mail with defined transport object and capture the result
+    let info = await transporter.sendMail({
+      from: 'skylinecompany42@gmail.com', // sender address
+      to: email, // list of receivers
+      subject: 'Skyline Tour Booking Successful!', // Subject line
+      text: `Congratulations! Your booking with Skyline has been approved. 
+      
+      Email: ${email}
+      Status: ${status}
+    `
+    });
+
+    console.log('Message sent: %s', info.messageId);
+  } catch (error) {
+    console.error('Error sending approval email:', error);
+  }
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // Function to send Booking success email
  async function sendApprovalEmail(email,firstName,departureDate,to,from) {
     try {
       // Create a transporter object using SMTP transport
@@ -183,5 +467,9 @@ router.route("/get/:id").get(async (req, res) => {
     }
   }
 
+
+
+
+  
 
 module.exports = router;
