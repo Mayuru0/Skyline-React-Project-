@@ -675,11 +675,11 @@ const ManageFlight = () => {
                           <td>{flight.status}</td>
                           <td className="flex gap-6 mt-2">
                             <FaEdit
-                              className="w-7 h-7 cursor-pointer text-green-700 hover:text-green-500 ml-7"
+                              className="text-3xl px-1 py-1 cursor-pointer text-white bg-green-600 hover:bg-green-700 rounded-lg ml-7"
                               onClick={() => handleEdit(flight)}
                             />
                             <MdDelete
-                              className="w-7 h-7 cursor-pointer text-red-700 hover:text-red-500 mr-3"
+                               className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700  mr-3"
                               onClick={() =>
                                 DeleteFlight(flight._id, flight.flightNumber)
                               }

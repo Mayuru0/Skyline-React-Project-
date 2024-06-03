@@ -135,7 +135,7 @@ const RePassengers = () => {
                       <td>{passenger.email}</td>
                       <td className="flex gap-6">
                         <MdDelete
-                          className="w-5 h-5 cursor-pointer"
+                          className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
                           onClick={() => deletePassenger(passenger._id, passenger.firstName)}
                         />
                       </td>

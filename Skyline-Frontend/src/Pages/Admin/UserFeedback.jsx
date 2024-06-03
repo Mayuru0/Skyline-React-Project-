@@ -159,12 +159,12 @@ const RePassengers = () => {
                       <td>{Feedback.message}</td>
                       <td className="flex gap-6">
                         <GrView
-                          className="w-7 h-7 cursor-pointer text-blue-700 mt-3 hover:text-blue-500"
+                          className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 -mr-1"
                           onClick={() => handleViewClick(Feedback)}
                         />
-                        <TbMessage className="w-7 h-7 cursor-pointer text-yellow-700 mt-3 hover:text-yellow-500" />
+                        <TbMessage className="text-3xl px-1 py-1 cursor-pointer text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 mt-3 " />
                         <MdDelete
-                          className="w-7 h-7 cursor-pointer text-red-700 mt-3 hover:text-red-500"
+                          className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
                           onClick={() => deleteFeedback(Feedback._id, Feedback.email)}
                         />
                       </td>

@@ -261,13 +261,13 @@ const Airplanetable = () => {
                 <td className="px-6 py-4">{airplane.busineessSeat}</td>
                 <td className="px-6 py-4">{airplane.totleSeat}</td>
                 <td className="flex gap-6 mr-5">
-                  <GrView className="w-7 h-7 cursor-pointer text-blue-700 mt-3 hover:text-blue-500" 
+                  <GrView   className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 -mr-1"
                     onClick={() => handleView(airplane)}
                   />
-                  <FaEdit className="w-7 h-7 cursor-pointer text-yellow-700 mt-3 hover:text-yellow-500" 
+                  <FaEdit className="text-3xl px-1 py-1 cursor-pointer text-white mt-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg" 
                     onClick={() => handleEdit(airplane)}
                   />
-                  <MdDelete className="w-7 h-7 cursor-pointer text-red-700 mt-3 hover:text-red-500" 
+                  <MdDelete  className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
                     onClick={() =>
                       deleteAirplane(airplane._id, airplane.airplaneName)
                     }

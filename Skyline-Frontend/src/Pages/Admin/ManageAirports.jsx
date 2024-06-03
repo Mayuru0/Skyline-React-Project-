@@ -444,11 +444,11 @@ const ManageAirports = () => {
 
                         <td className="flex gap-6 ">
                           <FaEdit
-                            className="w-7 h-7 mt-2 cursor-pointer  text-green-700  hover:text-green-500 "
+                            className="text-3xl px-1 py-1  mt-3 cursor-pointer  text-white bg-green-600 hover:bg-green-700 rounded-lg "
                             onClick={() => handleEdit(airport)}
                           />
                           <MdDelete
-                            className="w-7 h-7 mt-2 cursor-pointer  text-red-700  hover:text-red-500 mr-5"
+                             className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
                             onClick={() =>
                               deleteAirport(airport._id, airport.airportName)
                             }
