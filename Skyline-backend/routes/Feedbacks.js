@@ -89,7 +89,25 @@ router.route("/update/:id").put(async (req, res) => {
  
  })
 
+// getTotal feedback
+router.route("/search/getFeedbackCount").get(async (req, res) =>{
 
+    try {
+      const FeedbackCount = await Feedback.countDocuments({
+        
+      });
+      res.status(200).json({
+        success: true,
+  
+        data: FeedbackCount,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "not found",
+      });
+    }
+  });
 
 
 module.exports = router;

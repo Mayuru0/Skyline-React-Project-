@@ -111,6 +111,26 @@ router.route("/update/:id").put(async (req, res) => {
  })
  
 
+ // getTotal registered passengers
+ router.route("/search/getFlightCount").get(async (req, res) =>{
+
+    try {
+      const FlightCount = await Flight.countDocuments({
+        
+      });
+      res.status(200).json({
+        success: true,
+  
+        data: FlightCount,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "not found",
+      });
+    }
+  });
+
 
 
 module.exports = router;

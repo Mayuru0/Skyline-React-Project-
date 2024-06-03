@@ -404,6 +404,26 @@ router.post('/login', async (req, res) => {
 
   
 
+  // getTotal registered passengers
+  router.route("/search/getTourCount").get(async (req, res) =>{
+
+  try {
+    const registerCount = await register.countDocuments({
+      
+    });
+    res.status(200).json({
+      success: true,
+
+      data: registerCount,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "not found",
+    });
+  }
+});
+
 
 
 

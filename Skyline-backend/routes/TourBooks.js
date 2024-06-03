@@ -487,6 +487,55 @@ router.route("/update/:id").put(async (req, res) => {
   });
 
 
+
+
+
+  
+  // getTotal Booking
+  router.route("/search/getbookingprice").get(async (req, res) =>{
+
+    try {
+      const totalPrice = await TourBook.countDocuments({
+    
+      });
+      res.status(200).json({
+        success: true,
+  
+        data: totalPrice,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "not found",
+      });
+    }
+  });
+
+
+  // getTotalPrice
+router.route("/search/gettotalprice").get(async (req, res) => {
+  try {
+    const bookings = await TourBook.find({}, { totalPrice: 1 }); // Retrieve only totalPrice field
+    let totalPrice = 0;
+
+    // Sum up the totalPrice of all bookings
+    bookings.forEach(booking => {
+      totalPrice += booking.totalPrice;
+    });
+
+    res.status(200).json({
+      success: true,
+      data: totalPrice,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error calculating total price",
+      error: error.message,
+    });
+  }
+});
+
   
 
 module.exports = router;
