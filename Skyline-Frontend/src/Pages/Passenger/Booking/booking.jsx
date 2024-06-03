@@ -46,7 +46,7 @@ const Booking = () => {
   const [selectedCountryfrom, setSelectedCountryfrom] = useState("");
   const [Countriesto, setCountryto] = useState([]);
   const [selectedCountryto, setSelectedCountryto] = useState("");
-  const [tripType, setTripType] = useState('Round-Trip');
+  const [tripType, setTripType] = useState('Round-Tour');
   const [departureDate, setDepartureDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
   const [passengers, setPassengers] = useState(0);
@@ -107,7 +107,7 @@ const Booking = () => {
       return;
     }
 
-    if (tripType === "Round-Trip" && !returnDate) {
+    if (tripType === "Round-Tour" && !returnDate) {
       toast.error(" Please select a return date for a round trip.", {
         position: "top-center",
         autoClose: 1000,
@@ -210,9 +210,9 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
                       <input
                         type="radio"
                         name="tripType"
-                        value="Round-Trip"
-                        checked={tripType === 'Round-Trip'}
-                        onChange={() => setTripType('Round-Trip')}
+                        value="Round-Tour"
+                        checked={tripType === 'Round-Tour'}
+                        onChange={() => setTripType('Round-Tour')}
                         className="form-radio text-blue-600"
                       />
                       <span className="ml-2 text-gray-700">Round Trip</span>

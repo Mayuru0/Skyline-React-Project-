@@ -536,6 +536,102 @@ router.route("/search/gettotalprice").get(async (req, res) => {
   }
 });
 
+
+// Get round tour count
+router.route("/search/roundTourCount").get(async (req, res) => {
+  try {
+      const roundTourCount = await TourBook.countDocuments({
+        tripType: "Round-Tour",
+      });
+      res.status(200).json({
+          success: true,
+          data: roundTourCount,
+      });
+  } catch (error) {
+      res.status(500).json({
+          success: false,
+          message: "not found",
+      });
+  }
+});
+
+
+
+  // Get One way tour count
+  router.route("/search/OneWayTourCount").get(async (req, res) => {
+    try {
+        const OneWayTourCount = await TourBook.countDocuments({
+          tripType: "One-Way",
+        });
+        res.status(200).json({
+            success: true,
+            data: OneWayTourCount,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "not found",
+        });
+    }
+  });
+
+
+
+
+// getTotalPrice for economy class
+router.route("/search/geteconomytotalprice").get(async (req, res) => {
+  try {
+    const bookings = await TourBook.find({ classtype: "economy" }, { totalPrice: 1 }); // Retrieve only totalPrice field where classtype is economy
+    let totalPrice = 0;
+
+    // Sum up the totalPrice of all bookings
+    bookings.forEach(booking => {
+      totalPrice += booking.totalPrice;
+    });
+
+    res.status(200).json({
+      success: true,
+      data: totalPrice,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error calculating total price",
+      error: error.message,
+    });
+  }
+});
+
+// getTotalPrice for business class
+router.route("/search/getbusinesstotalprice").get(async (req, res) => {
+  try {
+    const bookings = await TourBook.find({ classtype: "business" }, { totalPrice: 1 }); // Retrieve only totalPrice field where classtype is economy
+    let totalPrice = 0;
+
+    // Sum up the totalPrice of all bookings
+    bookings.forEach(booking => {
+      totalPrice += booking.totalPrice;
+    });
+
+    res.status(200).json({
+      success: true,
+      data: totalPrice,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error calculating total price",
+      error: error.message,
+    });
+  }
+});
+
+
+
+
+
+
+
   
 
 module.exports = router;

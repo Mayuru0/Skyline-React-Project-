@@ -91,7 +91,7 @@ const Search = () => {
       return;
     }
 
-    if (tripType === "Round-Trip" && !returnDate) {
+    if (tripType === "Round-Tour" && !returnDate) {
       toast.error(" Please select a return date for a round trip.", {
         position: "top-center",
         autoClose: 1000,
@@ -134,11 +134,11 @@ const Search = () => {
         </button>
         <button
           className={`px-4 py-2 ml-2 ${
-            tripType === "Round-Trip"
+            tripType === "Round-Tour"
               ? "bg-blue-500 text-white"
               : "bg-white text-blue-500 border"
           }`}
-          onClick={() => setTripType("Round-Trip")}
+          onClick={() => setTripType("Round-Tour")}
         >
           Round Trip
         </button>

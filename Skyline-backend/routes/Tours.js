@@ -163,9 +163,4 @@ router.route("/update/:id").put(async (req, res) => {
 
 
 
-
-
-
-
-
 module.exports = router;

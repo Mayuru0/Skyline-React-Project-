@@ -313,8 +313,8 @@ const encodeImageFileAsURL = (file) => {
                 setEditData({ ...editData, tripType: e.target.value })
               }
             >
-                  <option>Round Trip</option>
-                  <option>One Way</option>
+                  <option>Round-Tour</option>
+                  <option>One-Way</option>
                </select>
 
                </div>

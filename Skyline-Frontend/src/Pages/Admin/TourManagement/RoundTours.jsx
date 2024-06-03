@@ -64,7 +64,7 @@ const encodeImageFileAsURL = (file) => {
     const getTours = async () => {
         try {
           const res = await axios.get("http://localhost:5000/tour/");
-          setTours(res.data.filter(b => b.tripType === "Round-Trip"));
+          setTours(res.data.filter(b => b.tripType === "Round-Tour"));
         } catch (err) {
           console.log(err);
           toast.error(<div>😡 Error fetching Tour</div>);

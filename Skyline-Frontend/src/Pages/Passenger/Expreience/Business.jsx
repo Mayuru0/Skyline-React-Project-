@@ -2,7 +2,7 @@ import React from 'react'
 
 const Business = () => {
     return (
-      <div className=" ml-[250px] mb-[20px]  ">
+      <div className=" ml-[300px] mb-[20px]  ">
         <div>
           <h1 className="text-4xl font-sans font-extrabold mb-2  ">
           Business Class

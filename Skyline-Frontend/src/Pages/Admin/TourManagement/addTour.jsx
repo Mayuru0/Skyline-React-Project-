@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //const multer = require('multer');
 const AddTour = () => {
-  const [tripType, setTripType] = useState("Round-Trip");
+  const [tripType, setTripType] = useState("Round-Tour");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   //const [fileName, setFileName] = useState('No file chosen');
@@ -389,9 +389,9 @@ const encodeImageFileAsURL = (file) => {
                     <input
                       type="radio"
                       name="tripType"
-                      value="Round-Trip"
-                      checked={tripType === "Round-Trip"}
-                      onChange={() => setTripType("Round-Trip")}
+                      value="Round-Tour"
+                      checked={tripType === "Round-Tour"}
+                      onChange={() => setTripType("Round-Tour")}
                       className="form-radio text-blue-600"
                     />
                     <span className="ml-2 text-gray-700 ">Round Trip</span>
