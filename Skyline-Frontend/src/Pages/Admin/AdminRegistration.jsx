@@ -55,7 +55,7 @@ const AdminRegistration = () => {
     } else if (confirmPassword !== password) {
       toast.error(<div>  Passwords do not match</div>);
     }   else {
-      toast.success(<div> 😊 All fields are valid!</div>);
+      toast.success(<div>  All fields are valid!</div>);
       // Proceed with form submission if all fields are valid
       sendData();
     }
@@ -80,7 +80,7 @@ const AdminRegistration = () => {
     axios
       .post("http://localhost:5000/register/add", newPassenger)
       .then(() => {
-        toast.success(<div> 😊 Registration Successful!</div>);
+        toast.success(<div>  Registration Successful!</div>);
         navigate("/login");
         // Optionally reset form fields after successful registration
         setFirstName("");
@@ -97,7 +97,7 @@ const AdminRegistration = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error registering user</div>);
+        toast.error(<div>  Error registering user</div>);
       });
   };
 

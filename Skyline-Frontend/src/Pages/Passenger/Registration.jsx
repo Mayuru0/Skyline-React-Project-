@@ -235,7 +235,7 @@ const Registration = () => {
     } else {
 
    
-      toast.error("  😊 All fields are valid!", {
+      toast.error("   All fields are valid!", {
         // position: "top-center",
          autoClose: 1000,
          hideProgressBar: false,
@@ -269,7 +269,7 @@ const Registration = () => {
     axios
       .post("http://localhost:5000/register/add", newPassenger)
       .then(() => {
-        toast.success(<div> 😊 Registration Successful!</div>);
+        toast.success(<div>  Registration Successful!</div>);
         navigate("/login");
         // Optionally reset form fields after successful registration
         setFirstName("");
@@ -289,7 +289,7 @@ const Registration = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error registering user</div>);
+        toast.error(<div>  Error registering user</div>);
       });
 
      

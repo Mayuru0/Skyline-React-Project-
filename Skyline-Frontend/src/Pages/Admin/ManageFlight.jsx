@@ -92,7 +92,7 @@ const ManageFlight = () => {
        });
     } else {
      
-      toast.success(" 😊 All fields are valid!", {
+      toast.success("  All fields are valid!", {
         // position: "top-center",
          autoClose: 1000,
          hideProgressBar: false,
@@ -119,7 +119,7 @@ const ManageFlight = () => {
     axios
       .post("http://localhost:5000/flightlist/add", newflight)
       .then(() => {
-        toast.success(<div> 😊 Flight Add Successful!</div>);
+        toast.success(<div>  Flight Add Successful!</div>);
         
 
         // Optionally reset form fields after successful registration
@@ -131,7 +131,7 @@ const ManageFlight = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Flight Add Error</div>);
+        toast.error(<div>  Flight Add Error</div>);
       });
   };
 
@@ -148,7 +148,7 @@ const ManageFlight = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error loading Flights List</div>);
+          toast.error(<div>  Error loading Flights List</div>);
         });
     }
 
@@ -215,7 +215,7 @@ const ManageFlight = () => {
       axios
         .delete(`http://localhost:5000/flightlist/delete/${id}`)
         .then(() => {
-          toast.success("  😊 Flight deleted successfully!", {
+          toast.success("   Flight deleted successfully!", {
             // position: "top-center",
              autoClose: 1000,
              hideProgressBar: false,
@@ -228,7 +228,7 @@ const ManageFlight = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error deleting flight</div>);
+          toast.error(<div>  Error deleting flight</div>);
         });
     }
   };
@@ -244,7 +244,7 @@ const ManageFlight = () => {
       .put(`http://localhost:5000/flightlist/update/${editData._id}`, editData)
       .then(() => {
         
-        toast.success("  😊 Flight updated successfully!", {
+        toast.success("   Flight updated successfully!", {
           // position: "top-center",
            autoClose: 1000,
            hideProgressBar: false,
@@ -261,7 +261,7 @@ const ManageFlight = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error updating Flight</div>);
+        toast.error(<div> Error updating Flight</div>);
       });
   };
 

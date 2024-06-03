@@ -88,7 +88,7 @@ const AddAirplaneForm = () => {
        });
 
     } else { 
-      toast.success("😊 All fields are valid!", {
+      toast.success(" All fields are valid!", {
         // position: "top-center",
          autoClose: 1000,
          hideProgressBar: false,
@@ -116,7 +116,7 @@ const AddAirplaneForm = () => {
     axios
       .post("http://localhost:5000/airplane/add", newairplane)
       .then(() => {
-        toast.success(<div> 😊 Airplane Add Successful!</div>);
+        toast.success(<div> Airplane Add Successful!</div>);
         
        
         setairplaneName("");
@@ -128,7 +128,7 @@ const AddAirplaneForm = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error Airplane Add </div>);
+        toast.error(<div>  Error Airplane Add </div>);
       });
   };
 

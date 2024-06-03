@@ -27,7 +27,7 @@ const Help = () => {
       toast.error(<div>  message is required</div>);
     
     } else {
-      toast.success(<div> 😊 All fields are valid!</div>);
+      toast.success(<div>  All fields are valid!</div>);
       // Proceed with form submission if all fields are valid
       sendData();
     }
@@ -47,7 +47,7 @@ const Help = () => {
     axios
       .post("http://localhost:5000/feedback/add", newfeedback)
       .then(() => {
-        toast.success(<div> 😊 Feedback Successful!</div>);
+        toast.success(<div>  Feedback Successful!</div>);
         setemail("");
         setname("");
         setesubject("");
@@ -58,7 +58,7 @@ const Help = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error Feedback Send</div>);
+        toast.error(<div>  Error Feedback Send</div>);
       });
 
 

@@ -26,7 +26,7 @@ const ManageCountries = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error fetching countries</div>);
+          toast.error(<div> Error fetching countries</div>);
         });
     }
 
@@ -48,7 +48,7 @@ const ManageCountries = () => {
          progress: undefined
        });
     } else {
-      toast.success(" 😊 All fields are valid!", {
+      toast.success("  All fields are valid!", {
         // position: "top-center",
          autoClose: 1000,
          hideProgressBar: false,
@@ -71,13 +71,13 @@ const ManageCountries = () => {
     axios
       .post("http://localhost:5000/countries/add", newCountry)
       .then(() => {
-        toast.success(<div>😊 Country Add Successful!</div>);
+        toast.success(<div> Country Add Successful!</div>);
         
         setCountry(""); 
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error Country add </div>);
+        toast.error(<div> Error Country add </div>);
       });
   };
 
@@ -96,7 +96,7 @@ const ManageCountries = () => {
       axios
         .delete(`http://localhost:5000/countries/delete/${id}`)
         .then(() => {
-          toast.success(" 😊 Country deleted successfully!", {
+          toast.success("  Country deleted successfully!", {
             // position: "top-center",
              autoClose: 1000,
              hideProgressBar: false,
@@ -109,7 +109,7 @@ const ManageCountries = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error deleting country</div>);
+          toast.error(<div> Error deleting country</div>);
         });
     }
   };
@@ -125,7 +125,7 @@ const ManageCountries = () => {
       .put(`http://localhost:5000/countries/update/${editData._id}`, editData)
       .then(() => {
         
-        toast.success(" 😊 Country updated successfully!", {
+        toast.success("  Country updated successfully!", {
           // position: "top-center",
            autoClose: 1000,
            hideProgressBar: false,
@@ -142,7 +142,7 @@ const ManageCountries = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error updating country</div>);
+        toast.error(<div> Error updating country</div>);
       });
   };
 

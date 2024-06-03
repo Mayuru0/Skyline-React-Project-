@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import { TbMessage } from "react-icons/tb";
-
-const FeedbackModal = ({ feedback, onClose }) => {
+import { TbMessageCircle } from "react-icons/tb";
+import { AuthContext } from "../../Components/context/AuthContext";
+/*const FeedbackModal = ({ feedback, onClose }) => {
+  
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
       <div className="bg-white rounded-lg p-4 w-1/2">
@@ -22,15 +24,67 @@ const FeedbackModal = ({ feedback, onClose }) => {
       </div>
     </div>
   );
-};
+};*/
 
 const RePassengers = () => {
   const [feedback, setFeedback] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedFeedback, setSelectedFeedback] = useState(null);
-  const itemsPerPage = 10;
+  //const [selectedFeedback, setSelectedFeedback] = useState(null);
+  const itemsPerPage = 7;
+  const { passenger } = useContext(AuthContext);
+  const [feedbackReply, setfeedbackReply] = useState("");
 
+
+  //add feedback reply
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validation logic
+    if (!feedbackReply ) {
+      toast.error(<div> Feedback Reply is required</div>, { autoClose: 1000 });
+    } else {
+      toast.success(<div>  All fields are valid!</div>, { autoClose: 1000 });
+      // Proceed with form submission if all fields are valid
+      sendData();
+    }
+};
+
+
+  const sendData = () => {
+    const newfeedback = {
+      userId: passenger && passenger._id,
+      feedbackId: viewData && viewData._id,
+      email: viewData && viewData.email,
+      name: viewData && viewData.name,
+      subject: viewData && viewData.subject,
+      message: viewData && viewData.message,
+      feedbackReply
+      
+    };
+
+    //Axios
+    axios
+      .post("http://localhost:5000/feedbackReply/add", newfeedback)
+      .then(() => {
+        toast.success(<div>  Feedback Successful!</div>); 
+        setfeedbackReply("");
+      
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(<div>  Error Feedback Send</div>);
+      });
+
+
+
+
+    }
+
+
+
+
+//get passenger feedback
   useEffect(() => {
     function getFeedback() {
       axios.get('http://localhost:5000/feedback/')
@@ -39,13 +93,14 @@ const RePassengers = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error loading User Feedback</div>);
+          toast.error(<div>  Error loading User Feedback</div>);
         });
     }
 
     getFeedback();
   }, []);
 
+  
   const filteredFeedback = feedback.filter((Feedback) =>
     Feedback.email && Feedback.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -56,18 +111,19 @@ const RePassengers = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
 //delete
   const deleteFeedback = (id, email) => {
     if (window.confirm(`Are you sure you want to delete feedback from ${email}`)) {
       axios
         .delete(`http://localhost:5000/feedback/delete/${id}`)
         .then(() => {
-          toast.success(<div> 😊 Feedback deleted successfully!</div>);
+          toast.success(<div>  Feedback deleted successfully!</div>);
           setFeedback(feedback.filter(p => p._id !== id));
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error deleting Feedback</div>);
+          toast.error(<div>  Error deleting Feedback</div>);
         });
     }
   };
@@ -76,16 +132,73 @@ const RePassengers = () => {
     setCurrentPage(pageNumber);
   };
 
+  /*
   const handleViewClick = (feedback) => {
     setSelectedFeedback(feedback);
   };
 
   const handleCloseModal = () => {
     setSelectedFeedback(null);
-  };
+  }; */
+  const [viewData, setViewData] = useState(null);
 
+
+   // Handle view action
+   const handleView = (feedback) => {
+    setViewData(feedback);
+   };
   return (
     <div className="">
+
+      {/* Modal for viewing description */}
+ {viewData && (
+        <div className="fixed w-full  z-50 justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-gray-200 p-6 rounded-md shadow-md w-[1680px] h-[1000px]  ">
+          <div className='bg-gray-100 h-[600px] '>
+            <h2 className="text-lg font-semibold mb-4 bg-[#1F3541] text-white text-center rounded-lg flex items-center justify-center">
+            <TbMessageCircle className="w-6 h-6 mr-2" /> Reply Passenger Feedback
+            </h2>
+           
+            <div className="mb-4">
+            <p className="text-lg font-semibold mb-4 ml-6"> ⭕ Passenger Email : {viewData.email}</p>
+            <p className="text-lg font-semibold mb-4 ml-6">⭕ Passenger Name : {viewData.name}</p>
+            <p className="text-lg font-semibold mb-4 ml-6">⭕ Subject Name : {viewData.subject}</p>
+            <span className="text-lg font-semibold ml-6">⭕ Passenger Message : {viewData.message}</span>
+            </div>
+
+      <form className="mt-20" onSubmit={handleSubmit}>
+      <p className="text-lg font-semibold mb-4 ml-6"> Company Reply :</p>
+
+        <textarea
+           rows={6}
+          placeholder="Write a reply..."
+          className="w-[1600px] p-2 border rounded focus:outline-none focus:ring focus:border-blue-300 ml-6"
+          value={feedbackReply}
+         onChange={(e) => setfeedbackReply(e.target.value)}
+        ></textarea>
+        <button
+          type="submit"
+          className="mt-6 ml-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 "
+        >
+          Reply
+        </button>
+        <button
+              className="bg-gray-500 text-white px-4 py-2 rounded-md  hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 ml-4"
+              onClick={() => setViewData(null)}
+            >
+              Close
+            </button>
+      </form>
+            
+            </div>
+            
+            
+          </div>
+        </div>
+      )}
+
+
+
       <div className="py-[25px] px-[25px] bg-slate-100 mt-2 ">
         <h1 className="text-black text-[28px] leading-[40px] cursor-pointer font-semibold">
           User Feedback
@@ -158,14 +271,22 @@ const RePassengers = () => {
                       <td>{Feedback.subject}</td>
                       <td>{Feedback.message}</td>
                       <td className="flex gap-6">
-                        <GrView
+                       {/* <GrView
                           className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 -mr-1"
                           onClick={() => handleViewClick(Feedback)}
+                          title='view feedback'
+                  />  */}
+                        <TbMessage className="text-3xl px-1 py-1 cursor-pointer text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 mt-3 " 
+                         onClick={() => handleView(Feedback)}
+                        title='send feedback'
                         />
-                        <TbMessage className="text-3xl px-1 py-1 cursor-pointer text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 mt-3 " />
+                       
+
+
                         <MdDelete
                           className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
                           onClick={() => deleteFeedback(Feedback._id, Feedback.email)}
+                          title='delete feedback'
                         />
                       </td>
                     </tr>
@@ -187,9 +308,9 @@ const RePassengers = () => {
           </div>
         </section>
       </div>
-      {selectedFeedback && (
+     {/* {selectedFeedback && (
         <FeedbackModal feedback={selectedFeedback} onClose={handleCloseModal} />
-      )}
+      )} */}
     </div>
   );
 };

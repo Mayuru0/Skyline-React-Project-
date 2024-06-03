@@ -22,7 +22,7 @@ const Airplanetable = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.success("😡 Error loading airplanes", {
+          toast.success(" Error loading airplanes", {
             // position: "top-center",
              autoClose: 1000,
              hideProgressBar: false,
@@ -48,7 +48,7 @@ const Airplanetable = () => {
       axios
         .delete(`http://localhost:5000/airplane/delete/${id}`)
         .then(() => {
-          toast.success("😊 Airplane deleted successfully!", {
+          toast.success(" Airplane deleted successfully!", {
             // position: "top-center",
              autoClose: 1000,
              hideProgressBar: false,
@@ -62,7 +62,7 @@ const Airplanetable = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error deleting Airplane</div>);
+          toast.error(<div> Error deleting Airplane</div>);
         });
     }
   };
@@ -77,7 +77,7 @@ const Airplanetable = () => {
     axios
       .put(`http://localhost:5000/airplane/update/${editData._id}`, editData)
       .then(() => {
-        toast.success("😊 Airplane updated successfully", {
+        toast.success(" Airplane updated successfully", {
           // position: "top-center",
            autoClose: 1000,
            hideProgressBar: false,
@@ -94,7 +94,7 @@ const Airplanetable = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error updating Airplane</div>);
+        toast.error(<div> Error updating Airplane</div>);
       });
   };
 

@@ -68,6 +68,11 @@ app.use('/airplane',AirplaneRoutes);
 const TourRoutes = require('./routes/Tours.js');
 app.use('/tour',TourRoutes);
 
+
+//Access Feedback routes
+const FeedbackReplyRoutes = require('./routes/FeedbackReplys.js');
+app.use('/feedbackReply', FeedbackReplyRoutes);
+
 // Middleware function to handle 404 errors
 app.use((req, res, next) => {
     const error = new Error('Not Found');

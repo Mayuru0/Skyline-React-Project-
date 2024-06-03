@@ -22,7 +22,7 @@ const WaitingBookings = () => {
         setBooking(res.data.filter(b => b.status === "Waiting"));
       } catch (err) {
         console.log(err);
-        toast.error(<div>😡 Error fetching bookings</div>);
+        toast.error(<div> Error fetching bookings</div>);
       }
     };
     getBookings();
@@ -35,7 +35,7 @@ const WaitingBookings = () => {
         .delete(`http://localhost:5000/tourbooks/delete/${_id}`)
         .then(() => {
           setBooking(booking.filter(b => b._id !== _id));
-          toast.success("😊 Booking deleted successfully!", {
+          toast.success(" Booking deleted successfully!", {
             autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -46,7 +46,7 @@ const WaitingBookings = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error deleting booking</div>);
+          toast.error(<div> Error deleting booking</div>);
         });
     }
   };
@@ -67,10 +67,10 @@ const WaitingBookings = () => {
         payment_status,
       });
       setBooking(booking.map(b => (b._id === id ? { ...b, status, payment_status } : b)));
-      toast.success("😊 Booking status updated successfully!");
+      toast.success(" Booking status updated successfully!");
     } catch (error) {
       console.error(error);
-      toast.error(<div>😡 Error updating booking status</div>);
+      toast.error(<div> Error updating booking status</div>);
     }
   };
 

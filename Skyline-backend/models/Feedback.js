@@ -6,7 +6,7 @@ const FeedbackSchema = new Schema({
     email: {
         type: String,
        
-        required: true,
+        //required: true,
     },
     name: {
         type: String,

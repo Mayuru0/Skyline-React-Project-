@@ -41,7 +41,7 @@ const Search = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error loading User Tours</div>);
+        toast.error(<div> Error loading User Tours</div>);
       });
   }, []);
 

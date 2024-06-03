@@ -20,7 +20,7 @@ const FlightList = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error loading Flights List</div>);
+        toast.error(<div>  Error loading Flights List</div>);
       });
 
     // Fetch airports
@@ -51,7 +51,7 @@ const FlightList = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error loading Flights List</div>);
+        toast.error(<div>  Error loading Flights List</div>);
       });
   };
 

@@ -29,7 +29,7 @@ const ManageAirports = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error fetching Airports</div>);
+          toast.error(<div> Error fetching Airports</div>);
         });
     }
 
@@ -85,7 +85,7 @@ const ManageAirports = () => {
        });
     } else {
       
-      toast.success("😊 All fields are valid!", {
+      toast.success(" All fields are valid!", {
         // position: "top-center",
          autoClose: 1000,
          hideProgressBar: false,
@@ -110,7 +110,7 @@ const ManageAirports = () => {
     axios
       .post("http://localhost:5000/airport/add", newAirport)
       .then(() => {
-        toast.success(<div>😊 Registration Successful!</div>);
+        toast.success(<div> Registration Successful!</div>);
         setAirportName("");
         setairportLocation("");
         setAairportCode("");
@@ -118,7 +118,7 @@ const ManageAirports = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error registering Airport</div>);
+        toast.error(<div> Error registering Airport</div>);
       });
   };
   /*
@@ -143,12 +143,12 @@ const ManageAirports = () => {
       axios
         .delete(`http://localhost:5000/airport/delete/${id}`)
         .then(() => {
-          toast.success(<div>😊 Airport deleted successfully!</div>);
+          toast.success(<div> Airport deleted successfully!</div>);
           setAirports(Airports.filter((c) => c._id !== id)); // Changed to setAirports
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error deleting Airport</div>);
+          toast.error(<div> Error deleting Airport</div>);
         });
     }
   };
@@ -163,7 +163,7 @@ const ManageAirports = () => {
     axios
       .put(`http://localhost:5000/airport/update/${editData._id}`, editData)
       .then(() => {
-        toast.success(<div>😊 Airport updated successfully!</div>);
+        toast.success(<div> Airport updated successfully!</div>);
         setEditData(null); 
         
         axios.get("http://localhost:5000/airport/").then((res) => {
@@ -173,7 +173,7 @@ const ManageAirports = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error updating Airport</div>);
+        toast.error(<div> Error updating Airport</div>);
       });
   };
 

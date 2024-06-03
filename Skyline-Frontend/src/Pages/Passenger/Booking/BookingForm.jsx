@@ -154,7 +154,7 @@ const BookingForm = (tour) => {
     } else if (selectedClass === "") {
       toast.error("classtype Name is required", { autoClose: 1000 });
     } else {
-      toast.success("😊 All fields are valid!", { autoClose: 1000 });
+      toast.success(" All fields are valid!", { autoClose: 1000 });
       sendData();
     }
   };
@@ -190,7 +190,7 @@ const BookingForm = (tour) => {
     axios
       .post("http://localhost:5000/tourbooks/add", newPassenger)
       .then(() => {
-        toast.success(<div> 😊 Booking Successful!</div>);
+        toast.success(<div>  Booking Successful!</div>);
         navigate("/thankyou");
         // Optionally reset form fields after successful registration
         setTitle("");
@@ -211,7 +211,7 @@ const BookingForm = (tour) => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Error registering user</div>);
+        toast.error(<div>  Error registering user</div>);
       });
   };
 

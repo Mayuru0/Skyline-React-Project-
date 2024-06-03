@@ -16,7 +16,7 @@ const RePassengers = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error  load registering user</div>);
+          toast.error(<div>  Error  load registering user</div>);
         });
     }
 
@@ -35,13 +35,13 @@ const RePassengers = () => {
         .delete(`http://localhost:5000/register/delete/${id}`)
         .then(() => {
           // Optional: Provide feedback to the user
-          toast.success(<div> 😊 Passenger deleted successfully!</div>);
+          toast.success(<div>  Passenger deleted successfully!</div>);
           // Optional: Update the passenger list after deletion
           setPassengers(passengers.filter(p => p._id !== id));
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error deleting passenger</div>);
+          toast.error(<div>  Error deleting passenger</div>);
         });
     }
   };

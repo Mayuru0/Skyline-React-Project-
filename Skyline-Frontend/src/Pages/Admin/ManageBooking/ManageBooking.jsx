@@ -33,7 +33,7 @@ const ManageBooking = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error fetching countries</div>);
+        toast.error(<div> Error fetching countries</div>);
       });
   }
 
@@ -47,7 +47,7 @@ const ManageBooking = () => {
       axios
         .delete(`http://localhost:5000/tourbooks/delete/${_id}`)
         .then(() => {
-          toast.success("😊 Booking deleted successfully!", {
+          toast.success(" Booking deleted successfully!", {
             autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -59,7 +59,7 @@ const ManageBooking = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error deleting booking</div>);
+          toast.error(<div> Error deleting booking</div>);
         });
     }
   };
@@ -83,10 +83,10 @@ const ManageBooking = () => {
         payment_status,
       });
   
-      toast.success("😊 Booking status updated and email sent successfully!");
+      toast.success(" Booking status updated and email sent successfully!");
     } catch (error) {
       console.error(error);
-      toast.error(<div>😡 Error updating booking status</div>);
+      toast.error(<div>Error updating booking status</div>);
     }
   };
   

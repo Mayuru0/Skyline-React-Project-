@@ -35,7 +35,7 @@ const Booking = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error loading  Tours</div>);
+          toast.error(<div> Error loading  Tours</div>);
         });
     }
 
