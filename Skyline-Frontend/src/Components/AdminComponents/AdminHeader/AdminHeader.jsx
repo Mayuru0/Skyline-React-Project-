@@ -8,6 +8,7 @@ import { IoIosSwitch } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom'
 const AdminHeader = () => {
   // State to manage the visibility of the dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -51,10 +52,16 @@ const AdminHeader = () => {
         
       <div className="flex items-center justify-end mr-4 -mt-14"> 
       <div className='flex '>
-         <p className='text-[25px] font-bold font-sans text-blue-700 hover:text-blue-500 mr-[1155px] cursor-pointer'>Skyline</p>
+         <p className='text-[25px] font-bold font-sans text-blue-800 hover:text-blue-500 mr-[1149px] cursor-pointer'>Skyline</p>
         </div>
     
-      <FaRegBell className='mr-4'/>
+
+        <Link to='/admin/waitingbooking'className='ah-icon2'>
+        <FaRegBell className='mr-4 h-6 w-6 hover:text-blue-700'/>
+                </Link>
+     
+
+
       <FaEnvelope className='mr-6'/>
       <span className="text-blue-700 hover:to-blue-500 cursor-pointer font-semibold mr-2 ">Welcome, {passenger.firstName}</span>
         <button

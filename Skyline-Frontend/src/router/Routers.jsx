@@ -42,6 +42,10 @@ import AllTours from "../Pages/Admin/TourManagement/allTours";
 import EconomyTours from "../Pages/Admin/TourManagement/economyTours";
 import BusinessTours from "../Pages/Admin/TourManagement/businessTours";
 import ViewBooking from "../Pages/Admin/ManageBooking/ViewBooking";
+import WaitingBookings from "../Pages/Admin/ManageBooking/WaitingBookings";
+import ConfirmedBookings from "../Pages/Admin/ManageBooking/ConfirmedBookings";
+import FinishedBookings from "../Pages/Admin/ManageBooking/FinishedBookings";
+import CanceledBooking from "../Pages/Admin/ManageBooking/CanceledBooking";
 
 
 
@@ -100,6 +104,10 @@ const Routers = () => {
         <Route path="/admin/economyTours" element={<EconomyTours/>} />
         <Route path="/admin/businesTours" element={<BusinessTours/>} />
         <Route path="/admin/viewbooking" element={<ViewBooking/>} />
+        <Route path="/admin/waitingbooking" element={<WaitingBookings/>} />
+        <Route path="/admin/confirmedbooking" element={<ConfirmedBookings/>} />
+        <Route path="/admin/finishedbooking" element={<FinishedBookings/>} />
+        <Route path="/admin/canceledbooking" element={<CanceledBooking/>} />
    
         
 

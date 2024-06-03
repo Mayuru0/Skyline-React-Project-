@@ -182,7 +182,7 @@ const BookingForm = (tour) => {
       returnDate: tour && tour.returnDate,
       classtype: selectedClass,
       totalPrice: getTotalPrice(),
-      status: "Pending",
+      status: "Waiting",
       payment_status: "Not Paid",
     };
 

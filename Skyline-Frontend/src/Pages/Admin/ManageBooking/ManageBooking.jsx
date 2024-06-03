@@ -91,11 +91,11 @@ const ManageBooking = () => {
   };
   
   const handleConfirmBooking = (id, email,firstName,departureDate,from,to,returnDate,flight,totalPrice) => {
-    updateBookingStatus(id, "Confirmed", "Pending", email,firstName,departureDate,from,to,returnDate,flight,totalPrice);
+    updateBookingStatus(id, "Confirmed", "Not Paid", email,firstName,departureDate,from,to,returnDate,flight,totalPrice);
   };
   
   const handleCancelBooking = (id, email,firstName,departureDate,from,to,returnDate,flight,totalPrice) => {
-    updateBookingStatus(id, "Cancelled", "Pending", email,firstName,departureDate,from,to,returnDate,flight,totalPrice);
+    updateBookingStatus(id, "Cancelled", "Not Paid", email,firstName,departureDate,from,to,returnDate,flight,totalPrice);
   };
   
   const handleFinishBooking = (id, email,firstName,departureDate,from,to,returnDate,flight,totalPrice) => {
@@ -240,30 +240,30 @@ const ManageBooking = () => {
                 <td className="px-6 py-4 text-center">{booking.passengers}</td>
                 <td className="px-6 py-4 text-center">{booking.classtype}</td>
                 <td className="px-6 py-4 text-center">{booking.totalPrice}</td>
-                <td className="px-6 py-4 text-center">{booking.status}</td>
-                <td className="px-6 py-4 text-center">{booking.payment_status}</td>
+                <td className="px-6 py-4 text-center text-red-600">{booking.status}</td>
+                <td className="px-6 py-4 text-center text-red-600">{booking.payment_status}</td>
                 <td className="flex gap-2 ml-4 mt-3 ">
                   <MdEventAvailable
-                    className="w-7 h-8 rounded-lg cursor-pointer mt-3 mr-3 bg-green-700 text-white hover:bg-green-800"
+                    className="text-3xl px-1 py-1 rounded-lg cursor-pointer mt-3 mr-3 bg-green-700 text-white  hover:bg-green-800 "
                     title="Confirm Booking"
                     onClick={() => handleConfirmBooking(booking._id, booking.email ,booking.firstName ,booking.departureDate,booking.from,booking.to,booking.returnDate,booking.flight,booking.totalPrice)}
                   />
                   <MdBlockFlipped
-                    className="w-7 h-8 cusor-pointer text-white bg-gray-600 rounded-lg mt-3 hover:bg-gray-700 mr-3"
+                    className="text-3xl px-1 py-1 cusor-pointer text-white bg-gray-600 rounded-lg mt-3 hover:bg-gray-700 mr-3"
                     title="Cancel Booking"
                     onClick={() => handleCancelBooking(booking._id, booking.email,booking.firstName ,booking.departureDate,booking.from,booking.to,booking.returnDate,booking.flight,booking.totalPrice)}
                   />
                   <MdOutlineTaskAlt
-                    className="w-7 h-8 cursor-pointer text-white mt-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg mr-3"
+                    className="text-3xl px-1 py-1cursor-pointer text-white mt-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg mr-3"
                     title="Mark as Finished Booking"
                     onClick={() => handleFinishBooking(booking._id, booking.email,booking.firstName ,booking.departureDate,booking.from,booking.to,booking.returnDate,booking.flight,booking.totalPrice)}
                   />
                   <MdDelete
-                    className="w-7 h-8 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
+                    className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"
                     onClick={() => deleteBooking(booking._id, booking.from, booking.to)}
                     title="Delete Booking"
                   />
-                  <GrView className="w-7 h-9 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 mr-6" 
+                  <GrView className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 mr-6" 
                   onClick={() => handleView(booking)}
                   title="View Details"
                   
