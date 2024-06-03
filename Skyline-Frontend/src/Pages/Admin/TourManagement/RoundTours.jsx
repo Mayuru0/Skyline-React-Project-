@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import { FaEdit } from "react-icons/fa";
 import { TbTournament } from "react-icons/tb";
-const AllTours = () => {
+const RoundTours = () => {
   const [tours, setTours] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const toursPerPage = 10;
@@ -61,17 +61,15 @@ const encodeImageFileAsURL = (file) => {
 
   //get Tours
   useEffect(() => {
-    function getTours() {
-      axios
-        .get("http://localhost:5000/tour/")
-        .then((res) => {
-          setTours(res.data);
-        })
-        .catch((err) => {
+    const getTours = async () => {
+        try {
+          const res = await axios.get("http://localhost:5000/tour/");
+          setTours(res.data.filter(b => b.tripType === "Round-Trip"));
+        } catch (err) {
           console.log(err);
-          toast.error(<div>😡 Error loading User Tours</div>);
-        });
-    }
+          toast.error(<div>😡 Error fetching Tour</div>);
+        }
+      };
 
     getTours();
   }, []);
@@ -195,7 +193,7 @@ const encodeImageFileAsURL = (file) => {
       {/* TourNav */}
       <TourNavigationBar
        length={tours.length}
-
+      
       />
 
       {/* Modal form for editing */}
@@ -498,7 +496,7 @@ const encodeImageFileAsURL = (file) => {
                 <td className="px-6 py-4 text-center">{tour.economyPrice}</td>
                 <td className="px-6 py-4 text-center">{tour.businessPrice}</td>
                 <td className="flex gap-6">
-                  <GrView className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 -mr-1"
+                <GrView className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 -mr-1"
                   onClick={() => handleView(tour)}
                   />
                   <FaEdit
@@ -546,4 +544,4 @@ const encodeImageFileAsURL = (file) => {
   );
 };
 
-export default AllTours;
+export default RoundTours;

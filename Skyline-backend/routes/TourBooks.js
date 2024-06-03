@@ -467,7 +467,24 @@ router.route("/update/:id").put(async (req, res) => {
     }
   }
 
-
+  router.route("/search/waitingBookings").get(async (req, res) => {
+    try {
+      const WaitingBookingCount = await TourBook.countDocuments({
+        status: "Waiting",
+      });
+  
+      res.status(200).json({
+        success: true,
+  
+        data: WaitingBookingCount,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: true,
+        message: "Not found",
+      });
+    }
+  });
 
 
   

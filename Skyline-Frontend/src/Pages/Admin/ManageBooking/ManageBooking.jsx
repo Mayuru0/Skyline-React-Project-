@@ -127,7 +127,10 @@ const ManageBooking = () => {
   return (
     <div>
  {/* TourNav */}
- <BookingNavigationBar/>
+ <BookingNavigationBar
+   length={booking.length}
+ 
+ />
 
  {/* Modal for viewing description */}
  {viewData && (
@@ -178,6 +181,8 @@ const ManageBooking = () => {
           </div>
         </div>
       )}
+
+
 
       {/* Table */}
       <div className="relative overflow-x-auto mt-10">

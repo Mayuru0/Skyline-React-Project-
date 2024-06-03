@@ -39,13 +39,14 @@ import AdminRegistration from "../Pages/Admin/AdminRegistration";
 import ManageAirplane from "../Pages/Admin/ManageAriplanes/ManageAirplane";
 import AddTour from "../Pages/Admin/TourManagement/addTour";
 import AllTours from "../Pages/Admin/TourManagement/allTours";
-import EconomyTours from "../Pages/Admin/TourManagement/economyTours";
-import BusinessTours from "../Pages/Admin/TourManagement/businessTours";
 import ViewBooking from "../Pages/Admin/ManageBooking/ViewBooking";
 import WaitingBookings from "../Pages/Admin/ManageBooking/WaitingBookings";
 import ConfirmedBookings from "../Pages/Admin/ManageBooking/ConfirmedBookings";
 import FinishedBookings from "../Pages/Admin/ManageBooking/FinishedBookings";
 import CanceledBooking from "../Pages/Admin/ManageBooking/CanceledBooking";
+import OneWayTours from "../Pages/Admin/TourManagement/OneWayTours";
+import RoundTours from "../Pages/Admin/TourManagement/RoundTours";
+
 
 
 
@@ -101,8 +102,8 @@ const Routers = () => {
         <Route path="/admin/manageairplane" element={<ManageAirplane/>} />
         <Route path="/admin/addTour" element={<AddTour/>} />
         <Route path="/admin/allTours" element={<AllTours/>} />
-        <Route path="/admin/economyTours" element={<EconomyTours/>} />
-        <Route path="/admin/businesTours" element={<BusinessTours/>} />
+        <Route path="/admin/onewaytours" element={<OneWayTours/>} />
+        <Route path="/admin/roundtours" element={<RoundTours/>} />
         <Route path="/admin/viewbooking" element={<ViewBooking/>} />
         <Route path="/admin/waitingbooking" element={<WaitingBookings/>} />
         <Route path="/admin/confirmedbooking" element={<ConfirmedBookings/>} />

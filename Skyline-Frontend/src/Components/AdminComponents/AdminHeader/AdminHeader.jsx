@@ -9,7 +9,14 @@ import { FaRegUser } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom'
+import useFetch from '../../../Components/hooks/useFetch';
+import { BASE_URL } from '../../../Components/Utils/config';
+
 const AdminHeader = () => {
+
+  const {data:waitingCount}=useFetch(`${BASE_URL}tourbooks/search/waitingBookings`);
+
+ 
   // State to manage the visibility of the dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { passenger, dispatch } = useContext(AuthContext);
@@ -56,9 +63,14 @@ const AdminHeader = () => {
         </div>
     
 
-        <Link to='/admin/waitingbooking'className='ah-icon2'>
-        <FaRegBell className='mr-4 h-6 w-6 hover:text-blue-700'/>
-                </Link>
+        <div className="flex justify-end items-center p-4">
+            <Link to='/admin/waitingbooking' className='relative flex items-center'>
+                <FaRegBell className='mr-4 h-6 w-6 hover:text-blue-700' />
+                <div className="absolute -top-4 -right-2 flex justify-center items-center text-white bg-red-500 w-8 h-8 text-2xl rounded-full font-bold">
+                    {waitingCount}
+                </div>
+            </Link>
+        </div>
      
 
 

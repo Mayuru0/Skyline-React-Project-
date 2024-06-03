@@ -112,7 +112,8 @@ const ConfirmedBookings = () => {
   return (
     <div>
       {/* TourNav */}
-      <BookingNavigationBar />
+      <BookingNavigationBar
+      length={booking.length} />
 
       {/* Modal for viewing description */}
       {viewData && (
