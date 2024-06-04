@@ -235,7 +235,7 @@ const Registration = () => {
     } else {
 
    
-      toast.error("   All fields are valid!", {
+      toast.success("   All fields are valid!", {
         // position: "top-center",
          autoClose: 1000,
          hideProgressBar: false,

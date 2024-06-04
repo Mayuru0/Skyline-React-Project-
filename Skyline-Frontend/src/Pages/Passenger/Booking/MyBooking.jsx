@@ -66,10 +66,21 @@ const MyBooking = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading bookings</div>;
 
-  return (
-    <div className='mt-[200px]'>
+  if (!booking || booking.length === 0) {
+    return (
+      <div className='mt-[200px] mb-[1000px]'>
+        <h2 className="text-3xl font-bold text-gray-600 text-center">No bookings found.</h2>
+      </div>
+    );
+  }
 
-      {/* Table */}
+  return (
+    <div className='mt-[200px] mb-[320px]'>
+
+      <div>
+        <h2 className="text-3xl font-bold text-gray-600 text-center">My Bookings</h2>
+      </div>
+      {/* Table 
       <div className="relative overflow-x-auto mt-10">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -115,7 +126,67 @@ const MyBooking = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>*/}
+      {/* Booking Details */}
+      {currentBookings.map((booking) => (
+        <div key={booking._id} className="w-[1600px] mx-auto p-4">
+          <div className="bg-white shadow-2xl rounded-3xl p-4 flex justify-between items-center ">
+            <div className="flex flex-col">
+              <span className="font-semibold text-lg">From</span>
+              <span className="text-gray-500">{booking.from}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-lg">To</span>
+              <span className="text-gray-500">{booking.to}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Flight</span>
+              <span className="block text-gray-700">{booking.flight}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Departure Date</span>
+              <span className="block text-gray-700">{booking.departureDate}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Return Date</span>
+              <span className="block text-gray-700">{booking.returnDate}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Tour Type</span>
+              <span className="block text-gray-700">{booking.tripType}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Passenger</span>
+              <span className="block text-gray-700">{booking.passengers}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Class Type</span>
+              <span className="block text-gray-700">{booking.classtype}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Total Price</span>
+              <span className="block text-gray-700">${booking.totalPrice}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Status</span>
+              <span className="block text-red-500">{booking.status}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-semibold">Payment</span>
+              <span className="block text-red-500">{booking.payment_status}</span>
+            </div>
+            <div className="flex space-x-2">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-full">Pay ${booking.totalPrice}</button>
+              <button
+                className="bg-gray-600 text-white hover:bg-red-700 px-4 py-2 rounded-full"
+                onClick={() => handleCancelBooking(booking._id, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
 
       {/* Pagination Buttons */}
       <div className="flex justify-between mt-4">
@@ -135,7 +206,11 @@ const MyBooking = () => {
           Next
         </button>
       </div>
+
+       
     </div>
+      
+    
   );
 }
 
