@@ -48,6 +48,10 @@ const passengerSchema = new Schema({
         type: String,
         required: true,
     },
+    photo: {
+        type: String,
+        default: "",
+    },
   
          role: {
             type: String,

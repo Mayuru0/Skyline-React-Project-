@@ -59,7 +59,7 @@ const AdminHeader = () => {
         
       <div className="flex items-center justify-end mr-4 -mt-14"> 
       <div className='flex '>
-         <p className='text-[25px] font-bold font-sans text-blue-800 hover:text-blue-500 mr-[1149px] cursor-pointer'>Skyline</p>
+         <p className='text-[25px] font-bold font-sans text-blue-800 hover:text-blue-500 mr-[1110px] cursor-pointer'>Skyline</p>
         </div>
     
 

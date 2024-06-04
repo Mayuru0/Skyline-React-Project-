@@ -85,7 +85,7 @@ const AdminSideBar = () => {
                <FaChevronRight color='white'/>
           </div>
           <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
-            <div className='flex items-center gap-[10px] mb-1'>
+           <div className='flex items-center gap-[10px] mb-1'>
                <IoMdBookmarks color='white'className='h-6 w-8'/>
                <a href='userfeedback'>
                <p className='text-[14px] leading-[20px] font-normal text-white'>User Feedback</p></a>
@@ -93,7 +93,7 @@ const AdminSideBar = () => {
             
                <FaChevronRight color='white'/>
           </div>
-          <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
+         {/* <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
             <div className='flex items-center gap-[10px] mb-1'>
                <IoIosPeople  color='white'className='h-6 w-8'/>
                <a href='managestaf'>
@@ -101,7 +101,7 @@ const AdminSideBar = () => {
             </div>
             
                <FaChevronRight color='white' />
-          </div>
+  </div>*/}
           <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer hover:bg-blue-800'>
             <div className='flex items-center gap-[10px] mb-5'>
                <BsFillPeopleFill  color='white'className='h-6 w-8'/>

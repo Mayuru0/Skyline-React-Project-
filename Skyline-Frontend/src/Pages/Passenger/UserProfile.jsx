@@ -1,22 +1,27 @@
-import React, { useState, useContext,useMemo } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import { AuthContext } from "../../Components/context/AuthContext";
 import countryList from "react-select-country-list";
 import { FaUser } from "react-icons/fa";
 import Select from "react-select";
+import axios from 'axios'; // Import axios for HTTP requests
+import { toast } from 'react-toastify'; // Import toast for notifications
 
 const UserProfile = () => {
   const { passenger, dispatch } = useContext(AuthContext);
   const {
-    id,firstName,lastName,email,country,gender,dateOfBirth,address,passportNo,phone} = passenger;
+    _id, firstName, lastName, email, country, gender, dateOfBirth, address, passportNo, phone
+  } = passenger;
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState(null); // State to hold edited data
+
   const [user, setUser] = useState({
-    username: id,
+    username: _id,
     firstName: firstName,
     lastName: lastName,
     email: email,
-    country,
+    country: country,
     gender: gender,
     dateOfBirth: dateOfBirth,
     address: address,
@@ -25,48 +30,18 @@ const UserProfile = () => {
     photo: null,
   });
 
-  const [passengers, setpassenger] = useState([]);
-  const handleUpdate = () => {
-    // Axios update request
-    axios
-      .put(`http://localhost:5000/register/update/${editData._id}`, editData)
-      .then(() => {
-        
-        toast.success("  Passenger updated successfully!", {
-          // position: "top-center",
-           autoClose: 1000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined
-         });
-        setEditData(null); 
-      
-        axios.get("http://localhost:5000/register/").then((res) => {
-          setcountrys(res.data);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(<div> Error updating Passenger</div>);
-      });
-  };
-
-
-
-
-
-
-
   const [photoPreview, setPhotoPreview] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    setUser(prevUser => ({
+      ...prevUser,
       [name]: value,
-    });
+    }));
+    setEditData(prevEditData => ({
+      ...prevEditData,
+      [name]: value,
+    }));
   };
 
   const handleEditClick = () => {
@@ -76,22 +51,41 @@ const UserProfile = () => {
   const handleSaveClick = () => {
     dispatch({ type: 'UPDATE_PASSENGER', payload: user });
     setIsEditing(false);
+    // Call handleUpdate function to update passenger data
+    handleUpdate();
   };
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
-    setUser({
-      ...user,
-      photo: file,
-    });
     setPhotoPreview(URL.createObjectURL(file));
+    setUser(prevUser => ({
+      ...prevUser,
+      photo: null, // Only keep the file name or URL, not the entire file object
+    }));
   };
 
- 
-  const options = useMemo(() => countryList().getData(), []);
-  const changeHandler = selectedOption => {
-    setSelectedOption(selectedOption);
+  const handleUpdate = () => {
+    axios
+      .put(`http://localhost:5000/register/update/${_id}`, editData)
+      .then(() => {
+        toast.success("Passenger updated successfully!", {
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        setEditData(null);
+      })
+      .catch((err) => {
+        console.error("Error updating Passenger:", err);
+        toast.error("Error updating Passenger");
+      });
   };
+  
+
+  const options = useMemo(() => countryList().getData(), []);
 
   return (
     <div className='relative w-full h-screen overflow-hidden'>
@@ -183,10 +177,10 @@ const UserProfile = () => {
                       value={selectedOption}
                       onChange={(option) => {
                         setSelectedOption(option);
-                        setUser({
-                          ...user,
-                          country: option,
-                        });
+                        setUser(prevUser => ({
+                          ...prevUser,
+                          country: option.label, // Assuming country is stored as a label
+                        }));
                       }}
                     />
                   </div>

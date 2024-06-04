@@ -19,8 +19,8 @@ const DashBoard = () => {
   return (
     <div className='pt-[25px] px-[25px] bg-[#F8F9FC] mt-2 '>
       <div className='flex items-center justify-between'>
-        <h1 className='text-[#5a5c69] text-[28px] leading-[34px] font-normal cursor-pointer mb-5'>Dashboard</h1>
-        <button className='bg-blue-500 h-[32px] rounded-full mb-5 text-white flex items-center justify-center px-[30px] hover:bg-blue-700 cursor-pointer '>Generate Report</button>
+        <h1 className='text-[#101011] text-[28px] font-semibold leading-[34px]  cursor-pointer mb-5'>Dashboard</h1>
+       {/* <button className='bg-blue-500 h-[32px] rounded-full mb-5 text-white flex items-center justify-center px-[30px] hover:bg-blue-700 cursor-pointer '>Generate Report</button>*/}
 
        </div>
    

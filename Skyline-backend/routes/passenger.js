@@ -65,6 +65,7 @@ router.post('/add', async (req, res) => {
       email,
       password: hashedPassword,
       confirmPassword:hashedConfirmedPassword,
+      
       role,
     });
 
@@ -181,6 +182,7 @@ router.route("/").get((req, res) => {
 router.route("/update/:id").put(async (req, res) => {
    let passengerId = req.params.id;
    const{
+    
     firstName,
     lastName,
     dateOfBirth,
@@ -191,11 +193,13 @@ router.route("/update/:id").put(async (req, res) => {
     phone,
     email,
     password,
-    confirmPassword
+    confirmPassword,
+    Photo
 
    } = req.body;
 
    const updatePassenger = {
+    
     firstName,
     lastName,
     dateOfBirth,
@@ -206,7 +210,8 @@ router.route("/update/:id").put(async (req, res) => {
     phone,
     email,
     password,
-    confirmPassword
+    confirmPassword,
+    Photo
    }
    const update = await register.findByIdAndUpdate(passengerId,updatePassenger)
     .then(() => {
@@ -231,7 +236,7 @@ router.route("/delete/:id").delete(async (req, res) => {
         res.status(200).send({status:" Passenger Deleted" });
     }).catch(err => {
         console.error(err);
-        res.status(500).send({status:" Error with delete passenger",error: err.message});
+        res.status(500).send({status:" Error with delete passenger",error: err.message})
     })
  
 
