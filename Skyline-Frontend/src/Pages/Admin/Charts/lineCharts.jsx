@@ -4,6 +4,7 @@ import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } fro
 import useFetch from '../../../Components/hooks/useFetch';
 import { BASE_URL } from '../../../Components/Utils/config';
 import PieCharts from './PieCharts';
+import PieCharts2 from './pieCharts2';
 
 const Chart = () => {
   const { data: economyTourCount } = useFetch(`${BASE_URL}tourbooks/search/getbusinesstotalprice`);
@@ -29,14 +30,14 @@ const Chart = () => {
   }, [economyTourCount, businessTourCount]);
 
   return (
-    <div className='flex mt-[22px] w-full gap-[30px]'>
+    <div className='flex mt-[3px]  gap-[30px]'>
       <div className='basis-[70%] bg-white shadow-md cursor-pointer rounded-[4px]'>
-        <div className='bg-[#F8F9FC] flex items-center justify-between py-[15px] px-[20px] border-[#EDEDED] md-[20px]'>
+        <div className='bg-[#F8F9FC] flex items-center justify-between  px-[20px] border-[#EDEDED] md-[20px]'>
           <h2>Amount Overview</h2>
           <FaEllipsisV color='gray' className='cursor-pointer' />
         </div>
         <div>
-          <ResponsiveContainer width="30%" height={500}>
+          <ResponsiveContainer width="70%" height={500}>
             <BarChart data={chartData}>
               <XAxis dataKey="name" />
               <YAxis />
@@ -47,6 +48,7 @@ const Chart = () => {
           </ResponsiveContainer>
         </div>
       </div>
+      <PieCharts2/>
       <div>
         <PieCharts />
       </div>

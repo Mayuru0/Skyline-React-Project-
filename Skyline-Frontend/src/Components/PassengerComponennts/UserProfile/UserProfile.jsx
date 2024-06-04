@@ -7,6 +7,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosSwitch } from "react-icons/io";
+import {Link} from 'react-router-dom'
 const UserProfile = ( ) => {
   // State to manage the visibility of the dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -94,14 +95,15 @@ const UserProfile = ( ) => {
                  </a>
                </li>
                <li>
-                 <a
-                   href="#"
-                   className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex  items-center"
-                 >
-                  <FaRegCalendarAlt className="mr-2"/>
-                   My Booking
-                 </a>
-               </li>
+                <Link to={`/mybooking/${passenger._id}`}>
+                  <button
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex items-center"
+                  >
+                    <FaRegCalendarAlt className="mr-2" />
+                    My Booking
+                  </button>
+                </Link>
+              </li>
            
                <li>
                  <a

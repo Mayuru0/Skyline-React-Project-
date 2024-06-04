@@ -427,4 +427,43 @@ router.post('/login', async (req, res) => {
 
 
 
+  // Get Male count
+  router.route("/search/MaleCount").get(async (req, res) => {
+    try {
+        const MaleCount = await register.countDocuments({
+          gender:"Male",
+        });
+        res.status(200).json({
+            success: true,
+            data: MaleCount,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "not found",
+        });
+    }
+  });
+
+
+  // Get Female count
+  router.route("/search/FemaleCount").get(async (req, res) => {
+    try {
+        const FemaleCount = await register.countDocuments({
+          gender:"Female",
+        });
+        res.status(200).json({
+            success: true,
+            data: FemaleCount,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "not found",
+        });
+    }
+  });
+
+
+
 module.exports = router;

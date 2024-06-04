@@ -1,7 +1,7 @@
 import React, { useState, useContext, useMemo } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../Components/context/AuthContext";
 import { confirmAlert } from "react-confirm-alert";
 import { useNavigate } from "react-router-dom";
 import countryList from "react-select-country-list";

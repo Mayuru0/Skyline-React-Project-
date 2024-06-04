@@ -318,6 +318,36 @@ router.route("/update/:id").put(async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+
+// get users booking
+router.route("/users/:id").get(async (req, res) => {
+
+  const userid = req.params.id;
+  try {
+    const booking = await TourBook.find({
+      userId: userid,
+    });
+    res.status(200).json({
+      success: true,
+
+      message: "Successfull",
+      data: booking,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: true,
+      message: "Not found",
+    });
+  }
+});
+
 module.exports = router;
 
 

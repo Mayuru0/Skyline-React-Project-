@@ -6,6 +6,7 @@ import { TfiEmail } from "react-icons/tfi";
 import Charts from "./Charts/lineCharts";
 import useFetch from '../../Components/hooks/useFetch'
 import { BASE_URL } from '../../Components/Utils/config'
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 const DashBoard = () => {
 
@@ -27,7 +28,7 @@ const DashBoard = () => {
        <div className='grid grid-cols-4 gap-[30px] mt-[25px] pb-[15px]'>
         <div className='h-[150px] rounded-[8px] bg-cyan-300 border-l-[4px] border-blue-700 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out bg-gradient-to-r to-blue-400 from-blue-600'>
           <div>
-            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>{registerCount}</h1>
+            <h1 className='text-white text-[40px] leading-[17px] font-bold mt-5'>{registerCount}</h1>
             <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Total Registered passengers</h2>
           </div>
           <BsFillPeopleFill className='w-10 h-10'/>
@@ -35,15 +36,15 @@ const DashBoard = () => {
 
         <div className='h-[150px] rounded-[8px] bg-green-500 border-l-[4px] border-green-700 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out bg-gradient-to-r to-green-400 from-green-500'>
           <div>
-            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>{totalPrice}</h1>
+            <h1 className='text-white  text-[40px] leading-[17px] font-bold mt-5'>{totalPrice}</h1>
             <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Total Booking</h2>
           </div>
-          <MdAttachMoney className='w-10 h-10'/>
+          <FaRegCalendarAlt className='w-10 h-10'/>
         </div>
 
         <div className='h-[150px] rounded-[8px] bg-red-400 border-l-[4px] border-red-600 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out bg-gradient-to-r to-red-400 from-red-500'>
           <div>
-            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>{FlightCount}</h1>
+            <h1 className='text-white text-[40px] leading-[17px] font-bold mt-5'>{FlightCount}</h1>
             <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Flights</h2>
           </div>
           <MdOutlineFlight className='w-10 h-10'/>
@@ -51,7 +52,7 @@ const DashBoard = () => {
 
         <div className='h-[150px] rounded-[8px] bg-yellow-400 border-l-[4px] border-yellow-600 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out bg-gradient-to-r to-yellow-400 from-yellow-500 '>
           <div>
-            <h1 className='text-[#8589DF] text-[30px] leading-[17px] font-bold mt-5'>{FeedbackCount}</h1>
+            <h1 className='text-white text-[40px] leading-[17px] font-bold mt-5'>{FeedbackCount}</h1>
             <h2 className='text-[20px] leading-[24px] font-bold text-black mt-[5px]'>Total Massages</h2>
           </div>
           <TfiEmail className='w-10 h-10'/>
