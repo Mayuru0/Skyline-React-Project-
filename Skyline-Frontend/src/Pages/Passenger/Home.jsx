@@ -50,7 +50,7 @@ const Home = () => {
             <video src="./src/assets/plane/HOME1~2.mp4" autoPlay muted loop class="rounded-full" > <div class="relative "><h1>fposdjfosdgjs</h1></div>   </video>
           </div>
           
-          <img src="./src/assets/plane/airplane-png-27957.png" class="absolute w-full -top-5" alt="Airplane" data-aos="fade-up" data-aos-duration='1600' ></img> 
+          <img src="./src/assets/plane/airplane-png-27957.png" class="absolute w-full -top-5" alt="Airplane" data-aos="zoom-in" data-aos-duration='1600' ></img> 
         </div>
 
         </motion.div>

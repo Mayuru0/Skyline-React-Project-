@@ -129,7 +129,7 @@ const MyBooking = () => {
       </div>*/}
       {/* Booking Details */}
       {currentBookings.map((booking) => (
-        <div key={booking._id} className="w-[1600px] mx-auto p-4">
+        <div key={booking._id} className="w-[1600px] mx-auto p-4 " data-aos="fade-up" data-aos-duration="3000">
           <div className="bg-white shadow-2xl rounded-3xl p-4 flex justify-between items-center ">
             <div className="flex flex-col">
               <span className="font-semibold text-lg">From</span>
