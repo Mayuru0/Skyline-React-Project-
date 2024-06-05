@@ -74,16 +74,16 @@ const FinishedBookings = () => {
     }
   };
 
-  const handleConfirmBooking = (id, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
-    updateBookingStatus(id, "Confirmed", "Pending", email, firstName, departureDate, from, to, returnDate, flight, totalPrice);
+  const handleConfirmBooking = (id,payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
+    updateBookingStatus(id, "Confirmed", payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice);
   };
 
-  const handleCancelBooking = (id, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
-    updateBookingStatus(id, "Cancelled", "Pending", email, firstName, departureDate, from, to, returnDate, flight, totalPrice);
+  const handleCancelBooking = (id,payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
+    updateBookingStatus(id, "Cancelled", payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice);
   };
 
-  const handleFinishBooking = (id, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
-    updateBookingStatus(id, "Finished", "Paid", email, firstName, departureDate, from, to, returnDate, flight, totalPrice);
+  const handleFinishBooking = (id,payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
+    updateBookingStatus(id, "Finished", payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice);
   };
 
   // Pagination
@@ -197,17 +197,17 @@ const FinishedBookings = () => {
                   <MdEventAvailable
                     className="text-3xl px-1 py-1 rounded-lg cursor-pointer mt-3 mr-3 bg-green-700 text-white hover:bg-green-800"
                     title="Confirm Booking"
-                    onClick={() => handleConfirmBooking(booking._id, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
+                    onClick={() => handleConfirmBooking(booking._id, booking.payment_status, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
                   />
                   <MdBlockFlipped
                     className="text-3xl px-1 py-1 cusor-pointer text-white bg-gray-600 rounded-lg mt-3 hover:bg-gray-700 mr-3"
                     title="Cancel Booking"
-                    onClick={() => handleCancelBooking(booking._id, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
+                    onClick={() => handleCancelBooking(booking._id,booking.payment_status, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
                   />
                   <MdOutlineTaskAlt
                     className="text-3xl px-1 py-1cursor-pointer text-white mt-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg mr-3"
                     title="Mark as Finished Booking"
-                    onClick={() => handleFinishBooking(booking._id, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
+                    onClick={() => handleFinishBooking(booking._id,booking.payment_status, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}
                   />
                   <MdDelete
                     className="text-3xl px-1 py-1 cursor-pointer text-white bg-red-600 rounded-lg hover:bg-red-700 mt-3 mr-3"

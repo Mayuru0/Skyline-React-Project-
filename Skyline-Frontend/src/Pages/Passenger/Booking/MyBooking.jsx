@@ -6,7 +6,7 @@ import { MdBlockFlipped } from "react-icons/md";
 import { useParams } from 'react-router-dom'
 import useFetch from '../../../Components/hooks/useFetch'
 import { BASE_URL } from '../../../Components/Utils/config'
-
+import { Link } from "react-router-dom";
 const MyBooking = () => {
   const { id } = useParams();
   const { data: booking, loading, error } = useFetch(`${BASE_URL}tourbooks/users/${id}`);
@@ -176,7 +176,9 @@ const MyBooking = () => {
               <span className="block text-red-500">{booking.payment_status}</span>
             </div>
             <div className="flex space-x-2">
+            <Link to={`/payment/${booking._id}`}>
               <button className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-full">Pay ${booking.totalPrice}</button>
+              </Link>
               <button
                 className="bg-gray-600 text-white hover:bg-red-700 px-4 py-2 rounded-full"
                 onClick={() => handleCancelBooking(booking._id, booking.email, booking.firstName, booking.departureDate, booking.from, booking.to, booking.returnDate, booking.flight, booking.totalPrice)}

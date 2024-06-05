@@ -73,6 +73,11 @@ app.use('/tour',TourRoutes);
 const FeedbackReplyRoutes = require('./routes/FeedbackReplys.js');
 app.use('/feedbackReply', FeedbackReplyRoutes);
 
+/*
+//Access Payment routes
+const PaymentReplyRoutes = require('./routes/Payments.js');
+app.use('/payments', PaymentReplyRoutes);*/
+
 // Middleware function to handle 404 errors
 app.use((req, res, next) => {
     const error = new Error('Not Found');

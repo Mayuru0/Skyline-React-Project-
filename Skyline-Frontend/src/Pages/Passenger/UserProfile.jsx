@@ -77,6 +77,9 @@ const UserProfile = () => {
           progress: undefined
         });
         setEditData(null);
+        axios.get("http://localhost:5000/register/").then((res) => {
+          setUser(res.data);
+        });
       })
       .catch((err) => {
         console.error("Error updating Passenger:", err);

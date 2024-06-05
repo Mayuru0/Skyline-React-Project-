@@ -46,6 +46,8 @@ import FinishedBookings from "../Pages/Admin/ManageBooking/FinishedBookings";
 import CanceledBooking from "../Pages/Admin/ManageBooking/CanceledBooking";
 import OneWayTours from "../Pages/Admin/TourManagement/OneWayTours";
 import RoundTours from "../Pages/Admin/TourManagement/RoundTours";
+import Payment from "../Pages/Passenger/payment";
+import PaymentSucess from "../Pages/Passenger/Booking/Paymentsucess";
 
 
 
@@ -81,6 +83,8 @@ const Routers = () => {
           <Route path="/tour/get/:id" element={<TourDetails />} />
           <Route path="/thankyou" element={<ThankYou />} />
           <Route path="/mybooking/:id" element={<MyBooking />} />
+          <Route path="/payment/:id" element={<Payment />} />
+          <Route path="/paymentsucess" element={<PaymentSucess />} />
           
           
       

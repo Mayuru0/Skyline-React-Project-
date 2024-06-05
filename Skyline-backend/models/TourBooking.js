@@ -116,7 +116,16 @@ const TourBookingSchema = new Schema({
     type: String,
     default: "Not Paid",
   },
-});
+
+  /*payments: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Payment",
+    },
+  ], { timestamps: true }*/
+},
+  
+);
 
 const Tourbook = mongoose.model('TourBooking', TourBookingSchema);
 

@@ -323,9 +323,6 @@ router.route("/update/:id").put(async (req, res) => {
 
 
 
-
-
-
 // get users booking
 router.route("/users/:id").get(async (req, res) => {
 
@@ -660,8 +657,151 @@ router.route("/search/getbusinesstotalprice").get(async (req, res) => {
 
 
 
+/*
+// get single booking
+router.route("/:id").get(async (req, res) => {
 
+  const id = req.params.id;
+  try {
+    const booking = await TourBook.findById(id).populate("payments");
+    res.status(200).json({
+      success: true,
 
+      message: "Successfull",
+      data: booking,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: true,
+      message: "Not found",
+    });
+  }
+});*/
   
+
+
+
+
+
+
+//payment status update
+
+router.route("/update/payment/:id").put(async (req, res) => {
+  let BookingId = req.params.id;
+  const {
+    userId,
+            tourId,
+            from,
+            to,
+            tripType,
+            flight,
+            title,
+            firstName,
+            lastName,
+            dateOfBirth,
+            country,
+            address,
+            passportNo,
+            
+            phone,
+            Additionalpassengers,
+            passengers,
+            departureDate,
+            returnDate,
+            classtype,
+            totalPrice,
+    email,
+    status,
+    payment_status,
+  } = req.body;
+
+  const updateBooking = {
+    userId,
+            tourId,
+            from,
+            to,
+            tripType,
+            flight,
+            title,
+            firstName,
+            lastName,
+            dateOfBirth,
+            country,
+            address,
+            passportNo,
+            
+            phone,
+            Additionalpassengers,
+            passengers,
+            departureDate,
+            returnDate,
+            classtype,
+            totalPrice,
+    email,
+    status,
+    payment_status,
+  };
+
+  try {
+    await TourBook.findByIdAndUpdate(BookingId, updateBooking);
+  //  await  sendApprovalEmailss(email, firstName, totalPrice, departureDate);
+    res.status(200).send({ status: "Booking Status Updated and Email Sent" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ status: "Error with updating status", error: err.message });
+  }
+});
+
+
+
+
+/*
+
+// Function to send Booking success email
+async function sendApprovalEmailss(email,firstName,totalPrice,departureDate) {
+  try {
+    // Create a transporter object using SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // false for other ports
+      auth: {
+        user: 'skylinecompany42@gmail.com', // your email
+        pass: 'krbz qlpb ctfr eukn ' // your password
+      }
+    });
+
+    // send mail with defined transport object and capture the result
+    let info = await transporter.sendMail({
+      from: 'skylinecompany42@gmail.com', // sender address
+      to: email, // list of receivers
+      subject: ' Your Payment  Successful!', // Subject line
+      text: `Dear ${firstName},
+
+      
+      We are thrilled to inform you that your payment for the Skyline Tour reservation on ${departureDate} has been successfully processed.
+      
+      Payment Details:
+      
+      Amount Paid: $${totalPrice}
+      
+      
+      Your reservation is now confirmed, and we look forward to welcoming you on board for an incredible journey.
+      
+      If you have any questions or need further assistance, feel free to contact us at any time.
+      
+      Thank you for choosing Skyline for your travel plans!
+      
+      Best regards,
+      Skyline`
+      
+      
+    });
+
+    console.log('Message sent: %s', info.messageId);
+  } catch (error) {
+    console.error('Error sending approval email:', error);
+  }
+}*/
 
 module.exports = router;
