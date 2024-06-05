@@ -657,13 +657,13 @@ router.route("/search/getbusinesstotalprice").get(async (req, res) => {
 
 
 
-/*
+
 // get single booking
 router.route("/:id").get(async (req, res) => {
 
   const id = req.params.id;
   try {
-    const booking = await TourBook.findById(id).populate("payments");
+    const booking = await TourBook.findById(id);
     res.status(200).json({
       success: true,
 
@@ -676,7 +676,7 @@ router.route("/:id").get(async (req, res) => {
       message: "Not found",
     });
   }
-});*/
+});
   
 
 

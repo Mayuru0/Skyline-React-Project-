@@ -225,13 +225,13 @@ const Airplanetable = () => {
         </div>
       )}
 
-      <div className="pb-4 bg-white dark:bg-blue-950 border rounded-xl">
+      <div className="pb-4 bg-[#1F3541] border rounded-xl">
         <label htmlFor="table-search" className="sr-only">Search</label>
         <div className="relative mt-1">
           <input
             type="text"
             id="table-search"
-            className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-950 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80  focus:ring-blue-500 focus:border-blue-500 bg-[#1F3541] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for items"
             value={searchQuery}
             onChange={handleSearch}

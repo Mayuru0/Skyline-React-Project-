@@ -111,7 +111,7 @@ const Registration = () => {
          progress: undefined
        });
 
-    } else if (!/^[A-Z0-9]{6,10}$/i.test(passportNo)) {
+    } else if (!/^[A-Z0-9]{10}$/i.test(passportNo)) {
      
      
       toast.error("  Passport Number is invalid. Please enter a 10-digit number", {

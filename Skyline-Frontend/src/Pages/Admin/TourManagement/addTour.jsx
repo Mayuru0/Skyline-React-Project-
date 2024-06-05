@@ -175,7 +175,7 @@ const encodeImageFileAsURL = (file) => {
         progress: undefined,
       });
     } else {
-      toast.success(" 😊 All fields are valid!", {
+      toast.success("  All fields are valid!", {
         // position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -206,7 +206,7 @@ const encodeImageFileAsURL = (file) => {
     axios
       .post("http://localhost:5000/tour/add", newtour)
       .then(() => {
-        toast.success(<div> 😊 Tour Add Successful!</div>);
+        toast.success(<div>  Tour Add Successful!</div>);
         setfrom("");
         setto("");
         setflight("");
@@ -222,7 +222,7 @@ const encodeImageFileAsURL = (file) => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div> 😡 Tour Add Error</div>);
+        toast.error(<div>  Tour Add Error</div>);
       });
   };
 

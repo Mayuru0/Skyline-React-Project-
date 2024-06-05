@@ -564,6 +564,7 @@ const ManageFlight = () => {
               <option value="Cancelled">Cancelled</option>
               <option value="Boarding">Boarding</option>
               <option value="Landed">Landed</option>
+              <option value="Landed">Deparated</option>
             </select>
           </div>
 
@@ -603,7 +604,7 @@ const ManageFlight = () => {
             <section className="">
               <div className="mt-[13px] mx-4 relative">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                  <div class="pb-4 bg-white dark:bg-blue-950">
+                  <div class="pb-4 bg-[#1F3541]">
                     <label for="table-search" class="sr-only">
                       Search
                     </label>
@@ -626,7 +627,7 @@ const ManageFlight = () => {
                       <input
                         type="text"
                         id="table-search"
-                        class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-950 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80  focus:ring-blue-500 focus:border-blue-500 bg-[#1F3541] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search for items"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -643,7 +644,7 @@ const ManageFlight = () => {
                         <th scope="col" class="px-6 py-3">
                           Departure
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                           Arrival
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -669,9 +670,9 @@ const ManageFlight = () => {
                           </td>
                           <td>{flight.flightNumber}</td>
                           <td>{flight.departure}</td>
-                          <td>{flight.arrival}</td>
-                          <td>{flight.timeOfDeparture}</td>
-                          <td>{flight.timeOfArrival}</td>
+                          <td className="text-center">{flight.arrival}</td>
+                          <td className="text-center">{flight.timeOfDeparture}</td>
+                          <td className="text-center">{flight.timeOfArrival}</td>
                           <td>{flight.status}</td>
                           <td className="flex gap-6 mt-2">
                             <FaEdit

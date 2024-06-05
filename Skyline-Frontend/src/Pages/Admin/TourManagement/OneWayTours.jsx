@@ -68,7 +68,7 @@ const encodeImageFileAsURL = (file) => {
           setTours(res.data.filter(b => b.tripType === "One-Way"));
         } catch (err) {
           console.log(err);
-          toast.error(<div>😡 Error fetching Tour</div>);
+          toast.error(<div> Error fetching Tour</div>);
         }
       };
 
@@ -81,12 +81,12 @@ const encodeImageFileAsURL = (file) => {
       axios
         .delete(`http://localhost:5000/tour/delete/${id}`)
         .then(() => {
-          toast.success(<div> 😊 Tour deleted successfully!</div>);
+          toast.success(<div>  Tour deleted successfully!</div>);
           setTours(tours.filter((p) => p._id !== id));
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error deleting Tour</div>);
+          toast.error(<div>  Error deleting Tour</div>);
         });
     }
   };

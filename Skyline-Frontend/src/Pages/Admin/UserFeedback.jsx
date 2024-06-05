@@ -7,6 +7,7 @@ import { GrView } from "react-icons/gr";
 import { TbMessage } from "react-icons/tb";
 import { TbMessageCircle } from "react-icons/tb";
 import { AuthContext } from "../../Components/context/AuthContext";
+import { VscFeedback } from "react-icons/vsc";
 /*const FeedbackModal = ({ feedback, onClose }) => {
   
   return (
@@ -200,15 +201,18 @@ const RePassengers = () => {
 
 
       <div className="py-[25px] px-[25px] bg-slate-100 mt-2 ">
-        <h1 className="text-black text-[28px] leading-[40px] cursor-pointer font-semibold">
-          User Feedback
-        </h1>
+        
+        <div className="py-[25px] px-[25px] bg-[#1F3541] border rounded-3xl   flex items-center  justify-center">
+          <h1 className="text-white text-[28px] leading-[40px] cursor-pointer font-semibold  text-center flex ">
+          <VscFeedback className="mr-2 w-9 h-9"/>ManageCountries
+          </h1>
+        </div>
       </div>
       <div className='-mt-20'>
         <section className="">
           <div className="mt-[130px] mx-4 relative">
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-              <div className="pb-4 bg-white dark:bg-blue-950">
+              <div className="pb-4 bg-[#1F3541]">
                 <label htmlFor="table-search" className="sr-only">
                   Search
                 </label>
@@ -231,7 +235,7 @@ const RePassengers = () => {
                   <input
                     type="text"
                     id="table-search"
-                    className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-950 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80  focus:ring-blue-500 focus:border-blue-500 bg-[#1F3541] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Search for items"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -240,7 +244,7 @@ const RePassengers = () => {
               </div>
 
               {/*table*/}
-              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white shadow-2xl">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="p-4"></th>

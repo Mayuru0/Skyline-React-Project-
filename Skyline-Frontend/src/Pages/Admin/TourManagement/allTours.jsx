@@ -69,7 +69,7 @@ const encodeImageFileAsURL = (file) => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div>😡 Error loading User Tours</div>);
+          toast.error(<div> Error loading User Tours</div>);
         });
     }
 
@@ -82,12 +82,12 @@ const encodeImageFileAsURL = (file) => {
       axios
         .delete(`http://localhost:5000/tour/delete/${id}`)
         .then(() => {
-          toast.success(<div> 😊 Tour deleted successfully!</div>);
+          toast.success(<div>  Tour deleted successfully!</div>);
           setTours(tours.filter((p) => p._id !== id));
         })
         .catch((err) => {
           console.log(err);
-          toast.error(<div> 😡 Error deleting Tour</div>);
+          toast.error(<div>  Error deleting Tour</div>);
         });
     }
   };
@@ -102,7 +102,7 @@ const encodeImageFileAsURL = (file) => {
     axios
       .put(`http://localhost:5000/tour/update/${editData._id}`, editData)
       .then(() => {
-        toast.success("😊 Tour updated successfully", {
+        toast.success("Tour updated successfully", {
           // position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
@@ -119,7 +119,7 @@ const encodeImageFileAsURL = (file) => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(<div>😡 Error updating Tour</div>);
+        toast.error(<div> Error updating Tour</div>);
       });
   };
 

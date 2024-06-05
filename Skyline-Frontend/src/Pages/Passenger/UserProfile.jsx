@@ -3,8 +3,8 @@ import { AuthContext } from "../../Components/context/AuthContext";
 import countryList from "react-select-country-list";
 import { FaUser } from "react-icons/fa";
 import Select from "react-select";
-import axios from 'axios'; // Import axios for HTTP requests
-import { toast } from 'react-toastify'; // Import toast for notifications
+import axios from 'axios'; 
+import { toast } from 'react-toastify'; 
 
 const UserProfile = () => {
   const { passenger, dispatch } = useContext(AuthContext);

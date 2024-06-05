@@ -12,7 +12,7 @@ const MyBooking = () => {
   const { data: booking, loading, error } = useFetch(`${BASE_URL}tourbooks/users/${id}`);
   
   const [currentPage, setCurrentPage] = useState(1);
-  const bookingPerPage = 7;
+  const bookingPerPage = 5;
 
   // Update booking status
   const updateBookingStatus = async (id, status, payment_status, email, firstName, departureDate, from, to, returnDate, flight, totalPrice) => {
