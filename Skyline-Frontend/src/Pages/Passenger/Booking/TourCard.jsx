@@ -75,7 +75,7 @@ const handleBooking = () => {
        
       </div>
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{from} to {to} </div>
+        <div className="font-bold text-base mb-2">{from} to {to} </div>
        
         <p className="text-gray-700 text-base">{departureDate} - {returnDate}</p>
         <div className="mt-4"><div>

@@ -146,14 +146,14 @@ const Search = () => {
       <div className="bg-white shadow-md rounded-lg p-6 flex flex-col space-y-4">
         <div className="flex space-x-4">
           <div className="flex flex-col w-1/2">
-            <label htmlFor="from" className="mb-1 text-sm font-medium">
+            <label htmlFor="from" className="mb-1 text-sm font-medium ">
               From
             </label>
             <div className="flex items-center border rounded-lg px-3 py-2">
               <HiOutlineLocationMarker className="mr-2" />
               <select
                 id="from"
-                className="border-none outline-none flex-1"
+                className="border-none outline-none flex-1 w-[100px]"
                 value={selectedCountryfrom}
                 onChange={(e) => setSelectedCountryfrom(e.target.value)}
                 required
@@ -176,7 +176,7 @@ const Search = () => {
               <HiOutlineLocationMarker className="mr-2" />
               <select
                 id="to"
-                className="border-none outline-none flex-1"
+                className="border-none outline-none flex-1 w-[100px]"
                 value={selectedCountryto}
                 onChange={(e) => setSelectedCountryto(e.target.value)}
                 required
@@ -218,14 +218,15 @@ const Search = () => {
               disabled={tripType === "One-Way"}
             />
           </div>
-        </div>
-
-        <button
+          <button
           className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 self-center"
           onClick={handleSearch}
         >
           Search
         </button>
+        </div>
+
+       
       </div>
 
       {/* Card */}

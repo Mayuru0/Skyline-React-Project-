@@ -85,14 +85,9 @@ const Routers = () => {
           <Route path="/mybooking/:id" element={<MyBooking />} />
           <Route path="/payment/:id" element={<Payment />} />
           <Route path="/paymentsucess" element={<PaymentSucess />} />
-          
-          
-      
         </Route>
 
         
-       
-  
         <Route path="/admin" element={<ALayout/>} >  
           <Route path="/admin" element={<Navigate to ='admin/dashboard' />} />
          <Route path="/admin/dashboard" element={<DashBoard />} />

@@ -204,7 +204,7 @@ const RePassengers = () => {
         
         <div className="py-[25px] px-[25px] bg-[#1F3541] border rounded-3xl   flex items-center  justify-center">
           <h1 className="text-white text-[28px] leading-[40px] cursor-pointer font-semibold  text-center flex ">
-          <VscFeedback className="mr-2 w-9 h-9"/>ManageCountries
+          <VscFeedback className="mr-2 w-9 h-9"/>User Feedback
           </h1>
         </div>
       </div>

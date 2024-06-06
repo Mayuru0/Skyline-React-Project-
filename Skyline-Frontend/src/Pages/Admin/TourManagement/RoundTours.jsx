@@ -10,7 +10,7 @@ import { TbTournament } from "react-icons/tb";
 const RoundTours = () => {
   const [tours, setTours] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const toursPerPage = 10;
+  const toursPerPage = 8;
   const [editData, setEditData] = useState(null);
   const [viewData, setViewData] = useState(null);
   const [fileName, setFileName] = useState('No file chosen');
@@ -493,8 +493,8 @@ const encodeImageFileAsURL = (file) => {
                 <td className="px-6 py-4 text-center">{tour.returnDate}</td>
                 <td className="px-6 py-4 text-center">{tour.tripType}</td>
                 <td className="px-6 py-4 text-center">{tour.passengers}</td>
-                <td className="px-6 py-4 text-center">{tour.economyPrice}</td>
-                <td className="px-6 py-4 text-center">{tour.businessPrice}</td>
+                <td className="px-6 py-4 text-center text-red-600">{tour.economyPrice}</td>
+                <td className="px-6 py-4 text-center text-red-600">{tour.businessPrice}</td>
                 <td className="flex gap-6">
                 <GrView className="text-3xl px-1 py-1 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-full mt-3 -mr-1"
                   onClick={() => handleView(tour)}
