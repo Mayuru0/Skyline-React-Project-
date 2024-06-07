@@ -4,59 +4,19 @@ let TourBook = require('../models/TourBooking');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 
+//Add Tours
 router.post('/add', async (req, res) => {
     try {
         const {
-            userId,
-            tourId,
-            from,
-            to,
-            tripType,
-            flight,
-            title,
-            firstName,
-            lastName,
-            dateOfBirth,
-            country,
-            address,
-            passportNo,
-            email,
-            phone,
-            Additionalpassengers,
-            passengers,
-            departureDate,
-            returnDate,
-            classtype,
-            totalPrice,
-            status,
-            payment_status,
+      userId,tourId,from,to,tripType,flight,title, firstName, lastName, dateOfBirth, country, address, passportNo,email,
+       phone,Additionalpassengers,passengers, departureDate, returnDate, classtype,totalPrice,status,payment_status,
            
         } = req.body;
 
-        const newbook = new TourBook({ // Corrected syntax
-            userId,
-            tourId,
-            from,
-            to,
-            tripType,
-            flight,
-            title,
-            firstName,
-            lastName,
-            dateOfBirth,
-            country,
-            address,
-            passportNo,
-            email,
-            phone,
-            Additionalpassengers,
-            passengers,
-            departureDate,
-            returnDate,
-            classtype,
-            totalPrice,
-            status,
-            payment_status,
+        const newbook = new TourBook({ 
+          userId,tourId,from,to,tripType,flight,title, firstName, lastName, dateOfBirth, country, address, passportNo,email,
+          phone,Additionalpassengers,passengers, departureDate, returnDate, classtype,totalPrice,status,payment_status,
+        
         });
        
         await newbook.save();

@@ -27,10 +27,9 @@ const TourCard = (tour ) => {
 
 
 
-/*
 const handleBooking = () => {
     if (passenger) {
-      navigate("/bookingform");
+      navigate(`/tour/get/${_id}`);
     } else {
       confirmAlert({
         title: 'Log In Required',
@@ -46,7 +45,7 @@ const handleBooking = () => {
         ]
       });
     }
-  };*/
+  };
 
   
 
@@ -88,7 +87,7 @@ const handleBooking = () => {
           <p className="text-gray-500 text-sm flex justify-end">Flight - {flight}</p>
         </div>
         <div className="mt-4 ">
-          <button   onClick={handleViewDetails}   className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
+          <button   onClick={handleBooking}   className=  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 w-full rounded "  >
             Book now
           </button>
         </div>

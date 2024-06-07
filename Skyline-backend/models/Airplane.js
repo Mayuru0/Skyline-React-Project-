@@ -28,11 +28,6 @@ const AirplaneSchema =new Schema({
         type: Number,
         required: true,
     },
-
-
-
-
-
 })
 
 const airplane = mongoose.model('airplane', AirplaneSchema);
