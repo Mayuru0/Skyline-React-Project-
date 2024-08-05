@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import best from './SliderImg/w7.jpg';
-import bagg from './SliderImg/prepaid_excess_baggage.jpg';
+import bagg from './SliderImg/bag.jpg';
 import duty from './SliderImg/duty_free.jpg';
 import seat from './SliderImg/advance_seat_reservation.jpg';
-import meal from './SliderImg/pre-order_meals.jpg';
+import meal from './SliderImg/meal.jpg';
 import business from './SliderImg/13.jpeg';
-import Legroom from './SliderImg/extra_legroom_seat.jpg';
+import Legroom from './SliderImg/20.jpeg';
 
 const services = [
   {

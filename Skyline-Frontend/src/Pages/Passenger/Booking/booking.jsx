@@ -21,7 +21,7 @@ const Booking = () => {
       // Simulate setting error or loading completion
       setLoading(false);
       // setError("Failed to load tours");
-    }, 2000);
+    }, 30000);
   }, []);
 
   // Get Tours

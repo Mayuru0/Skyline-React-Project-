@@ -85,8 +85,8 @@ const Info = () => {
 
     <section class="section__container lounge__container">
       <div class="lounge__image"  data-aos="fade-right" duration="2000">
-        <img src="./src/assets/info/lounge-1.jpg" alt="lounge" />
-        <img src="./src/assets/info/lounge-2.jpg" alt="lounge" />
+        <img src="./src/assets/info/19.jpg" alt="lounge" />
+        <img src="./src/assets/info/12.jpg" alt="lounge" />
       </div>
       <div class="lounge__content" data-aos="fade-left" data-aos-duration='1000'>
         <h2 class="section__header">Unaccompanied Minor Lounge</h2>
